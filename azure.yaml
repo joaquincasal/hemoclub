@@ -1,0 +1,23 @@
+name: placeholder-container-app
+type: Microsoft.App/containerApps
+location: East US
+properties:
+  configuration:
+    activeRevisionsMode: Single
+    ingress:
+      external: true
+      targetPort: 3000
+  template:
+    containers:
+      - image: joaquincasal/placeholder:#{COMMITSHA}#
+        name: placeholder-container-app
+        resources:
+          cpu: 0.25
+          memory: 0.5Gi
+          ephemeralStorage: 1Gi
+        env:
+          - name: RAILS_MASTER_KEY
+            secretRef: rails-key
+    scale:
+      minReplicas: 1
+      maxReplicas: 1

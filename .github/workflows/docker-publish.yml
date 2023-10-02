@@ -1,40 +1,23 @@
 name: Docker
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   push:
     branches: [ "main" ]
 
-env:
-  REGISTRY: docker.io
-  IMAGE_NAME: ${{ github.repository }}
-
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
+      - name: Log into registry
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: docker.io
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -44,16 +27,19 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: joaquincasal/placeholder:${{ github.sha }}
 
-      - name: Log in to Azure
-        uses: azure/login@v1
+      - uses: cschleiden/replace-tokens@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-            
+          files: 'azure.yaml'
+        env:
+          COMMITSHA: ${{ github.sha }}
+
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          containerAppName: placeholder-app
+          azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+          yamlConfigPath: azure.yaml
+          containerAppName: placeholder-container-app
           resourceGroup: placeholder-resource-group
-          imageToDeploy: docker.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          imageToDeploy: docker.io/joaquincasal/placeholder:${{ github.sha }}
