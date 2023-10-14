@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: joaquincasal/placeholder:${{ github.sha }}
+          tags: joaquincasal/fhba-mkt:${{ github.sha }}
 
       - uses: cschleiden/replace-tokens@v1
         with:
@@ -42,4 +42,4 @@ jobs:
           yamlConfigPath: azure.yaml
           containerAppName: placeholder-container-app
           resourceGroup: placeholder-resource-group
-          imageToDeploy: docker.io/joaquincasal/placeholder:${{ github.sha }}
+          imageToDeploy: docker.io/joaquincasal/fhba-mkt:${{ github.sha }}

@@ -9,7 +9,7 @@ properties:
       targetPort: 3000
   template:
     containers:
-      - image: joaquincasal/placeholder:#{COMMITSHA}#
+      - image: joaquincasal/fhba-mkt:#{COMMITSHA}#
         name: placeholder-container-app
         resources:
           cpu: 0.25
