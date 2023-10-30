@@ -38,6 +38,8 @@ jobs:
           node-version-file: .nvmrc
       - name: Yarn install
         run: yarn install
+      - name: Build JS
+        run: yarn build
       - name: Build CSS
         run: yarn build:css
       # Add or replace database setup steps here
