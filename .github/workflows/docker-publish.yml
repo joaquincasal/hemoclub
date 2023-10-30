@@ -1,8 +1,9 @@
-name: Docker
+name: Deploy test
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -27,13 +28,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: joaquincasal/fhba-mkt:${{ github.sha }}
+          tags: joaquincasal/fhba-mkt:${{ github.ref_name }}
 
       - uses: cschleiden/replace-tokens@v1
         with:
           files: 'azure.yaml'
         env:
-          COMMITSHA: ${{ github.sha }}
+          IMAGE_VERSION: ${{ github.ref_name }}
 
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v1
@@ -42,4 +43,4 @@ jobs:
           yamlConfigPath: azure.yaml
           containerAppName: placeholder-container-app
           resourceGroup: placeholder-resource-group
-          imageToDeploy: docker.io/joaquincasal/fhba-mkt:${{ github.sha }}
+          imageToDeploy: docker.io/joaquincasal/fhba-mkt:${{ github.ref_name }}
