@@ -49,10 +49,13 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
           bundler-cache: true
-      # Add or replace any other lints here
+      - name: Install bundler-audit
+        run: gem install bundler-audit
+      - name: Install brakeman
+        run: gem install brakeman
       - name: Security audit dependencies
-        run: bin/bundler-audit --update
+        run: bundle audit --update
       - name: Security audit application code
-        run: bin/brakeman -q -w2
+        run: brakeman -q -w2
       - name: Lint Ruby files
-        run: bin/rubocop --parallel
+        run: bundle exec rubocop --require rubocop-rails --parallel
