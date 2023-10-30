@@ -12,3 +12,5 @@ Style/GlobalStdStream:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/BlockComments:
+  Enabled: false
