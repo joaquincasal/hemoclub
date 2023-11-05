@@ -8,6 +8,7 @@ AllCops:
     - 'db/**/*'
     - 'bin/*'
     - 'config/**/*'
+    - 'vendor/**/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
