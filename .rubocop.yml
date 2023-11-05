@@ -1,4 +1,13 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/**/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -14,3 +23,7 @@ Style/Documentation:
   Enabled: false
 Style/BlockComments:
   Enabled: false
+RSpec/Rails/InferredSpecType:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Max: 5

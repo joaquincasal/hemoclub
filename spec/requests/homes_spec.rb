@@ -4,7 +4,7 @@ RSpec.describe "Home", type: :request do
   describe "GET /home" do
     it "succeeds" do
       get home_url
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
