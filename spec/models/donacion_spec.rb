@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Donacion, type: :model do
-
   describe "crear donacion" do
     let(:donacion) { create(:donacion, :predonante_rechazado) }
 

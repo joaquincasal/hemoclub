@@ -6,13 +6,13 @@ FactoryBot.define do
     numero_documento { "33444555" }
     sexo { "masculino" }
     fecha_nacimiento { 20.years.ago.to_date }
+    correo_electronico { "mail@mail.com" }
   end
 
   trait :datos_completos do
     tipo_donante { "voluntario" }
     segundo_nombre { "Iñani" }
     telefono { "01144445555" }
-    correo_electronico { "mail@mail.com" }
     ocupacion { "Programador" }
     grupo_sanguineo { "0" }
     factor { "positivo" }

@@ -1,6 +1,7 @@
 require:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -10,21 +11,27 @@ AllCops:
     - 'config/**/*'
     - 'vendor/**/*'
 
-Style/FrozenStringLiteralComment:
+Rails/EnumHash:
   Enabled: false
-Style/StringLiterals:
-  Enabled: false
-Style/ClassAndModuleChildren:
-  Enabled: false
-Style/SymbolArray:
-  Enabled: false
-Style/GlobalStdStream:
-  Enabled: false
-Style/Documentation:
-  Enabled: false
-Style/BlockComments:
+Rails/UniqueValidationWithoutIndex:
   Enabled: false
 RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:
   Max: 5
+Style/BlockComments:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Style/QuotedSymbols:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
