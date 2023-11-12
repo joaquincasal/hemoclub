@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_05_185437) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_11_210031) do
+  create_table "clinicas", primary_key: "codigo", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "donaciones", force: :cascade do |t|
+    t.string "codigo_ingreso"
+    t.date "fecha"
+    t.integer "serologia"
+    t.boolean "predonante_plaquetas"
+    t.string "motivo_rechazo"
+    t.string "motivo_rechazo_predonante_plaquetas"
+    t.string "origen_candidato"
+    t.integer "donante_id"
+    t.integer "clinica_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clinica_id"], name: "index_donaciones_on_clinica_id"
+    t.index ["donante_id"], name: "index_donaciones_on_donante_id"
+  end
+
   create_table "donantes", force: :cascade do |t|
     t.string "tipo_donante"
     t.date "fecha_ultima_donacion"
