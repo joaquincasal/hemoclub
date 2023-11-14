@@ -1,5 +1,5 @@
 class DonantesController < ApplicationController
-  before_action :set_donante, only: %i[ show edit update destroy ]
+  before_action :set_donante, only: %i[show edit update destroy]
 
   # GET /donantes
   def index
@@ -7,8 +7,7 @@ class DonantesController < ApplicationController
   end
 
   # GET /donantes/1
-  def show
-  end
+  def show; end
 
   # GET /donantes/new
   def new
@@ -16,8 +15,7 @@ class DonantesController < ApplicationController
   end
 
   # GET /donantes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /donantes
   def create
@@ -46,6 +44,7 @@ class DonantesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_donante
     @donante = Donante.find(params[:id])

@@ -13,6 +13,8 @@ AllCops:
 
 Rails/EnumHash:
   Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 RSpec/Rails/InferredSpecType:

@@ -13,19 +13,18 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/donantes", type: :request do
-
   # This should return the minimal set of attributes required to create a valid
   # Donante. As you add validations to Donante, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     { apellidos: "Pérez", nombre: "Juan", tipo_documento: "DNI", numero_documento: "92364174",
       sexo: "masculino", fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfyd@mail.com" }
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     { apellidos: nil, tipo_documento: "DNI", numero_documento: "92364175", sexo: "masculino",
       fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfy2@mail.com" }
-  }
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -61,9 +60,9 @@ RSpec.describe "/donantes", type: :request do
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Donante" do
-        expect {
+        expect do
           post donantes_url, params: { donante: valid_attributes }
-        }.to change(Donante, :count).by(1)
+        end.to change(Donante, :count).by(1)
       end
 
       it "redirects to the created donante" do
@@ -74,9 +73,9 @@ RSpec.describe "/donantes", type: :request do
 
     context "with invalid parameters" do
       it "does not create a new Donante" do
-        expect {
+        expect do
           post donantes_url, params: { donante: invalid_attributes }
-        }.not_to change(Donante, :count)
+        end.not_to change(Donante, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
@@ -88,9 +87,9 @@ RSpec.describe "/donantes", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
+      let(:new_attributes) do
         { segundo_nombre: "Facundo" }
-      }
+      end
 
       it "updates the requested donante" do
         donante = Donante.create! valid_attributes
@@ -108,22 +107,20 @@ RSpec.describe "/donantes", type: :request do
     end
 
     context "with invalid parameters" do
-
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         donante = Donante.create! valid_attributes
         patch donante_url(donante), params: { donante: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-
     end
   end
 
   describe "DELETE /destroy" do
     it "destroys the requested donante" do
       donante = Donante.create! valid_attributes
-      expect {
+      expect do
         delete donante_url(donante)
-      }.to change(Donante, :count).by(-1)
+      end.to change(Donante, :count).by(-1)
     end
 
     it "redirects to the donantes list" do

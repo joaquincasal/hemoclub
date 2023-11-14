@@ -3,10 +3,10 @@ FactoryBot.define do
     apellidos { "Pérez" }
     nombre { "Juan" }
     tipo_documento { "DNI" }
-    numero_documento { rand(1_000_000...99_000_000).to_s }
+    numero_documento { "11222333" }
     sexo { "masculino" }
     fecha_nacimiento { 20.years.ago.to_date }
-    correo_electronico { "#{('a'..'z').to_a.sample(8).join}@mail.com" }
+    correo_electronico { "mail@mail.com" }
   end
 
   trait :datos_completos do
