@@ -1,0 +1,18 @@
+<div id="<%= dom_id donante %>">
+  <section>
+    <p>Nombre: <%= "#{donante.nombre} #{donante.segundo_nombre} #{donante.apellidos}" %></p>
+    <p><%="#{donante.tipo_documento} #{donante.numero_documento}"%></p>
+    <p>Sexo: <%=donante.sexo%></p>
+    <p>Fecha de nacimiento: <%="#{donante.fecha_nacimiento} (#{} años)"%></p>
+  </section>
+  <section>
+    <p>Tipo de donante: <%="#{donante.tipo_donante}"%></p>
+    <p>Grupo y factor: <%="#{donante.grupo_sanguineo} #{donante.factor}"%></p>
+  </section>
+  <section>
+    <p>Teléfono: <%=donante.telefono%></p>
+    <p>Correo electrónico: <%=donante.correo_electronico%></p>
+    <p>Ocupación: <%=donante.ocupacion%></p>
+    <p>Domicilio: <%="#{donante.direccion}, #{donante.localidad}, #{donante.provincia}, #{donante.pais} (CP #{donante.codigo_postal})"%></p>
+  </section>
+</div>

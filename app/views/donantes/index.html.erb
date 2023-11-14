@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Donantes</h1>
+
+<%= link_to "Crear donante", new_donante_path %>
+
+<table>
+  <thead>
+  <tr>
+    <th scope="col">Nombre</th>
+    <th scope="col">Detalles</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @donantes.each do |donante| %>
+    <tr>
+      <td><%= donante.nombre %></td>
+      <td><%= link_to "Detalles", donante %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @donante %>
+
+<div>
+  <%= link_to "Editar", edit_donante_path(@donante) %> |
+  <%= link_to "Volver al listado", donantes_path %>
+
+  <%= button_to "Borrar donante", @donante, method: :delete %>
+</div>
