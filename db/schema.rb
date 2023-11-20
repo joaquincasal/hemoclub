@@ -10,8 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_11_210031) do
-  create_table "clinicas", primary_key: "codigo", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2023_11_20_212811) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "clinicas", primary_key: "codigo", id: :serial, force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,8 +28,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_210031) do
     t.string "motivo_rechazo"
     t.string "motivo_rechazo_predonante_plaquetas"
     t.string "origen_candidato"
-    t.integer "donante_id"
-    t.integer "clinica_id"
+    t.bigint "donante_id"
+    t.bigint "clinica_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clinica_id"], name: "index_donaciones_on_clinica_id"
