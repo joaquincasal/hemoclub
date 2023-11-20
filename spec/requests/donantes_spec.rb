@@ -13,6 +13,8 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/donantes", type: :request do
+  include Devise::Test::IntegrationHelpers
+
   # This should return the minimal set of attributes required to create a valid
   # Donante. As you add validations to Donante, be sure to
   # adjust the attributes here as well.
@@ -25,6 +27,8 @@ RSpec.describe "/donantes", type: :request do
     { apellidos: nil, tipo_documento: "DNI", numero_documento: "92364175", sexo: "masculino",
       fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfy2@mail.com" }
   end
+
+  before { sign_in Usuario.new }
 
   describe "GET /index" do
     it "renders a successful response" do

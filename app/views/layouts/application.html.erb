@@ -11,6 +11,13 @@
   </head>
 
   <body>
+  <header>
+    <p style="color: green"><%= notice %></p>
+    <p style="color: red"><%= alert %></p>
+    <% if usuario_signed_in? %>
+      <%= button_to "Sign out", destroy_usuario_session_path, method: :delete %>
+    <% end %>
+  </header>
   <main>
     <%= yield %>
   </main>
