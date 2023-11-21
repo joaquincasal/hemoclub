@@ -34,3 +34,8 @@
 /node_modules
 
 .idea/
+
+/coverage
+
+.DS_Store
+app/.DS_Store
