@@ -22,7 +22,7 @@ class DonantesController < ApplicationController
     @donante = Donante.new(donante_params)
 
     if @donante.save
-      redirect_to @donante, notice: "Donante was successfully created."
+      redirect_to @donante, notice: "El donante fue creado exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class DonantesController < ApplicationController
   # PATCH/PUT /donantes/1
   def update
     if @donante.update(donante_params)
-      redirect_to @donante, notice: "Donante was successfully updated.", status: :see_other
+      redirect_to @donante, notice: "El donante fue actualizado exitosamente.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class DonantesController < ApplicationController
   # DELETE /donantes/1
   def destroy
     @donante.destroy!
-    redirect_to donantes_url, notice: "Donante was successfully destroyed.", status: :see_other
+    redirect_to donantes_url, notice: "El donante fue eliminado exitosamente.", status: :see_other
   end
 
   private

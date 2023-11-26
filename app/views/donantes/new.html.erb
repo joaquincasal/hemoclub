@@ -1,9 +1,15 @@
-<h1>Crear donante</h1>
+<h1 class="title">Crear donante</h1>
 
 <%= render "form", donante: @donante %>
 
 <br>
 
 <div>
-  <%= link_to "Volver al listado", donantes_path %>
+  <%= link_to donantes_path, class: "button is-link is-rounded is-small" do %>
+  <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al listado</span>
+  <% end %>
+
 </div>

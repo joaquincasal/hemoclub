@@ -1,18 +1,54 @@
 <div id="<%= dom_id donante %>">
-  <section>
-    <p>Nombre: <%= "#{donante.nombre} #{donante.segundo_nombre} #{donante.apellidos}" %></p>
-    <p><%="#{donante.tipo_documento} #{donante.numero_documento}"%></p>
-    <p>Sexo: <%=donante.sexo%></p>
-    <p>Fecha de nacimiento: <%="#{donante.fecha_nacimiento} (#{} años)"%></p>
+  <div class="columns">
+    <div class="column">
+      <div class="box">
+        <p class="subtitle">Datos personales</p>
+        <p><span class="has-text-weight-bold">Nombre: </span><%= "#{donante.nombre} #{donante.segundo_nombre} #{donante.apellidos}" %></p>
+        <p><span class="has-text-weight-bold">Documento: </span><%= "#{donante.tipo_documento} #{donante.numero_documento}" %></p>
+        <p><span class="has-text-weight-bold">Sexo: </span><%= donante.sexo.humanize %></p>
+        <p><span class="has-text-weight-bold">Fecha de nacimiento: </span><%= "#{localize donante.fecha_nacimiento} (#{donante.edad} años)" %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box">
+        <p class="subtitle">Datos de donación</p>
+        <p><span class="has-text-weight-bold">Tipo de donante: </span><%= tipo_donante(donante.tipo_donante) %></p>
+        <p><span class="has-text-weight-bold">Grupo y factor: </span><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box">
+        <p class="subtitle">Datos de contacto</p>
+        <p><span class="has-text-weight-bold">Teléfono: </span><%= donante.telefono %></p>
+        <p><span class="has-text-weight-bold">Correo electrónico: </span><%= donante.correo_electronico %></p>
+        <p><span class="has-text-weight-bold">Ocupación: </span><%= donante.ocupacion %></p>
+        <p><span class="has-text-weight-bold">Domicilio: </span><%= direccion_completa(donante.direccion, donante.localidad, donante.provincia, donante.pais, donante.codigo_postal) %></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2 class="subtitle is-3">Donaciones</h2>
+    <table class="table is-striped is-hoverable">
+      <thead>
+      <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">Serología</th>
+        <th scope="col">Clínica</th>
+        <th scope="col">Motivo de rechazo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
+        <tr>
+          <td><%= localize donacion.fecha %></td>
+          <td><%= donacion.serologia.humanize %></td>
+          <td><%= donacion.clinica&.nombre %></td>
+          <td><%= donacion.motivo_rechazo %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </section>
-  <section>
-    <p>Tipo de donante: <%="#{donante.tipo_donante}"%></p>
-    <p>Grupo y factor: <%="#{donante.grupo_sanguineo} #{donante.factor}"%></p>
-  </section>
-  <section>
-    <p>Teléfono: <%=donante.telefono%></p>
-    <p>Correo electrónico: <%=donante.correo_electronico%></p>
-    <p>Ocupación: <%=donante.ocupacion%></p>
-    <p>Domicilio: <%="#{donante.direccion}, #{donante.localidad}, #{donante.provincia}, #{donante.pais} (CP #{donante.codigo_postal})"%></p>
-  </section>
+
 </div>

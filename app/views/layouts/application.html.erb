@@ -40,7 +40,7 @@
           <div class="navbar-item">
             <div class="buttons">
               <% if usuario_signed_in? %>
-                <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "button is-primary" %>
+                <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "button is-primary is-rounded is-outlined is-light" %>
               <% end %>
             </div>
           </div>
