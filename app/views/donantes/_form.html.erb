@@ -1,7 +1,7 @@
 <%= form_with(model: donante) do |form| %>
   <% if donante.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(donante.errors.count, "error") %> prohibited this donante from being saved:</h2>
+      <h2><%= pluralize(donante.errors.count, "error", "errores") %> evitaron que el donante sea guardado:</h2>
 
       <ul>
         <% donante.errors.each do |error| %>
