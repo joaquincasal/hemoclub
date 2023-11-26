@@ -12,16 +12,64 @@
 
   <body>
   <header>
-    <p style="color: green"><%= notice %></p>
-    <p style="color: red"><%= alert %></p>
-    <% if usuario_signed_in? %>
-      <%= button_to "Sign out", destroy_usuario_session_path, method: :delete %>
-    <% end %>
+    <section class="hero is-small is-primary">
+      <div class="hero-body">
+        <p class="subtitle">
+          FHBA MKT
+        </p>
+      </div>
+    </section>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <%= image_tag("logo.png") %>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Donantes
+          </a>
+          <a class="navbar-item">
+            Donaciones
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <% if usuario_signed_in? %>
+                <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "button is-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
   <main>
-    <%= yield %>
+    <section class="section">
+      <div class="container">
+        <% if notice %>
+          <div class="notification is-success" data-controller="hello">
+            <button class="delete" data-action="click->hello#delete"></button>
+            <%= notice %>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="notification is-danger" data-controller="hello">
+            <button class="delete" data-action="click->hello#delete"></button>
+            <%= alert %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </section>
   </main>
-  <footer></footer>
+  <footer class="footer">
+    <p>Este es el footer</p>
+  </footer>
 
   </body>
 </html>
