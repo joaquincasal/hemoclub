@@ -1,4 +1,8 @@
 FROM ruby:3.2.2
+RUN apt update -qq
+RUN curl -sLo https://deb.nodesource.com/setup_18.18.0 | bash
+RUN apt install -y nodejs npm
+RUN npm install -g yarn
 
 ENV RAILS_ENV production
 ENV PROJECT_NAME fhba-mkt
@@ -9,5 +13,5 @@ COPY Gemfile /$PROJECT_NAME/Gemfile
 COPY Gemfile.lock /$PROJECT_NAME/Gemfile.lock
 RUN bundle install
 COPY . /fhba-mkt
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
+RUN SECRET_KEY_BASE=1 bundle exec rake assets:precompile
 CMD ["bundle","exec", "puma", "config.ru"]
