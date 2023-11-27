@@ -1,8 +1,24 @@
-<%= render @donante %>
-
-<div>
-  <%= link_to "Editar", edit_donante_path(@donante) %> |
-  <%= link_to "Volver al listado", donantes_path %>
-
-  <%= button_to "Borrar donante", @donante, method: :delete %>
+<div class="buttons">
+  <%= link_to donantes_path, class: "button is-link is-rounded is-small" do %>
+  <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al listado</span>
+  <% end %>
+  <%= link_to edit_donante_path(@donante), class: "button is-rounded is-small" do %>
+    <span class="icon">
+      <i class="far fa-pen-to-square"></i>
+    </span>
+    <span>Editar</span>
+  <% end %>
 </div>
+<div class="buttons is-right" style="margin-top: -60px">
+  <%= button_to @donante, method: :delete, form: { data: { turbo_confirm: '¿Confirmar eliminación de donante?' } }, class: "button is-danger is-rounded is-small" do %>
+  <span class="icon">
+      <i class="fas fa-trash-can"></i>
+    </span>
+    <span>Borrar</span>
+  <% end %>
+</div>
+
+<%= render @donante %>

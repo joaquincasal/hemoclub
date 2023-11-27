@@ -11,44 +11,168 @@
     </div>
   <% end %>
 
-  <%= form.label :nombre %>
-  <%= form.text_field :nombre %>
-  <%= form.label :segundo_nombre %>
-  <%= form.text_field :segundo_nombre %>
-  <%= form.label :apellidos %>
-  <%= form.text_field :apellidos %>
-  <%= form.label :tipo_documento %>
-  <%= form.select :tipo_documento, Donante.tipo_documentos.keys %>
-  <%= form.label :numero_documento %>
-  <%= form.text_field :numero_documento %>
-  <%= form.label :sexo %>
-  <%= form.select :sexo, options_for_select(Donante.sexos.keys.map{ |key| [key.humanize, key] }) %>
-  <%= form.label :fecha_nacimiento %>
-  <%= form.date_field :fecha_nacimiento %>
-  <%= form.label :tipo_donante %>
-  <%= form.select :tipo_donante, options_for_select(Donante.tipo_donantes.keys.map{ |key| [key.humanize, key] }) %>
-  <%= form.label :telefono %>
-  <%= form.text_field :telefono %>
-  <%= form.label :correo_electronico %>
-  <%= form.email_field :correo_electronico %>
-  <%= form.label :ocupacion %>
-  <%= form.text_field :ocupacion %>
-  <%= form.label :grupo_sanguineo %>
-  <%= form.select :grupo_sanguineo, options_for_select(Donante.grupo_sanguineos.keys) %>
-  <%= form.label :factor %>
-  <%= form.select :factor, options_for_select(Donante.factores.keys.map{ |key| [key.humanize, key] }) %>
-  <%= form.label :direccion %>
-  <%= form.text_field :direccion %>
-  <%= form.label :localidad %>
-  <%= form.text_field :localidad %>
-  <%= form.label :provincia %>
-  <%= form.text_field :provincia %>
-  <%= form.label :pais %>
-  <%= form.text_field :pais %>
-  <%= form.label :codigo_postal %>
-  <%= form.text_field :codigo_postal %>
+  <div class="columns">
+    <div class="column">
+      <div class="box">
+        <div class="field">
+          <%= form.label :nombre, class: "label" %>
+          <div class="control">
+            <%= form.text_field :nombre, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :segundo_nombre, class: "label" %>
+          <div class="control">
+            <%= form.text_field :segundo_nombre, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :apellidos, class: "label" %>
+          <div class="control">
+            <%= form.text_field :apellidos, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :tipo_documento, class: "label" %>
+          <div class="control">
+            <div class="select is-rounded">
+              <%= form.select :tipo_documento, Donante.tipo_documentos.keys, { include_blank: "" } %>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :numero_documento, class: "label" %>
+          <div class="control">
+            <%= form.text_field :numero_documento, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :sexo, class: "label" %>
+          <div class="control">
+            <%= form.label :sexo, class: "radio" do %>
+              <%= form.radio_button :sexo, "masculino" %> Masculino
+            <% end %>
+            <%= form.label :sexo, class: "radio" do %>
+              <%= form.radio_button :sexo, "femenino" %> Femenino
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :fecha_nacimiento, class: "label" %>
+          <div class="control">
+            <%= form.date_field :fecha_nacimiento, class: "input is-rounded" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="box">
+        <div class="field">
+          <%= form.label :tipo_donante, class: "label" %>
+          <div class="control">
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "club" %> Club de donantes
+            <% end %>
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "voluntario" %> Voluntario
+            <% end %>
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "reposicion" %> Reposición
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :grupo_sanguineo, class: "label" %>
+          <div class="control">
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "0" %> 0
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "A" %> A
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "B" %> B
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "AB" %> AB
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :factor, class: "label" %>
+          <div class="control">
+            <%= form.label :factor, class: "radio" do %>
+              <%= form.radio_button :factor, "positivo" %> +
+            <% end %>
+            <%= form.label :factor, class: "radio" do %>
+              <%= form.radio_button :factor, "negativo" %> -
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="box">
+        <div class="field">
+          <%= form.label :telefono, class: "label" %>
+          <div class="control">
+            <%= form.text_field :telefono, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :email, class: "label" %>
+          <div class="control">
+            <%= form.email_field :email, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :ocupacion, class: "label" %>
+          <div class="control">
+            <%= form.text_field :ocupacion, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :direccion, class: "label" %>
+          <div class="control">
+            <%= form.text_field :direccion, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :localidad, class: "label" %>
+          <div class="control">
+            <%= form.text_field :localidad, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :provincia, class: "label" %>
+          <div class="control">
+            <%= form.text_field :provincia, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :pais, class: "label" %>
+          <div class="control">
+            <%= form.text_field :pais, class: "input is-rounded" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :codigo_postal, class: "label" %>
+          <div class="control">
+            <%= form.text_field :codigo_postal, class: "input is-rounded" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div>
-    <%= form.submit "Guardar" %>
+    <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right" do %>
+    <span class="icon">
+      <i class="fas fa-floppy-disk"></i>
+    </span>
+    <span>Guardar</span>
+    <% end %>
   </div>
 <% end %>

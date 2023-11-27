@@ -1,0 +1,39 @@
+<%= form_with(model: clinica) do |form| %>
+  <% if clinica.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(clinica.errors.count, "error", "errores") %> evitaron que la clínica sea guardada:</h2>
+
+      <ul>
+        <% clinica.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="columns">
+    <div class="column is-4 ">
+      <div class="field">
+        <%= form.label :codigo, class: "label" %>
+        <div class="control">
+          <%= form.text_field :codigo, class: "input is-rounded" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= form.label :nombre, class: "label" %>
+        <div class="control">
+          <%= form.text_field :nombre, class: "input is-rounded" %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right" do %>
+        <span class="icon">
+          <i class="fas fa-floppy-disk"></i>
+        </span>
+        <span>Guardar</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

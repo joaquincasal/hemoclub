@@ -1,5 +1,4 @@
 class Donante < ApplicationRecord
-  validates :apellidos, :nombre, :tipo_documento, :numero_documento, :sexo, :fecha_nacimiento, presence: true
   validates :numero_documento, uniqueness: { scope: [:tipo_documento, :sexo] }
   validates :correo_electronico, uniqueness: true, allow_nil: true
 
@@ -10,8 +9,16 @@ class Donante < ApplicationRecord
   enum tipo_donante: [:reposicion, :voluntario, :club]
   enum tipo_documento: [:DNI, :CIE, :PAS, :DOC]
   enum sexo: [:masculino, :femenino]
-  enum grupo_sanguineo: [:A, :B, :"0"]
+  enum grupo_sanguineo: [:"0", :A, :B, :AB]
   enum factor: [:positivo, :negativo]
+
+  def nombre_completo
+    [nombre, apellidos].compact_blank.join(" ")
+  end
+
+  def edad
+    ((Time.zone.now - fecha_nacimiento.to_time) / 1.year.seconds).floor
+  end
 
   private
 

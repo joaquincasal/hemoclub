@@ -1,20 +1,35 @@
-<h1>Donantes</h1>
+<span class="title">Donantes</span>
 
-<%= link_to "Crear donante", new_donante_path %>
+<%= link_to new_donante_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear donante</span>
+<% end %>
 
-<table>
-  <thead>
-  <tr>
-    <th scope="col">Nombre</th>
-    <th scope="col">Detalles</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @donantes.each do |donante| %>
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
     <tr>
-      <td><%= donante.nombre %></td>
-      <td><%= link_to "Detalles", donante %></td>
+      <th scope="col">Nombre</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Tipo de donante</th>
+      <th scope="col">Última donación</th>
+      <th scope="col">Grupo y factor</th>
+      <th scope="col">Detalles</th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @donantes.each do |donante| %>
+      <tr>
+        <td><%= donante.nombre_completo %></td>
+        <td><%= donante.edad %></td>
+        <td><%= tipo_donante(donante.tipo_donante) %></td>
+        <td><%= fecha_ultima_donacion(donante) %></td>
+        <td><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></td>
+        <td><%= link_to "Detalles", donante %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

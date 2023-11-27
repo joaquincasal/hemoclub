@@ -1,4 +1,8 @@
 FROM ruby:3.2.2
+RUN apt update -qq
+RUN curl -sLo https://deb.nodesource.com/setup_18.18.0 | bash
+RUN apt install -y nodejs npm
+RUN npm install -g yarn
 
 ENV RAILS_ENV production
 ENV PROJECT_NAME fhba-mkt

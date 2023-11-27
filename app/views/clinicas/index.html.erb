@@ -1,0 +1,27 @@
+<span class="title">Clínicas</span>
+
+<%= link_to new_clinica_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear clínica</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Código</th>
+      <th scope="col">Nombre</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @clinicas.each do |clinica| %>
+      <tr>
+        <td><%= clinica.codigo %></td>
+        <td><%= clinica.nombre %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
