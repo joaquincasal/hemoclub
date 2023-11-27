@@ -4,6 +4,7 @@ RUN curl -sLo https://deb.nodesource.com/setup_18.18.0 | bash
 RUN apt install -y nodejs npm
 RUN npm install -g yarn
 
+ARG APP_VERSION
 ENV RAILS_ENV production
 ENV PROJECT_NAME fhba-mkt
 WORKDIR /$PROJECT_NAME
