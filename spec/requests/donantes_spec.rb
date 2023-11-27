@@ -23,11 +23,6 @@ RSpec.describe "/donantes", type: :request do
       sexo: "masculino", fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfyd@mail.com" }
   end
 
-  let(:invalid_attributes) do
-    { apellidos: nil, tipo_documento: "DNI", numero_documento: "92364175", sexo: "masculino",
-      fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfy2@mail.com" }
-  end
-
   before { sign_in Usuario.new }
 
   describe "GET /index" do
@@ -75,15 +70,17 @@ RSpec.describe "/donantes", type: :request do
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new Donante" do
+    context "con donante existente" do
+      before { create(:donante, valid_attributes) }
+
+      it "no crea un donante duplicado" do
         expect do
-          post donantes_url, params: { donante: invalid_attributes }
+          post donantes_url, params: { donante: valid_attributes }
         end.not_to change(Donante, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post donantes_url, params: { donante: invalid_attributes }
+        post donantes_url, params: { donante: valid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -112,8 +109,10 @@ RSpec.describe "/donantes", type: :request do
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        donante = Donante.create! valid_attributes
-        patch donante_url(donante), params: { donante: invalid_attributes }
+        Donante.create! valid_attributes
+        donante = Donante.create! valid_attributes.merge(numero_documento: "11222333",
+                                                         correo_electronico: "hola@hola.com")
+        patch donante_url(donante), params: { donante: { numero_documento: valid_attributes[:numero_documento] } }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

@@ -49,9 +49,12 @@
         <div class="field">
           <%= form.label :sexo, class: "label" %>
           <div class="control">
-            <div class="select is-rounded">
-              <%= form.select :sexo, options_for_select(Donante.sexos.keys.map{ |key| [key.humanize, key] }, donante.sexo), { include_blank: "" } %>
-            </div>
+            <%= form.label :sexo, class: "radio" do %>
+              <%= form.radio_button :sexo, "masculino" %> Masculino
+            <% end %>
+            <%= form.label :sexo, class: "radio" do %>
+              <%= form.radio_button :sexo, "femenino" %> Femenino
+            <% end %>
           </div>
         </div>
         <div class="field">
@@ -68,25 +71,43 @@
         <div class="field">
           <%= form.label :tipo_donante, class: "label" %>
           <div class="control">
-            <div class="select is-rounded">
-              <%= form.select :tipo_donante, options_for_select(Donante.tipo_donantes.keys.map{ |key| [key.humanize, key] }, donante.tipo_donante), { include_blank: "" } %>
-            </div>
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "club" %> Club de donantes
+            <% end %>
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "voluntario" %> Voluntario
+            <% end %>
+            <%= form.label :tipo_donante, class: "radio" do %>
+              <%= form.radio_button :tipo_donante, "reposicion" %> Reposición
+            <% end %>
           </div>
         </div>
         <div class="field">
           <%= form.label :grupo_sanguineo, class: "label" %>
           <div class="control">
-            <div class="select is-rounded">
-              <%= form.select :grupo_sanguineo, Donante.grupo_sanguineos.keys, { include_blank: "" } %>
-            </div>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "0" %> 0
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "A" %> A
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "B" %> B
+            <% end %>
+            <%= form.label :grupo_sanguineo, class: "radio" do %>
+              <%= form.radio_button :grupo_sanguineo, "AB" %> AB
+            <% end %>
           </div>
         </div>
         <div class="field">
           <%= form.label :factor, class: "label" %>
           <div class="control">
-            <div class="select is-rounded">
-              <%= form.select :factor, options_for_select(Donante.factores.keys.map{ |key| [key.humanize, key] }, donante.factor), { include_blank: "" } %>
-            </div>
+            <%= form.label :factor, class: "radio" do %>
+              <%= form.radio_button :factor, "positivo" %> +
+            <% end %>
+            <%= form.label :factor, class: "radio" do %>
+              <%= form.radio_button :factor, "negativo" %> -
+            <% end %>
           </div>
         </div>
       </div>

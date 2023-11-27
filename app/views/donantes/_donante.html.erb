@@ -14,6 +14,8 @@
         <p class="subtitle">Datos de donación</p>
         <p><span class="has-text-weight-bold">Tipo de donante: </span><%= tipo_donante(donante.tipo_donante) %></p>
         <p><span class="has-text-weight-bold">Grupo y factor: </span><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></p>
+        <p><span class="has-text-weight-bold">Predonante de plaquetas: </span><%= mostrar_booleano(donante.predonante_plaquetas) %></p>
+        <p><span class="has-text-weight-bold">Motivo rechazo predonante: </span><%= donante.motivo_rechazo_predonante_plaquetas %></p>
       </div>
     </div>
     <div class="column">
@@ -34,7 +36,9 @@
       <tr>
         <th scope="col">Fecha</th>
         <th scope="col">Serología</th>
-        <th scope="col">Clínica</th>
+        <th scope="col">Colecta</th>
+        <th scope="col">Clínica destino</th>
+        <th scope="col">Relacionado</th>
         <th scope="col">Motivo de rechazo</th>
       </tr>
       </thead>
@@ -43,7 +47,9 @@
         <tr>
           <td><%= localize donacion.fecha %></td>
           <td><%= donacion.serologia.humanize %></td>
+          <td><%= mostrar_booleano(donacion.colecta?) %></td>
           <td><%= donacion.clinica&.nombre %></td>
+          <td><%= mostrar_booleano(donacion.relacionado?) %></td>
           <td><%= donacion.motivo_rechazo %></td>
         </tr>
       <% end %>

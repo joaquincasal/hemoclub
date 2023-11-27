@@ -21,4 +21,8 @@ module DonantesHelper
     factor_mapper = { "positivo" => "+", "negativo" => "-" }
     "#{grupo}#{factor_mapper[factor]}"
   end
+
+  def mostrar_booleano(valor)
+    valor ? "Sí" : "No"
+  end
 end

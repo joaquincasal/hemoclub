@@ -1,5 +1,4 @@
 class Donante < ApplicationRecord
-  validates :apellidos, :nombre, :tipo_documento, :numero_documento, :sexo, :fecha_nacimiento, presence: true
   validates :numero_documento, uniqueness: { scope: [:tipo_documento, :sexo] }
   validates :correo_electronico, uniqueness: true, allow_nil: true
 

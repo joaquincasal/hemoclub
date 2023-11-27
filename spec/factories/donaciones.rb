@@ -10,9 +10,4 @@ FactoryBot.define do
   trait :rechazada do
     motivo_rechazo { "autoexclusion" }
   end
-
-  trait :predonante_rechazado do
-    predonante_plaquetas { true }
-    motivo_rechazo_predonante_plaquetas { "conteo insuficiente" }
-  end
 end

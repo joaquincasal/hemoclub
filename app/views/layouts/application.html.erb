@@ -26,26 +26,29 @@
         </a>
       </div>
 
+      <% if usuario_signed_in? %>
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">
+          <a class="navbar-item" href="/donantes">
             Donantes
           </a>
-          <a class="navbar-item">
+          <a class="navbar-item" href="#">
             Donaciones
+          </a>
+          <a class="navbar-item" href="/clinicas">
+            Clínicas
           </a>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <% if usuario_signed_in? %>
-                <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "button is-primary is-rounded is-outlined is-light" %>
-              <% end %>
+              <%= button_to "Cerrar sesión", destroy_usuario_session_path, method: :delete, class: "button is-primary is-rounded is-outlined is-light" %>
             </div>
           </div>
         </div>
       </div>
+      <% end %>
     </nav>
   </header>
   <main>

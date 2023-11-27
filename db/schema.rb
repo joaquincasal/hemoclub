@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_20_212811) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_26_222917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,14 +24,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_212811) do
     t.string "codigo_ingreso"
     t.date "fecha"
     t.integer "serologia"
-    t.boolean "predonante_plaquetas"
     t.string "motivo_rechazo"
-    t.string "motivo_rechazo_predonante_plaquetas"
-    t.string "origen_candidato"
     t.bigint "donante_id"
     t.bigint "clinica_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "colecta"
+    t.boolean "relacionado"
     t.index ["clinica_id"], name: "index_donaciones_on_clinica_id"
     t.index ["donante_id"], name: "index_donaciones_on_donante_id"
   end
@@ -57,6 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_20_212811) do
     t.string "pais"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "predonante_plaquetas"
+    t.string "motivo_rechazo_predonante_plaquetas"
   end
 
   create_table "usuarios", force: :cascade do |t|

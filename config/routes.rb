@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
   devise_for :usuarios
   resources :donantes
   # Defines the root path route ("/")

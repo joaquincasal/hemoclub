@@ -11,16 +11,6 @@ RSpec.describe Donante, type: :model do
     describe "validaciones" do
       let(:donante) { create(:donante) }
 
-      it "crear donante solo con datos obligatorios" do
-        expect(donante).to have_attributes(attributes_for(:donante))
-      end
-
-      it "crear donante falla con datos obligatorios faltantes" do
-        donante.numero_documento = nil
-        expect(donante.valid?).to be false
-        expect(donante.errors).to have_key(:numero_documento)
-      end
-
       it "crear donante con correo electronico invalido, no guarda correo electronico" do
         donante.correo_electronico = "email"
         donante.save!
