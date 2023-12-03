@@ -1,4 +1,6 @@
 module DonantesHelper
+  include Pagy::Frontend
+
   def direccion_completa(direccion, localidad, provincia, pais, codigo_postal)
     resultado = [direccion, localidad, provincia, pais].compact_blank.join(", ")
     resultado += " (CP: #{codigo_postal})" if codigo_postal.present?

@@ -41,6 +41,8 @@ gem "bootsnap", require: false
 gem "devise", "~> 4.9"
 gem 'devise-i18n'
 
+gem 'pagy', '~> 6.2'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

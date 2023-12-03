@@ -5,7 +5,7 @@
         <p class="subtitle">Datos personales</p>
         <p><span class="has-text-weight-bold">Nombre: </span><%= "#{donante.nombre} #{donante.segundo_nombre} #{donante.apellidos}" %></p>
         <p><span class="has-text-weight-bold">Documento: </span><%= "#{donante.tipo_documento} #{donante.numero_documento}" %></p>
-        <p><span class="has-text-weight-bold">Sexo: </span><%= donante.sexo.humanize %></p>
+        <p><span class="has-text-weight-bold">Sexo: </span><%= donante.sexo&.humanize %></p>
         <p><span class="has-text-weight-bold">Fecha de nacimiento: </span><%= "#{localize donante.fecha_nacimiento} (#{donante.edad} años)" %></p>
       </div>
     </div>
@@ -46,7 +46,7 @@
       <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
         <tr>
           <td><%= localize donacion.fecha %></td>
-          <td><%= donacion.serologia.humanize %></td>
+          <td><%= donacion.serologia&.humanize %></td>
           <td><%= mostrar_booleano(donacion.colecta?) %></td>
           <td><%= donacion.clinica&.nombre %></td>
           <td><%= mostrar_booleano(donacion.relacionado?) %></td>

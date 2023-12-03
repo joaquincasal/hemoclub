@@ -17,6 +17,8 @@ class Donante < ApplicationRecord
   end
 
   def edad
+    return nil if fecha_nacimiento.blank?
+
     ((Time.zone.now - fecha_nacimiento.to_time) / 1.year.seconds).floor
   end
 

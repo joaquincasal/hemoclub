@@ -1,9 +1,11 @@
 class DonantesController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_donante, only: %i[show edit update destroy]
 
   # GET /donantes
   def index
-    @donantes = Donante.all
+    @pagy, @donantes = pagy(Donante.joins(:donaciones).order("donaciones.fecha desc"))
   end
 
   # GET /donantes/1

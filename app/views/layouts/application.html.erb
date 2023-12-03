@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html data-theme="light">
   <head>
-    <title>Myapp2</title>
+    <title>FHBA-MKT</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%= favicon_link_tag asset_path('favicon.png') %>
   </head>
 
   <body>
@@ -21,7 +23,7 @@
     </section>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#">
+        <a class="navbar-item" href="/">
           <%= image_tag("logo.png") %>
         </a>
       </div>
