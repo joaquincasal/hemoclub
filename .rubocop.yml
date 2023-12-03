@@ -10,7 +10,10 @@ AllCops:
     - 'bin/*'
     - 'config/**/*'
     - 'vendor/**/*'
-
+Metrics/ClassLength:
+  Max: 300
+Metrics/MethodLength:
+  Max: 20
 Rails/EnumHash:
   Enabled: false
 Rails/I18nLocaleTexts:
@@ -19,6 +22,8 @@ Rails/UniqueValidationWithoutIndex:
   Enabled: false
 RSpec/ContextWording:
   Enabled: false
+RSpec/ExampleLength:
+  Max: 10
 RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:
