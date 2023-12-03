@@ -43,6 +43,13 @@ class DonantesController < ApplicationController
     redirect_to donantes_url, notice: "Donante eliminado exitosamente.", status: :see_other
   end
 
+  def import; end
+
+  def do_import
+    Importador.new.importar(params[:archivo].path)
+    redirect_to donantes_url, notice: "Donantes importados exitosamente."
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

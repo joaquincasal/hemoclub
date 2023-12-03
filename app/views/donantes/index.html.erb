@@ -1,6 +1,13 @@
 <span class="title">Donantes</span>
 
-<%= link_to new_donante_path, class: "button is-primary is-rounded ml-5" do %>
+<%= link_to importar_donantes_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Importar donantes</span>
+<% end %>
+
+<%= link_to new_donante_path, class: "button is-link is-rounded ml-5" do %>
   <span class="icon">
     <i class="fas fa-circle-plus"></i>
   </span>

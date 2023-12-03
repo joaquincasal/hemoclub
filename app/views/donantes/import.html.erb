@@ -1,0 +1,33 @@
+<h1 class="title">Importar donantes</h1>
+
+<%= form_with url: "/donantes/importar", multipart: true do |form| %>
+  <div class="file has-name is-boxed">
+    <label class="file-label" data-controller="hello">
+      <%= file_field_tag :archivo, class: "file-input", data: { action: "input->hello#filename" } %>
+      <span class="file-cta">
+      <span class="file-icon">
+        <i class="fas fa-upload"></i>
+      </span>
+      <span class="file-label">
+        Subir archivo CSV
+      </span>
+    </span>
+    <span class="file-name">
+      Ningún archivo seleccionado
+    </span>
+    </label>
+  </div>
+  <br>
+  <%= form.button "Importar", id: "boton-importar", type: "submit", class: "button is-primary is-rounded", disabled: true %>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to donantes_path, class: "button is-link is-rounded is-small" do %>
+  <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al listado</span>
+  <% end %>
+</div>
