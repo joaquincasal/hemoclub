@@ -1,0 +1,26 @@
+<div class="container is-max-desktop">
+  <div class="box">
+    <h2 class="subtitle"><%= t "devise.invitations.new.header" %></h2>
+
+    <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <% resource.class.invite_key_fields.each do |field| -%>
+        <div class="field">
+          <%= f.label field, class: "label" %>
+          <div class="control has-icons-left">
+            <%= f.text_field field, autofocus: true, class: "input is-rounded" %>
+            <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          </div>
+        </div>
+      <% end -%>
+
+      <div class="actions">
+        <%= f.submit t('.submit_button'), class: "button is-primary is-rounded" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container is-max-desktop">
+  <div class="box">
+    <h2 class="subtitle"><%= t('.forgot_your_password') %></h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email, class: "label" %>
+        <div class="control has-icons-left">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-rounded" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t('.send_me_reset_password_instructions'), class: "button is-primary is-rounded" %>
+      </div>
+    <% end %>
+  </div>
+  <%= render "devise/shared/links" %>
+</div>

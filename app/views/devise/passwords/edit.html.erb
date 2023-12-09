@@ -1,0 +1,36 @@
+<div class="container is-max-desktop">
+  <div class="box">
+    <h2 class="subtitle"><%= t('.change_your_password') %></h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :reset_password_token %>
+
+      <div class="field">
+        <%= f.label :password, class: "label" %>
+        <div class="control has-icons-left">
+          <%= f.password_field :password, autocomplete: "new-password", class: "input is-rounded" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, class: "label" %>
+        <div class="control has-icons-left">
+          <%= f.password_field :password_confirmation, autocomplete: "current-password", class: "input is-rounded" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t('.change_my_password'), class: "button is-primary is-rounded" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render "devise/shared/links" %>
+</div>
