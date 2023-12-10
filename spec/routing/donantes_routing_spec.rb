@@ -7,7 +7,7 @@ RSpec.describe DonantesController, type: :routing do
     end
 
     it "routes to #new" do
-      expect(get: "/donantes/new").to route_to("donantes#new")
+      expect(get: "/donantes/nueva").to route_to("donantes#new")
     end
 
     it "routes to #show" do
@@ -15,7 +15,7 @@ RSpec.describe DonantesController, type: :routing do
     end
 
     it "routes to #edit" do
-      expect(get: "/donantes/1/edit").to route_to("donantes#edit", id: "1")
+      expect(get: "/donantes/1/editar").to route_to("donantes#edit", id: "1")
     end
 
     it "routes to #create" do

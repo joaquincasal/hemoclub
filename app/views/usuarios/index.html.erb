@@ -1,0 +1,53 @@
+<span class="title">Usuarios</span>
+
+<%= link_to new_usuario_invitation_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Invitar usuario</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Correo electrónico</th>
+      <th scope="col">Estado invitación</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= usuario.email %></td>
+        <td>
+          <% if usuario.invitation_accepted_at.present? %>
+            <span>Aceptada</span>
+          <% else %>
+            <span>Pendiente</span>
+          <% end %>
+        </td>
+        <td>
+          <div class="is-flex">
+            <%= button_to usuario, method: :delete, form: { data: { turbo_confirm: '¿Confirmar eliminación de donante?' } }, class: "button is-danger is-rounded is-small" do %>
+            <span class="icon">
+              <i class="fas fa-trash-can"></i>
+            </span>
+            <% end %>
+            <% if usuario.invitation_accepted_at.blank? %>
+              <%= form_for(usuario, as: :usuario, url: invitation_path(:usuario), html: { method: :post }) do |f| %>
+                <%= f.hidden_field "email", value: usuario.email, readonly: true %>
+                <%= f.button type: :submit, class: "button is-primary is-rounded is-small ml-2" do %>
+                <span class="icon">
+                  <i class="far fa-paper-plane"></i>
+                </span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
