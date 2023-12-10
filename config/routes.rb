@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       password: 'contraseña', confirmation: 'confirmacion',
       invitation: 'invitaciones'
     }
+    resources :usuarios, only: [:index, :destroy]
 
     resources :donantes do
       collection do
