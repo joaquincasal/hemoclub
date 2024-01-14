@@ -150,11 +150,7 @@ class Importador
 
   def crear_o_actualizar_donante(fila)
     campos_donante = campos_donante(fila)
-    donante_existente_por_email = Donante.find_by(correo_electronico: campos_donante["correo_eletronico"])
-    donante_existente_por_documento = Donante.find_by(numero_documento: campos_donante["numero_documento"],
-                                                      tipo_documento: campos_donante["tipo_documento"],
-                                                      sexo: campos_donante["sexo"])
-    donante_existente = donante_existente_por_documento.presence || donante_existente_por_email.presence
+    donante_existente = buscar_donante_existente(campos_donante)
     begin
       if donante_existente.present?
         donante_existente.update!(campos_donante)
@@ -165,6 +161,15 @@ class Importador
     rescue StandardError => e
       Rails.logger.debug e
     end
+  end
+
+  def buscar_donante_existente(campos_donante)
+    donante_existente_por_email = Donante.where.not(correo_electronico: nil)
+                                         .find_by(correo_electronico: campos_donante["correo_electronico"])
+    donante_existente_por_documento = Donante.find_by(numero_documento: campos_donante["numero_documento"],
+                                                      tipo_documento: campos_donante["tipo_documento"],
+                                                      sexo: campos_donante["sexo"])
+    donante_existente_por_documento.presence || donante_existente_por_email.presence
   end
 
   def crear_donacion(fila, donante)

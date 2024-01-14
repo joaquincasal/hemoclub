@@ -5,7 +5,7 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    @pagy, @donantes = pagy(Donante.joins(:donaciones).order("donaciones.fecha desc"))
+    @pagy, @donantes = pagy(Donante.all)
   end
 
   # GET /donantes/1
