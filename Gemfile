@@ -44,6 +44,9 @@ gem 'devise_invitable', '~> 2.0.0'
 
 gem 'pagy', '~> 6.2'
 
+gem "chartkick"
+gem "groupdate"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

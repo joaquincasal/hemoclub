@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
     <%= favicon_link_tag asset_path('favicon.png') %>
   </head>
@@ -31,6 +32,9 @@
       <% if usuario_signed_in? %>
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
+          <a class="navbar-item" href="/graficos">
+            Gráficos
+          </a>
           <a class="navbar-item" href="/donantes">
             Donantes
           </a>
