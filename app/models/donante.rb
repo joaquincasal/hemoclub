@@ -12,6 +12,10 @@ class Donante < ApplicationRecord
   enum grupo_sanguineo: [:"0", :A, :B, :AB]
   enum factor: [:positivo, :negativo]
 
+  scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
+  scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
+  scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
+
   def nombre_completo
     [nombre, apellidos].compact_blank.join(" ")
   end

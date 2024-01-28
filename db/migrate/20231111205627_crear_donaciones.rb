@@ -1,4 +1,4 @@
-class CreateDonaciones < ActiveRecord::Migration[7.1]
+class CrearDonaciones < ActiveRecord::Migration[7.1]
   def change
     create_table :donaciones do |t|
       t.string :codigo_ingreso

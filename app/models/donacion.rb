@@ -8,5 +8,6 @@ class Donacion < ApplicationRecord
 
   enum serologia: [:reactiva, :negativa]
 
+  scope :rechazadas, -> { where.not(motivo_rechazo: nil) }
   scope :no_rechazadas, -> { where(motivo_rechazo: nil) }
 end

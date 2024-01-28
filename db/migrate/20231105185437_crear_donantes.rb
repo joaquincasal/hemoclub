@@ -1,4 +1,4 @@
-class CreateDonantes < ActiveRecord::Migration[7.1]
+class CrearDonantes < ActiveRecord::Migration[7.1]
   def change
     create_table :donantes do |t|
       t.integer :tipo_donante
