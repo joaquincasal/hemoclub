@@ -68,6 +68,7 @@ class Importador
     TIPO_DONANTE_HEADER => {
       ".Común" => "reposicion",
       "Común" => "reposicion",
+      "Acepta LLamado" => "reposicion",
       "Club Donantes" => "club",
       "Voluntario" => "voluntario"
     },

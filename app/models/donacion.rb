@@ -7,4 +7,6 @@ class Donacion < ApplicationRecord
   validates :codigo_ingreso, uniqueness: true
 
   enum serologia: [:reactiva, :negativa]
+
+  scope :no_rechazadas, -> { where(motivo_rechazo: nil) }
 end
