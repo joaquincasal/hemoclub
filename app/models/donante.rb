@@ -1,5 +1,5 @@
 class Donante < ApplicationRecord
-  validates :numero_documento, uniqueness: { scope: [:tipo_documento, :sexo] }
+  validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false
   validates :correo_electronico, uniqueness: true, allow_nil: true
 
   has_many :donaciones, dependent: :destroy

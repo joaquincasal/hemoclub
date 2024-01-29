@@ -4,6 +4,8 @@ require 'csv'
 require 'tempfile'
 
 class Importador
+  class DatoInconsistenteError < StandardError; end
+
   TIPO_DONANTE_HEADER = "TipoDonante"
   FECHA_DONACION_HEADER = "FechaIng"
   NOMBRE_HEADER = "Nombre"
@@ -182,11 +184,29 @@ class Importador
   end
 
   def buscar_donante_existente(campos_donante)
-    donante_existente_por_email = Donante.where.not(correo_electronico: nil)
-                                         .find_by(correo_electronico: campos_donante["correo_electronico"])
-    donante_existente_por_documento = Donante.find_by(numero_documento: campos_donante["numero_documento"],
-                                                      tipo_documento: campos_donante["tipo_documento"],
-                                                      sexo: campos_donante["sexo"])
+    correo_electronico = campos_donante["correo_electronico"]
+    numero_documento = campos_donante["numero_documento"]
+    tipo_documento = campos_donante["tipo_documento"]
+
+    if correo_electronico.present?
+      donante_existente_por_email = Donante.where.not(correo_electronico: nil).find_by(correo_electronico:)
+    end
+    if numero_documento && tipo_documento.present?
+      donante_existente_por_documento = Donante.find_by(numero_documento:, tipo_documento:)
+    end
+
+    seleccionar_donante_existente(donante_existente_por_email, donante_existente_por_documento, numero_documento)
+  end
+
+  def seleccionar_donante_existente(donante_existente_por_email, donante_existente_por_documento, numero_documento)
+    if donante_existente_por_email.present? && donante_existente_por_email.numero_documento != numero_documento
+      raise DatoInconsistenteError, "Existe un donante con este correo electrónico pero con otro número de documento"
+    end
+    if donante_existente_por_documento.present? && donante_existente_por_email.present? &&
+       donante_existente_por_email != donante_existente_por_documento
+      raise DatoInconsistenteError, "Número documento y correo electrónico se encuentran en uso por distintos donantes"
+    end
+
     donante_existente_por_documento.presence || donante_existente_por_email.presence
   end
 
