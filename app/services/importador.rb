@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'tempfile'
 
 class Importador
   TIPO_DONANTE_HEADER = "TipoDonante"
@@ -107,17 +108,37 @@ class Importador
                       CODIGO_CLINICA_HEADER, CODIGO_INGRESO_HEADER].freeze
 
   def importar(path_csv)
-    CSV.foreach(path_csv, headers: true) do |fila|
-      fila = fila.to_h.transform_values { |value| value&.strip }
-      next if saltear_importacion?(fila)
+    filas_con_errores = realizar_importacion(path_csv)
+    return true if filas_con_errores.empty?
 
-      solucionar_discrepancias!(fila)
-      donante = crear_o_actualizar_donante(fila)
-      crear_donacion(fila, donante)
-    end
+    guardar_errores(filas_con_errores)
+    false
   end
 
   private
+
+  def guardar_errores(filas_con_errores)
+    headers = filas_con_errores.first.headers.join(',')
+    errores = filas_con_errores.map(&:to_csv)
+    contenido_archivo = "#{headers}\n#{errores.join("\n")}"
+    Rails.root.join("errores.csv").write(contenido_archivo)
+  end
+
+  def realizar_importacion(path_csv)
+    filas_con_errores = []
+    CSV.foreach(path_csv, headers: true) do |fila|
+      fila_hash = fila.to_h.transform_values { |value| value&.strip }
+      next if saltear_importacion?(fila_hash)
+
+      solucionar_discrepancias!(fila_hash)
+      donante = crear_o_actualizar_donante(fila_hash)
+      crear_donacion(fila_hash, donante)
+    rescue StandardError => e
+      fila['error'] = e.message
+      filas_con_errores.push(fila)
+    end
+    filas_con_errores
+  end
 
   def saltear_importacion?(fila)
     es_donacion_autologa = fila[TIPO_DONACION_HEADER] == DONACION_AUTOLOGA
@@ -152,15 +173,11 @@ class Importador
   def crear_o_actualizar_donante(fila)
     campos_donante = campos_donante(fila)
     donante_existente = buscar_donante_existente(campos_donante)
-    begin
-      if donante_existente.present?
-        donante_existente.update!(campos_donante)
-        donante_existente
-      else
-        Donante.create!(campos_donante)
-      end
-    rescue StandardError => e
-      Rails.logger.debug e
+    if donante_existente.present?
+      donante_existente.update!(campos_donante)
+      donante_existente
+    else
+      Donante.create!(campos_donante)
     end
   end
 
@@ -175,11 +192,7 @@ class Importador
 
   def crear_donacion(fila, donante)
     campos_donacion = campos_donacion(fila).merge(donante:)
-    begin
-      Donacion.create!(campos_donacion)
-    rescue StandardError => e
-      Rails.logger.error e
-    end
+    Donacion.create!(campos_donacion)
   end
 
   def campos_donante(fila)

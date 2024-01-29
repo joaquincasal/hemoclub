@@ -48,8 +48,17 @@ class DonantesController < ApplicationController
   def import; end
 
   def do_import
-    Importador.new.importar(params[:archivo].path)
-    redirect_to donantes_url, notice: "Donantes importados exitosamente."
+    sin_errores = Importador.new.importar(params[:archivo].path)
+    return redirect_to donantes_url, notice: "Donantes importados exitosamente." if sin_errores
+
+    flash[:alert] =
+      'Algunas filas tuvieron errores y no se importaron. Click <a href="/donantes/errores">aquí</a> para descargar
+        archivo con las filas con errores. Corregir los errores y volver a importar'
+    redirect_to importar_donantes_url
+  end
+
+  def import_errors
+    send_file(Rails.root.join("errores.csv"))
   end
 
   private

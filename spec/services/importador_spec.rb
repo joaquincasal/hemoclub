@@ -166,6 +166,18 @@ RSpec.describe Importador, type: :service do
         expect(Donacion.first.reactiva?).to be true
       end
     end
+
+    describe "cuando la importación falla" do
+      before { create(:donacion, codigo_ingreso: "1234") }
+
+      let(:datos_archivo) { build(:importacion, CodIngreso: "1234") }
+
+      it "devuelve false y escribe archivo" do
+        resultado = importacion
+        expect(resultado).to be false
+        expect(File).to exist(Rails.root.join("errores.csv"))
+      end
+    end
   end
 
   def generar_csv(datos_archivo)

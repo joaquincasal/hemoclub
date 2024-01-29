@@ -66,13 +66,13 @@
         <% if notice %>
           <div class="notification is-success" data-controller="hello">
             <button class="delete" data-action="click->hello#delete"></button>
-            <%= notice %>
+            <%= notice.html_safe %>
           </div>
         <% end %>
         <% if alert %>
           <div class="notification is-danger" data-controller="hello">
             <button class="delete" data-action="click->hello#delete"></button>
-            <%= alert %>
+            <%= alert.html_safe %>
           </div>
         <% end %>
         <%= yield %>

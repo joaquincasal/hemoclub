@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       collection do
         get "importar", to: "donantes#import"
         post "importar", to: "donantes#do_import"
+        get "errores", to: "donantes#import_errors"
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
