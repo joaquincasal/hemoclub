@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-  DOCKERHUB_IMAGE: joaquincasal/fhba-mkt
+  DOCKERHUB_IMAGE: joaquincasal/hemoclub
   TAG_NAME: ${{ github.ref_name }}
   HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
   HEROKU_APP: ${{ secrets.HEROKU_APP }}
