@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: fhba_development
+  database: hemoclub_development
   username: postgres
   password: postgres
   host: localhost
@@ -15,7 +15,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: fhba_test
+  database: hemoclub_test
   username: postgres
   password: postgres
   host: localhost

@@ -19,7 +19,7 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_DB: fhba_test
+          POSTGRES_DB: hemoclub_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
     env:

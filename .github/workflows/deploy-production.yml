@@ -41,4 +41,4 @@ jobs:
           yamlConfigPath: azure.yaml
           containerAppName: hemoclub-containerapp
           resourceGroup: SOFTFHBA
-          imageToDeploy: docker.io/joaquincasal/fhba-mkt:${{ github.ref_name }}
+          imageToDeploy: docker.io/joaquincasal/hemoclub:${{ github.ref_name }}

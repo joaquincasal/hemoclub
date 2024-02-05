@@ -9,7 +9,7 @@ properties:
       targetPort: 3000
   template:
     containers:
-      - image: joaquincasal/fhba-mkt:#{IMAGE_VERSION}#
+      - image: joaquincasal/hemoclub:#{IMAGE_VERSION}#
         name: placeholder-container-app
         resources:
           cpu: 0.25
@@ -19,5 +19,5 @@ properties:
           - name: RAILS_MASTER_KEY
             secretRef: rails-key
     scale:
-      minReplicas: 1
+      minReplicas: 0
       maxReplicas: 1
