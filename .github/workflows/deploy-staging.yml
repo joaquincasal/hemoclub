@@ -13,10 +13,12 @@ env:
   HEROKU_APP: ${{ secrets.HEROKU_APP }}
 
 jobs:
-  build:
+  deploy-staging:
     runs-on: ubuntu-latest
+    environment: staging
     permissions:
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
