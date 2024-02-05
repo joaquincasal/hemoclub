@@ -1,23 +1,60 @@
-name: placeholder-container-app
-type: Microsoft.App/containerApps
-location: East US
-properties:
-  configuration:
-    activeRevisionsMode: Single
-    ingress:
-      external: true
-      targetPort: 3000
-  template:
-    containers:
-      - image: joaquincasal/hemoclub:#{IMAGE_VERSION}#
-        name: placeholder-container-app
-        resources:
-          cpu: 0.25
-          memory: 0.5Gi
-          ephemeralStorage: 1Gi
-        env:
-          - name: RAILS_MASTER_KEY
-            secretRef: rails-key
-    scale:
-      minReplicas: 0
-      maxReplicas: 1
+{
+  "name": "hemoclub-containerapp",
+  "type": "Microsoft.App/containerApps",
+  "location": "East US",
+  "properties": {
+    "workloadProfileName": "Consumption",
+    "configuration": {
+      "secrets": [
+        {
+          "name": "connection-string"
+        },
+        {
+          "name": "rails-key"
+        }
+      ],
+      "activeRevisionsMode": "Single",
+      "ingress": {
+        "external": true,
+        "targetPort": 3000,
+      }
+    },
+    "template": {
+      "containers": [
+        {
+          "image": "docker.io/joaquincasal/hemoclub:#{IMAGE_VERSION}#",
+          "name": "hemoclub-containerapp",
+          "env": [
+            {
+              "name": "DATABASE_URL",
+              "secretRef": "connection-string"
+            },
+            {
+              "name": "RAILS_MASTER_KEY",
+              "secretRef": "rails-key"
+            },
+            {
+              "name": "RAILS_SERVE_STATIC_FILES",
+              "value": "true"
+            },
+            {
+              "name": "RAILS_LOG_TO_STDOUT",
+              "value": "true"
+            }
+          ],
+          "resources": {
+            "cpu": 0.25,
+            "memory": "0.5Gi",
+            "ephemeralStorage": "1Gi"
+          },
+          "probes": []
+        }
+      ],
+      "initContainers": null,
+      "scale": {
+        "minReplicas": 1,
+        "maxReplicas": 2
+      }
+    }
+  }
+}

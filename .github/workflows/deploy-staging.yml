@@ -18,7 +18,6 @@ jobs:
     environment: staging
     permissions:
       contents: read
-      id-token: write
 
     steps:
       - name: Checkout repository
