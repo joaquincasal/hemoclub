@@ -15,4 +15,4 @@ COPY Gemfile.lock /$PROJECT_NAME/Gemfile.lock
 RUN bundle install
 COPY . /hemoclub
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
-CMD ["bundle","exec", "puma", "config.ru"]
+CMD ["/hemoclub/entrypoint.sh"]
