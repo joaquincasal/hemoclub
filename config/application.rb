@@ -34,5 +34,15 @@ module Hemoclub
     config.generators.test_framework = :rspec
 
     config.i18n.default_locale = :es
+
+    config.active_job.queue_adapter = :good_job
+    config.good_job.execution_mode = :async
+    config.good_job.enable_cron = true
+    config.good_job.cron = {
+      actualizar_donantes_job: {
+        cron: "*/5 * * * *",
+        class: "ActualizarDonantesJob",
+      },
+    }
   end
 end
