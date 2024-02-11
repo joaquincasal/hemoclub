@@ -47,6 +47,8 @@ gem 'pagy', '~> 6.2'
 gem "chartkick"
 gem "groupdate"
 
+gem 'pg_search'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

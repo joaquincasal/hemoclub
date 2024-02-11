@@ -6,6 +6,7 @@ require:
 AllCops:
   NewCops: enable
   Exclude:
+    - 'app/helpers/**'
     - 'db/**/*'
     - 'bin/*'
     - 'config/**/*'
@@ -31,6 +32,8 @@ RSpec/MultipleExpectations:
 Style/BlockComments:
   Enabled: false
 Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ConditionalAssignment:
   Enabled: false
 Style/Documentation:
   Enabled: false

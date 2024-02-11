@@ -5,7 +5,10 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    @pagy, @donantes = pagy(Donante.all)
+    donantes = Donante.includes(:donaciones)
+    donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
+    donantes = donantes.order("#{sort_column} #{sort_direction}")
+    @pagy, @donantes = pagy(donantes)
   end
 
   # GET /donantes/1
@@ -74,5 +77,13 @@ class DonantesController < ApplicationController
                                      :sexo, :fecha_nacimiento, :tipo_donante, :telefono, :correo_electronico,
                                      :ocupacion, :grupo_sanguineo, :factor, :direccion, :localidad,
                                      :provincia, :pais, :codigo_postal)
+  end
+
+  def sort_column
+    %w[nombre tipo_donante donaciones.fecha].include?(params[:orden]) ? params[:orden] : "donaciones.fecha"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direccion]) ? params[:direccion] : "desc"
   end
 end

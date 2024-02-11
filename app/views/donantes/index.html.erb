@@ -1,40 +1,61 @@
-<span class="title">Donantes</span>
+<div class="level">
+  <div class="level-left">
+    <span class="level-item title">Donantes</span>
 
-<%= link_to importar_donantes_path, class: "button is-primary is-rounded ml-5" do %>
+    <%= link_to importar_donantes_path, class: "level-item button is-primary is-rounded ml-5" do %>
   <span class="icon">
     <i class="fas fa-circle-plus"></i>
   </span>
-  <span>Importar donantes</span>
-<% end %>
+      <span>Importar donantes</span>
+    <% end %>
 
-<%= link_to new_donante_path, class: "button is-link is-rounded ml-5" do %>
+    <%= link_to new_donante_path, class: "level-item button is-link is-rounded ml-5" do %>
   <span class="icon">
     <i class="fas fa-circle-plus"></i>
   </span>
-  <span>Crear donante</span>
-<% end %>
+      <span>Crear donante</span>
+    <% end %>
+  </div>
 
+  <div class="level-right">
+    <%= form_with url: "", method: :get, data: { turbo_frame: "donantes", turbo_action: "advance" }, class: "level-item" do |form| %>
+      <b>Búsqueda</b> <%= form.search_field :busqueda, value: params[:busqueda], onsubmit: "this.form.requestSubmit()", class: "ml-2 input is-rounded is-small" %>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "donantes" do %>
 <div class="container">
-  <table class="table is-striped is-hoverable mx-auto mt-5">
+  <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
     <thead>
     <tr>
-      <th scope="col">Nombre</th>
+      <th scope="col">
+        <%= link_orden "Nombre", :nombre, data: { turbo_action: "advance" } %>
+      </th>
       <th scope="col">Edad</th>
-      <th scope="col">Tipo de donante</th>
-      <th scope="col">Última donación</th>
+      <th scope="col">
+        <%= link_orden "Tipo de donante", :tipo_donante, data: { turbo_action: "advance" } %>
+      </th>
+      <th scope="col">
+        <%= link_orden "Última donación", "donaciones.fecha", data: { turbo_action: "advance" } %>
+      </th>
       <th scope="col">Grupo y factor</th>
+      <th scope="col">Documento</th>
+      <th scope="col">Correo electrónico</th>
       <th scope="col">Detalles</th>
     </tr>
     </thead>
     <tbody>
     <% @donantes.each do |donante| %>
       <tr>
-        <td><%= donante.nombre_completo %></td>
+        <td style="width: 20%"><%= donante.nombre_completo %></td>
         <td><%= donante.edad %></td>
         <td><%= tipo_donante(donante.tipo_donante) %></td>
         <td><%= fecha_ultima_donacion(donante) %></td>
         <td><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></td>
-        <td><%= link_to "Detalles", donante %></td>
+        <td><%= donante.numero_documento %></td>
+        <td><%= donante.correo_electronico %></td>
+        <td><%= link_to "Detalles", donante, data: { turbo_frame: "_top" } %></td>
       </tr>
     <% end %>
     </tbody>
@@ -42,3 +63,4 @@
 
   <%== pagy_bulma_nav(@pagy) %>
 </div>
+<% end %>

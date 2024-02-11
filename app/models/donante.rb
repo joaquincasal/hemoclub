@@ -1,4 +1,9 @@
 class Donante < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :buscar,
+                  against: [:apellidos, :nombre, :segundo_nombre, :numero_documento, :correo_electronico],
+                  using: { tsearch: { prefix: true } }
+
   validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false
   validates :correo_electronico, uniqueness: true, allow_nil: true
 
