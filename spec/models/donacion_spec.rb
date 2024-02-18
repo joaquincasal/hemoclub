@@ -10,11 +10,10 @@ RSpec.describe Donacion, type: :model do
     describe "validaciones" do
       let(:donacion) { create(:donacion) }
 
-      it "crear donacion con codigo de ingreso duplicado falla" do
-        donacion
-        donacion_duplicada = build(:donacion)
+      it "crear dos donaciones con misma fecha y donante falla" do
+        donacion_duplicada = build(:donacion, donante: donacion.donante)
         expect(donacion_duplicada).not_to be_valid
-        expect(donacion_duplicada.errors).to have_key(:codigo_ingreso)
+        expect(donacion_duplicada.errors).to have_key(:fecha)
       end
 
       it "crear donacion con serologia invalida falla" do

@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :donacion do
-    codigo_ingreso { "1234" }
     fecha { 1.day.ago.to_date }
     serologia { "negativa" }
     donante

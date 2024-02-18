@@ -168,9 +168,12 @@ RSpec.describe Importador, type: :service do
     end
 
     describe "cuando la importación falla" do
-      before { create(:donacion, codigo_ingreso: "1234") }
+      let(:donacion) { create(:donacion) }
 
-      let(:datos_archivo) { build(:importacion, CodIngreso: "1234") }
+      let(:datos_archivo) do
+        build(:importacion, FechaIng: donacion.fecha.strftime("%d/%m/%Y"),
+                            NroDoc: donacion.donante.numero_documento, TipoDoc: "DNI")
+      end
 
       it "devuelve false y escribe archivo" do
         resultado = importacion

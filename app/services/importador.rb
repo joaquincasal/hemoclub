@@ -23,7 +23,6 @@ class Importador
   EMAIL_HEADER = "Email"
   OCUPACION_HEADER = "Ocupacion"
   TIPO_DONACION_HEADER = "TipoDona"
-  RELACIONADO_HEADER = "Relacionado"
   NUEVO_HEADER = "Nuevo"
   HABITUAL_HEADER = "Habitual"
   RECHAZO_HEADER = "Rechazo"
@@ -34,10 +33,8 @@ class Importador
   SEROLOGIA_HEADER = "Serologia"
   TOTAL_DONACIONES_HEADER = "TotalDonaciones"
   FECHA_PRIMERA_DONACION_HEADER = "Fecha1Donacion"
-  COLECTA_HEADER = "Colecta"
   INSTITUCION_ORIGEN_HEADER = "CodInstOrigen"
   CODIGO_CLINICA_HEADER = "CodClinica"
-  CODIGO_INGRESO_HEADER = "CodIngreso"
 
   TIPO_DONANTE_VOLUNTARIO = "Voluntario"
   TIPO_DONANTE_CLUB = "Club Donantes"
@@ -45,7 +42,6 @@ class Importador
   INSTITUCION_ORIGEN_COLECTA = "99"
   CODIGO_CLINICA_CLUB = "28"
   CODIGO_CLINICA_VOLUNTARIO = "29"
-  COLECTA = "C"
 
   TRANSFORMACIONES_KEYS_DONANTE = {
     TIPO_DONANTE_HEADER => "tipo_donante",
@@ -87,12 +83,9 @@ class Importador
 
   TRANSFORMACIONES_KEYS_DONACION = {
     FECHA_DONACION_HEADER => "fecha",
-    RELACIONADO_HEADER => "relacionado",
     RECHAZO_HEADER => "motivo_rechazo",
     SEROLOGIA_HEADER => "serologia",
-    COLECTA_HEADER => "colecta",
-    CODIGO_CLINICA_HEADER => "clinica_id",
-    CODIGO_INGRESO_HEADER => "codigo_ingreso"
+    CODIGO_CLINICA_HEADER => "clinica_id"
   }.freeze
 
   TRANSFORMACIONES_VALORES_DONACION = {
@@ -106,8 +99,7 @@ class Importador
                      FECHA_NACIMIENTO_HEADER, DOMICILIO_HEADER, CODIGO_POSTAL_HEADER, LOCALIDAD_HEADER,
                      PROVINCIA_HEADER, PAIS_HEADER, TELEFONO_HEADER, EMAIL_HEADER, OCUPACION_HEADER, PRE_DONANTE_HEADER,
                      PRE_DONANTE_RECHAZO_HEADER, GRUPO_HEADER, RH_HEADER].freeze
-  DONACION_HEADERS = [FECHA_DONACION_HEADER, RELACIONADO_HEADER, RECHAZO_HEADER, SEROLOGIA_HEADER, COLECTA_HEADER,
-                      CODIGO_CLINICA_HEADER, CODIGO_INGRESO_HEADER].freeze
+  DONACION_HEADERS = [FECHA_DONACION_HEADER, RECHAZO_HEADER, SEROLOGIA_HEADER, CODIGO_CLINICA_HEADER].freeze
 
   def importar(path_csv)
     filas_con_errores = realizar_importacion(path_csv)
@@ -165,9 +157,10 @@ class Importador
   end
 
   def solucionar_discrepancia_tipo_donante_y_colecta!(fila)
-    colecta = fila[COLECTA_HEADER]
+    codigo_clinica = fila[CODIGO_CLINICA_HEADER]
     tipo_donante = fila[TIPO_DONANTE_HEADER]
-    return unless colecta == COLECTA && [TIPO_DONANTE_CLUB, TIPO_DONANTE_VOLUNTARIO].exclude?(tipo_donante)
+    return unless codigo_clinica == INSTITUCION_ORIGEN_COLECTA && [TIPO_DONANTE_CLUB,
+                                                                   TIPO_DONANTE_VOLUNTARIO].exclude?(tipo_donante)
 
     fila[TIPO_DONANTE_HEADER] = TIPO_DONANTE_VOLUNTARIO
   end
