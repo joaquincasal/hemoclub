@@ -17,12 +17,12 @@ es:
         submit_button: "Guardar mi contraseña"
     mailer:
       invitation_instructions:
-        subject: "Instrucciones de la invitación"
+        subject: "Invitación a Hemoclub"
         hello: "Hola %{email}"
-        someone_invited_you: "Has sido invitado a %{url}, puedes aceptarlo siguiendo el siguiente enlace"
+        someone_invited_you: "Fuiste invitado a crearte un usuario en Hemoclub (%{url}), podés aceptar la invitación siguiendo el siguiente link"
         accept: "Aceptar la invitación"
         accept_until: "Esta invitación expirará en %{due_date}."
-        ignore: "Si no le interesa esta invitación, simplemente ignore este correo. No se creará tu cuenta hasta que accedas al enlace anterior y crees una contraseña."
+        ignore: "Si no te interesa esta invitación, simplemente ignorá este correo."
   time:
     formats:
       devise:
