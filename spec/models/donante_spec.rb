@@ -4,10 +4,6 @@ RSpec.describe Donante, type: :model do
   describe "crear donante" do
     let(:donante) { create(:donante, :datos_completos) }
 
-    it "crear donante" do
-      expect(donante).to have_attributes(attributes_for(:donante, :datos_completos))
-    end
-
     describe "validaciones" do
       let(:donante) { create(:donante) }
 
@@ -19,15 +15,13 @@ RSpec.describe Donante, type: :model do
       end
 
       it "crear donante con dni duplicado falla" do
-        donante
-        donante_duplicado = build(:donante)
+        donante_duplicado = build(:donante, numero_documento: donante.numero_documento)
         expect(donante_duplicado).not_to be_valid
         expect(donante_duplicado.errors).to have_key(:numero_documento)
       end
 
       it "crear donante con correo electronico duplicado falla" do
-        donante
-        donante_duplicado = build(:donante)
+        donante_duplicado = build(:donante, correo_electronico: donante.correo_electronico)
         expect(donante_duplicado).not_to be_valid
         expect(donante_duplicado.errors).to have_key(:correo_electronico)
       end

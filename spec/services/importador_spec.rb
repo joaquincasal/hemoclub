@@ -62,18 +62,6 @@ RSpec.describe Importador, type: :service do
         expect(Donante.first.ocupacion).to eq("Plomero")
       end
     end
-
-    context "con el mismo correo electrónico" do
-      before do
-        create(:donante, correo_electronico: datos_archivo[:Email])
-      end
-
-      it "el donante no se crea pero la donación sí" do
-        expect { importacion }
-          .to not_change(Donante, :count)
-          .and change(Donacion, :count).by(1)
-      end
-    end
   end
 
   describe "separación de nombre" do

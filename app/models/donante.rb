@@ -18,6 +18,7 @@ class Donante < ApplicationRecord
   scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
+  scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
 
   def nombre_completo
     [nombre, apellidos].compact_blank.join(" ")

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :clinica do
     nombre { "Bazterrica" }
-    codigo { 2 }
+    codigo { rand(1...500) }
   end
 end
