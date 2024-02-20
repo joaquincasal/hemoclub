@@ -34,14 +34,14 @@
 
 <div class="box">
   <p class="subtitle">Donaciones del último año por mes</p>
-  <%= column_chart @donaciones_por_mes %>
+  <%= column_chart @donaciones_por_mes, stacked: true %>
 </div>
 
 <div class="columns">
   <div class="column">
     <div class="box">
-      <p class="subtitle">Porcentaje de donaciones aptas</p>
-      <%= pie_chart @donaciones_aptas %>
+      <p class="subtitle">Predonantes recientes</p>
+      <%= column_chart @predonantes_recientes %>
     </div>
   </div>
   <div class="column">

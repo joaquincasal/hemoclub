@@ -22,4 +22,12 @@ class Donacion < ApplicationRecord
   def colecta?
     clinica_id == CODIGO_CLINICA_COLECTA
   end
+
+  def rechazada?
+    motivo_rechazo.present?
+  end
+
+  def apta?
+    !rechazada? && negativa?
+  end
 end

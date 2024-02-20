@@ -1,0 +1,7 @@
+Metrics/AbcSize:
+  Exclude:
+    - 'app/controllers/graficos_controller.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/controllers/graficos_controller.rb'
