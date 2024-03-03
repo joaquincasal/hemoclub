@@ -18,8 +18,9 @@
   </div>
 
   <div class="level-right">
-    <%= form_with url: "", method: :get, data: { turbo_frame: "donantes", turbo_action: "advance" }, class: "level-item" do |form| %>
-      <b>Búsqueda</b> <%= form.search_field :busqueda, value: params[:busqueda], onsubmit: "this.form.requestSubmit()", class: "ml-2 input is-rounded is-small" %>
+    <%= search_form_for @q do |f| %>
+      <%= f.label :apellidos_or_nombre_or_segundo_nombre_or_numero_documento_or_correo_electronico_cont, "Búsqueda" %>
+      <%= f.search_field :apellidos_or_nombre_or_segundo_nombre_or_numero_documento_or_correo_electronico_cont %>
     <% end %>
   </div>
 </div>
@@ -30,14 +31,14 @@
     <thead>
     <tr>
       <th scope="col">
-        <%= link_orden "Nombre", :nombre, data: { turbo_action: "advance" } %>
+        <%= sort_link(@q, :nombre) %>
       </th>
       <th scope="col">Edad</th>
       <th scope="col">
-        <%= link_orden "Tipo de donante", :tipo_donante, data: { turbo_action: "advance" } %>
+        <%= sort_link(@q, :tipo_donante) %>
       </th>
       <th scope="col">
-        <%= link_orden "Última donación", "donaciones.fecha", data: { turbo_action: "advance" } %>
+        <%= sort_link(@q, :donaciones_fecha, "Última donación") %>
       </th>
       <th scope="col">Grupo y factor</th>
       <th scope="col">Documento</th>

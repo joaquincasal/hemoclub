@@ -5,10 +5,14 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    donantes = Donante.includes(:donaciones)
-    donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
-    donantes = donantes.order("#{sort_column} #{sort_direction}")
+    @q = Donante.ransack(params[:q])
+    donantes = @q.result.includes(:donaciones)
     @pagy, @donantes = pagy(donantes)
+  end
+
+  def search
+    index
+    render :index
   end
 
   # GET /donantes/1
