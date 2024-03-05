@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     }
     resources :usuarios, only: [:index, :destroy]
     resources :donantes do
+      resources :exclusiones, only: [:new, :edit, :create, :update, :destroy]
       collection do
         get "importar", to: "donantes#import"
         post "importar", to: "donantes#do_import"

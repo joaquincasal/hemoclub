@@ -1,5 +1,6 @@
 class Donante < ApplicationRecord
   has_many :donaciones, dependent: :destroy
+  has_many :exclusiones, dependent: :destroy
 
   enum tipo_donante: [:reposicion, :voluntario, :club]
   enum tipo_documento: [:DNI, :CIE, :PAS, :DOC]
@@ -25,11 +26,11 @@ class Donante < ApplicationRecord
     ((Time.zone.now - fecha_nacimiento.to_time) / 1.year.seconds).floor
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["apellidos", "correo_electronico", "nombre", "numero_documento", "segundo_nombre", "tipo_donante"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[apellidos correo_electronico nombre numero_documento segundo_nombre tipo_donante]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     ["donaciones"]
   end
 end

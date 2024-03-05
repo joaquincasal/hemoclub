@@ -29,32 +29,91 @@
     </div>
   </div>
 
-  <section class="section">
-    <h2 class="subtitle is-3">Donaciones</h2>
-    <table class="table is-striped is-hoverable">
-      <thead>
-      <tr>
-        <th scope="col">Fecha</th>
-        <th scope="col">Serología</th>
-        <th scope="col">Colecta</th>
-        <th scope="col">Clínica destino</th>
-        <th scope="col">Relacionado</th>
-        <th scope="col">Motivo de rechazo</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
-        <tr>
-          <td><%= localize donacion.fecha %></td>
-          <td><%= donacion.serologia&.humanize %></td>
-          <td><%= mostrar_booleano(donacion.colecta?) %></td>
-          <td><%= donacion.clinica&.nombre %></td>
-          <td><%= mostrar_booleano(donacion.relacionado?) %></td>
-          <td><%= donacion.motivo_rechazo %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </section>
+  <div class="columns">
+    <div class="column is-7">
+      <section class="section">
+        <h2 class="subtitle is-3">Donaciones</h2>
+        <table class="table is-striped is-hoverable">
+          <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Serología</th>
+            <th scope="col">Colecta</th>
+            <th scope="col">Clínica destino</th>
+            <th scope="col">Relacionado</th>
+            <th scope="col">Motivo de rechazo</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
+            <tr>
+              <td><%= localize donacion.fecha %></td>
+              <td><%= donacion.serologia&.humanize %></td>
+              <td><%= mostrar_booleano(donacion.colecta?) %></td>
+              <td><%= donacion.clinica&.nombre %></td>
+              <td><%= mostrar_booleano(donacion.relacionado?) %></td>
+              <td><%= donacion.motivo_rechazo %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="column is-5">
+      <section class="section">
+        <div class="level">
+          <div class="level-left">
+            <h2 class="level-item subtitle is-3">Exclusiones</h2>
+          </div>
+          <div class="level-right">
+            <%= link_to new_donante_exclusion_path(@donante), class: "level-item button is-small is-rounded" do %>
+            <span class="icon">
+              <i class="fas fa-circle-plus"></i>
+            </span>
+              <span>Crear exclusión</span>
+            <% end %>
+          </div>
+        </div>
+        <table class="table is-striped is-hoverable">
+          <thead>
+          <tr>
+            <th scope="col">Fecha inicio</th>
+            <th scope="col">Fecha fin</th>
+            <th scope="col">Motivo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% donante.exclusiones.order(fecha_fin: :desc).each do |exclusion| %>
+            <tr>
+              <td><%= localize exclusion.fecha_inicio %></td>
+              <td><%= localize exclusion.fecha_fin %></td>
+              <td><%= exclusion.motivo %></td>
+              <td>
+                <div class="level">
+                  <div class="level-left">
+                    <%= link_to edit_donante_exclusion_path(@donante, exclusion), class: "level-item button is-small is-rounded" do %>
+                    <span class="icon">
+                      <i class="far fa-pen-to-square"></i>
+                    </span>
+                    <% end %>
+                  </div>
+                  <div class="level-right">
+                    <%= button_to donante_exclusion_path(@donante, exclusion), method: :delete, form: { data: { turbo_confirm: '¿Confirmar eliminación de la exclusión?' } }, class: "level-item button is-small is-rounded is-danger" do %>
+                    <span class="icon">
+                      <i class="fas fa-trash-can"></i>
+                    </span>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
 
 </div>

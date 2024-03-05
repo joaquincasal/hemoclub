@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_194458) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_03_220016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_194458) do
     t.datetime "updated_at", null: false
     t.boolean "predonante_plaquetas"
     t.string "motivo_rechazo_predonante_plaquetas"
+  end
+
+  create_table "exclusiones", force: :cascade do |t|
+    t.date "fecha_inicio"
+    t.date "fecha_fin"
+    t.string "motivo"
+    t.bigint "donante_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["donante_id"], name: "index_exclusiones_on_donante_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

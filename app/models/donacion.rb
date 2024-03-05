@@ -27,7 +27,7 @@ class Donacion < ApplicationRecord
     motivo_rechazo.present?
   end
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     ["fecha"]
   end
 

@@ -1,0 +1,14 @@
+<h1 class="title">Editar exclusion</h1>
+
+<%= render "form", exclusion: @exclusion, url: donante_exclusion_path(@donante, @exclusion) %>
+
+<br>
+
+<div>
+  <%= link_to donante_path(@donante), class: "button is-link is-rounded is-small" do %>
+    <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al donante</span>
+  <% end %>
+</div>

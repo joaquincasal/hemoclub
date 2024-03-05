@@ -43,6 +43,8 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GlobalStdStream:
   Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
 Style/QuotedSymbols:
   Enabled: false
 Rails/SkipsModelValidations:

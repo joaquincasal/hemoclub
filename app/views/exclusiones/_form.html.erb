@@ -1,0 +1,49 @@
+<%= form_with(model: exclusion, url: url) do |form| %>
+  <% if exclusion.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(exclusion.errors.count, "error", "errores") %> evitaron que la clínica sea guardada:</h2>
+
+      <ul>
+        <% exclusion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :donante_id, value: @donante.id %>
+
+  <div class="columns">
+    <div class="column is-3">
+      <div class="field">
+        <%= form.label :fecha_inicio, class: "label" %>
+        <div class="control">
+          <%= form.date_field :fecha_inicio, class: "input is-rounded" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :fecha_fin, class: "label" %>
+        <div class="control">
+          <%= form.date_field :fecha_fin, class: "input is-rounded" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :motivo, class: "label" %>
+        <div class="control">
+          <%= form.text_field :motivo, class: "input is-rounded" %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right" do %>
+        <span class="icon">
+          <i class="fas fa-floppy-disk"></i>
+        </span>
+          <span>Guardar</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

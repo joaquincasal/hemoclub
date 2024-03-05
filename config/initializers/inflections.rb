@@ -18,4 +18,5 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'donacion', 'donaciones'
   inflect.irregular 'factor', 'factores'
+  inflect.irregular 'exclusion', 'exclusiones'
 end

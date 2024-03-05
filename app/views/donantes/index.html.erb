@@ -3,16 +3,16 @@
     <span class="level-item title">Donantes</span>
 
     <%= link_to importar_donantes_path, class: "level-item button is-primary is-rounded ml-5" do %>
-  <span class="icon">
-    <i class="fas fa-circle-plus"></i>
-  </span>
+      <span class="icon">
+        <i class="fas fa-circle-plus"></i>
+      </span>
       <span>Importar donantes</span>
     <% end %>
 
     <%= link_to new_donante_path, class: "level-item button is-link is-rounded ml-5" do %>
-  <span class="icon">
-    <i class="fas fa-circle-plus"></i>
-  </span>
+      <span class="icon">
+        <i class="fas fa-circle-plus"></i>
+      </span>
       <span>Crear donante</span>
     <% end %>
   </div>
@@ -26,42 +26,42 @@
 </div>
 
 <%= turbo_frame_tag "donantes" do %>
-<div class="container">
-  <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
-    <thead>
-    <tr>
-      <th scope="col">
-        <%= sort_link(@q, :nombre) %>
-      </th>
-      <th scope="col">Edad</th>
-      <th scope="col">
-        <%= sort_link(@q, :tipo_donante) %>
-      </th>
-      <th scope="col">
-        <%= sort_link(@q, :donaciones_fecha, "Última donación") %>
-      </th>
-      <th scope="col">Grupo y factor</th>
-      <th scope="col">Documento</th>
-      <th scope="col">Correo electrónico</th>
-      <th scope="col">Detalles</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @donantes.each do |donante| %>
+  <div class="container">
+    <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
+      <thead>
       <tr>
-        <td style="width: 20%"><%= donante.nombre_completo %></td>
-        <td><%= donante.edad %></td>
-        <td><%= tipo_donante(donante.tipo_donante) %></td>
-        <td><%= fecha_ultima_donacion(donante) %></td>
-        <td><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></td>
-        <td><%= donante.numero_documento %></td>
-        <td><%= donante.correo_electronico %></td>
-        <td><%= link_to "Detalles", donante, data: { turbo_frame: "_top" } %></td>
+        <th scope="col">
+          <%= sort_link(@q, :nombre) %>
+        </th>
+        <th scope="col">Edad</th>
+        <th scope="col">
+          <%= sort_link(@q, :tipo_donante) %>
+        </th>
+        <th scope="col">
+          <%= sort_link(@q, :donaciones_fecha, "Última donación") %>
+        </th>
+        <th scope="col">Grupo y factor</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Correo electrónico</th>
+        <th scope="col">Detalles</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <% @donantes.each do |donante| %>
+        <tr>
+          <td style="width: 20%"><%= donante.nombre_completo %></td>
+          <td><%= donante.edad %></td>
+          <td><%= tipo_donante(donante.tipo_donante) %></td>
+          <td><%= fecha_ultima_donacion(donante) %></td>
+          <td><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></td>
+          <td><%= donante.numero_documento %></td>
+          <td><%= donante.correo_electronico %></td>
+          <td><%= link_to "Detalles", donante, data: { turbo_frame: "_top" } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-  <%== pagy_bulma_nav(@pagy) %>
-</div>
+    <%== pagy_bulma_nav(@pagy) %>
+  </div>
 <% end %>
