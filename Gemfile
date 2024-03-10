@@ -51,6 +51,8 @@ gem "groupdate"
 
 gem 'ransack'
 
+gem 'tinymce-rails'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
