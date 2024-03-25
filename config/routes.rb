@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
+    resources :plantillas
     get "graficos", to: "graficos#index"
 
     # Defines the root path route ("/")
