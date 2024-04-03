@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
     resources :plantillas
     resources :listas_dinamicas
+    resources :difusiones
     get "graficos", to: "graficos#index"
 
     # Defines the root path route ("/")

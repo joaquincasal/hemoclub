@@ -1,0 +1,27 @@
+<span class="title">Difusiones</span>
+
+<%= link_to new_difusion_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear difusión</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @difusiones.each do |difusion| %>
+      <tr>
+        <td><%= difusion.nombre %></td>
+        <td><%= link_to "Detalles", difusion, data: { turbo_frame: "_top" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

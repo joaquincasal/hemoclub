@@ -21,4 +21,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'exclusion', 'exclusiones'
   inflect.irregular 'lista dinamica', 'listas dinamicas'
   inflect.irregular 'lista_dinamica', 'listas_dinamicas'
+  inflect.irregular 'difusion', 'difusiones'
 end

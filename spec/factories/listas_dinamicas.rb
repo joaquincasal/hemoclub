@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :lista_dinamica do
-    nombre { "MyString" }
+    nombre { "una lista dinamica" }
     filtro
   end
 end
