@@ -1,0 +1,39 @@
+<%= search_form_for @filtros_donante, url: listas_dinamicas_path, html: { method: :post } do |form| %>
+  <% if lista_dinamica.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(lista_dinamica.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
+
+      <ul>
+        <% lista_dinamica.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag "lista_dinamica[nombre]", "Nombre", class: "label" %>
+    <div class="control">
+      <%= text_field_tag "lista_dinamica[nombre]", @lista_dinamica&.nombre, class: "input is-rounded" %>
+    </div>
+  </div>
+
+  <%= form.condition_fields do |c| %>
+    <%= c.attribute_fields do |a| %>
+      <%= a.attribute_select %>
+    <% end %>
+    <%= c.predicate_select only: [:cont, :lteq, :gteq]%>
+    <%= c.value_fields do |v| %>
+      <%= v.text_field :value %>
+    <% end %>
+  <% end %>
+
+  <div>
+    <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right mt-4" do %>
+        <span class="icon">
+          <i class="fas fa-floppy-disk"></i>
+        </span>
+      <span>Guardar</span>
+    <% end %>
+  </div>
+<% end %>

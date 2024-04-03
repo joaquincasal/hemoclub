@@ -18,7 +18,7 @@
   </div>
 
   <div class="level-right">
-    <%= search_form_for @q do |f| %>
+    <%= search_form_for @filtros_donante do |f| %>
       <%= f.label :apellidos_or_nombre_or_segundo_nombre_or_numero_documento_or_correo_electronico_cont, "Búsqueda" %>
       <%= f.search_field :apellidos_or_nombre_or_segundo_nombre_or_numero_documento_or_correo_electronico_cont %>
     <% end %>
@@ -31,14 +31,14 @@
       <thead>
       <tr>
         <th scope="col">
-          <%= sort_link(@q, :nombre) %>
+          <%= sort_link(@filtros_donante, :nombre) %>
         </th>
         <th scope="col">Edad</th>
         <th scope="col">
-          <%= sort_link(@q, :tipo_donante) %>
+          <%= sort_link(@filtros_donante, :tipo_donante) %>
         </th>
         <th scope="col">
-          <%= sort_link(@q, :donaciones_fecha, "Última donación") %>
+          <%= sort_link(@filtros_donante, :donaciones_fecha, "Última donación") %>
         </th>
         <th scope="col">Grupo y factor</th>
         <th scope="col">Documento</th>

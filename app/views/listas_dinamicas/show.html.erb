@@ -1,0 +1,24 @@
+<div class="buttons">
+  <%= link_to listas_dinamicas_path, class: "button is-link is-rounded is-small" do %>
+  <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al listado</span>
+  <% end %>
+  <%= link_to edit_lista_dinamica_path(@lista_dinamica), class: "button is-rounded is-small" do %>
+    <span class="icon">
+      <i class="far fa-pen-to-square"></i>
+    </span>
+    <span>Editar</span>
+  <% end %>
+</div>
+<div class="buttons is-right" style="margin-top: -60px">
+  <%= button_to @lista_dinamica, method: :delete, form: { data: { turbo_confirm: '¿Confirmar eliminación de lista?' } }, class: "button is-danger is-rounded is-small" do %>
+    <span class="icon">
+      <i class="fas fa-trash-can"></i>
+    </span>
+    <span>Borrar</span>
+  <% end %>
+</div>
+
+<%= render @lista_dinamica %>

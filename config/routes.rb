@@ -16,11 +16,12 @@ Rails.application.routes.draw do
         get "importar", to: "donantes#import"
         post "importar", to: "donantes#do_import"
         get "errores", to: "donantes#import_errors"
-        match 'search' => 'donantes#search', via: [:get, :post], as: :search
+        match 'buscar' => 'donantes#search', via: [:get, :post], as: :search
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
     resources :plantillas
+    resources :listas_dinamicas
     get "graficos", to: "graficos#index"
 
     # Defines the root path route ("/")

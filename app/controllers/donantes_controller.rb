@@ -5,8 +5,9 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    @q = Donante.ransack(params[:q])
-    donantes = @q.result.includes(:donaciones)
+    @filtros_donante = Donante.ransack(params[:q])
+    donantes = @filtros_donante.result.includes(:donaciones)
+    # @filtros_donante.build_condition
     @pagy, @donantes = pagy(donantes)
   end
 

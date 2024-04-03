@@ -1,8 +1,7 @@
 <%= form_with(model: plantilla) do |form| %>
   <% if plantilla.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(plantilla.errors.count, "error") %> evitaron que la clínica sea guardada:</h2>
-      <h2><%= pluralize(plantilla.errors.count, "error", "errores") %> evitaron que la clínica sea guardada:</h2>
+      <h2><%= pluralize(plantilla.errors.count, "error", "errores") %> evitaron que la plantilla sea guardada:</h2>
 
       <ul>
         <% plantilla.errors.each do |error| %>

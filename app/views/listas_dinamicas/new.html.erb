@@ -1,0 +1,12 @@
+<div>
+  <%= link_to listas_dinamicas_path, class: "button is-link is-rounded is-small" do %>
+    <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver al listado</span>
+  <% end %>
+</div>
+
+<h1 class="title">Crear lista</h1>
+
+<%= render "form", lista_dinamica: @lista_dinamica %>
