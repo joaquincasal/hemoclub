@@ -18,6 +18,31 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= form.label :reutilizable, "Reutilizable (marcar para poder usar esta planilla como header o footer de otra plantilla)", class: "label" %>
+    <div class="control">
+      <%= form.check_box :reutilizable, class: "is-rounded" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :header_id, "Header", class: "label" %>
+    <div class="control">
+      <div class="select is-rounded">
+        <%= form.collection_select :header_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :header_id, "Footer", class: "label" %>
+    <div class="control">
+      <div class="select is-rounded">
+        <%= form.collection_select :footer_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+      </div>
+    </div>
+  </div>
+
   <%= form.text_area :contenido, value: plantilla.contenido ? plantilla.contenido : nil, class: "tinymce", rows: 20, cols: 120 %>
   <%= tinymce %>
 

@@ -1,7 +1,6 @@
 toolbar:
-  - styleselect | bold italic | undo redo
-  - image | link
+  - undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor | emoticons | image link
+  - h1 | h2 | h3 | h4 | h5 | h6
 plugins:
-  - image
-  - link
+  - preview autolink image link nonbreaking advlist lists emoticons
 promotion: false

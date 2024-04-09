@@ -52,6 +52,6 @@ class PlantillasController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def plantilla_params
-    params.require(:plantilla).permit(:nombre, :contenido)
+    params.require(:plantilla).permit(:nombre, :contenido, :reutilizable, :header_id, :footer_id)
   end
 end
