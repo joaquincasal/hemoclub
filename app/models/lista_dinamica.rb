@@ -4,4 +4,8 @@ class ListaDinamica < ApplicationRecord
 
   validates :nombre, :filtro, presence: true
   accepts_nested_attributes_for :filtro
+
+  def donantes
+    Donante.ransack(filtro.condiciones).result.includes(:donaciones)
+  end
 end

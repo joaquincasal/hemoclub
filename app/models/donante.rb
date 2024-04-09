@@ -27,7 +27,8 @@ class Donante < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[apellidos correo_electronico nombre numero_documento segundo_nombre tipo_donante]
+    %w[apellidos correo_electronico nombre numero_documento segundo_nombre tipo_donante grupo_sanguineo factor
+       fecha_nacimiento localidad codigo_postal predonante_plaquetas]
   end
 
   def self.ransackable_associations(_auth_object = nil)

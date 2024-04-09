@@ -1,10 +1,10 @@
 <%= search_form_for @filtros_donante, url: listas_dinamicas_path, html: { method: :post } do |form| %>
-  <% if lista_dinamica.errors.any? %>
+  <% if @lista_dinamica.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(lista_dinamica.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
+      <h2><%= pluralize(@lista_dinamica.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
 
       <ul>
-        <% lista_dinamica.errors.each do |error| %>
+        <% @lista_dinamica.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -18,15 +18,10 @@
     </div>
   </div>
 
-  <%= form.condition_fields do |c| %>
-    <%= c.attribute_fields do |a| %>
-      <%= a.attribute_select %>
-    <% end %>
-    <%= c.predicate_select only: [:cont, :lteq, :gteq]%>
-    <%= c.value_fields do |v| %>
-      <%= v.text_field :value %>
-    <% end %>
-  <% end %>
+  <div data-controller="hello">
+    <%= render "condicion", form: form %>
+    <button class="button is-rounded" type="button" data-action="click->hello#addCondition">Agregar condición</button>
+  </div>
 
   <div>
     <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right mt-4" do %>

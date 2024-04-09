@@ -6,6 +6,12 @@ export default class extends Controller {
     event.target.parentNode.parentNode.removeChild(event.target.parentNode);
   }
 
+  addCondition(event) {
+    const ultimaCondicion = event.target.previousElementSibling;
+    const nuevaCondicion = ultimaCondicion.cloneNode(true);
+    ultimaCondicion.after(nuevaCondicion);
+  }
+
   filename(event) {
     if (event.target.files.length) {
       document.getElementById("boton-importar").disabled = false;
