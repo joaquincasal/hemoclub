@@ -6,6 +6,6 @@ class ListaDinamica < ApplicationRecord
   accepts_nested_attributes_for :filtro
 
   def donantes
-    Donante.ransack(filtro.condiciones).result.includes(:donaciones)
+    Donante.ransack(filtro.condiciones).result.includes(:donaciones).limit(10)
   end
 end

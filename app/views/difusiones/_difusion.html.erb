@@ -3,15 +3,48 @@
     <strong>Nombre:</strong>
     <%= difusion.nombre %>
   </p>
-
+  <br>
   <p>
     <strong>Lista dinamica:</strong>
     <%= difusion.lista_dinamica.nombre %>
   </p>
-
+  <br>
   <p>
     <strong>Plantilla:</strong>
     <%= difusion.plantilla.nombre %>
   </p>
+  <br>
+  <div class="buttons">
+    <%= button_to enviar_difusion_path(difusion), method: :post, form: { data: { turbo_confirm: '¿Enviar difusión?' } }, class: "button is-info is-rounded" do %>
+    <span class="icon">
+      <i class="far fa-paper-plane"></i>
+    </span>
+      <span>Enviar ahora</span>
+    <% end %>
+
+    <button class="button is-rounded" data-controller="hello" data-action="click->hello#toggleProgramar">Programar</button>
+  </div>
+
+  <div id="programar" class="field is-hidden">
+    <%= form_with(url: programar_difusion_path(@difusion)) do |form| %>
+      <input name="fecha" type="datetime-local" style="width: 20%" class="input is-rounded">
+
+      <%= form.button type: "submit", class: "button is-rounded" do %>
+      <span class="icon">
+        <i class="far fa-paper-plane"></i>
+      </span>
+        <span>Programar</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="subtitle">Envíos programados</div>
+
+  <% GoodJob::Execution.where(job_class: "EnviarDifusionJob", performed_at: nil).where("serialized_params #>> '{arguments,0}' = ':id' ", id: @difusion.id).each do |job| %>
+    <div>
+      <%= localize(job.scheduled_at) %>
+      <%= link_to "Cancelar envío", cancelar_difusion_path(job.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "delete" %>
+    </div>
+<% end %>
 
 </div>

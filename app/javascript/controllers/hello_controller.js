@@ -12,6 +12,11 @@ export default class extends Controller {
     ultimaCondicion.after(nuevaCondicion);
   }
 
+  toggleProgramar(event) {
+    const element = document.getElementById("programar");
+    element.classList.toggle('is-hidden');
+  }
+
   filename(event) {
     if (event.target.files.length) {
       document.getElementById("boton-importar").disabled = false;

@@ -1,5 +1,5 @@
 class DifusionesController < ApplicationController
-  before_action :set_difusion, only: %i[show edit update destroy]
+  before_action :set_difusion, only: %i[show edit update destroy send_now schedule]
 
   # GET /difusiones
   def index
@@ -41,6 +41,18 @@ class DifusionesController < ApplicationController
   def destroy
     @difusion.destroy!
     redirect_to difusiones_url, notice: "Difusion was successfully destroyed.", status: :see_other
+  end
+
+  def send_now
+    # TODO: difusion.enviar
+  end
+
+  def schedule
+    EnviarDifusionJob.set(wait_until: Time.zone.parse(params[:fecha])).perform_later(@difusion.id)
+  end
+
+  def cancel
+    GoodJob::Execution.destroy(params[:id])
   end
 
   private
