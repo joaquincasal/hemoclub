@@ -19,7 +19,10 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'donacion', 'donaciones'
   inflect.irregular 'factor', 'factores'
   inflect.irregular 'exclusion', 'exclusiones'
+  inflect.irregular 'lista', 'listas'
   inflect.irregular 'lista dinamica', 'listas dinamicas'
   inflect.irregular 'lista_dinamica', 'listas_dinamicas'
   inflect.irregular 'difusion', 'difusiones'
+  inflect.irregular 'lista estatica', 'listas estaticas'
+  inflect.irregular 'lista_estatica', 'listas_estaticas'
 end

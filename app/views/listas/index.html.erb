@@ -1,0 +1,59 @@
+<span class="title">Listas</span>
+
+<%= link_to new_lista_path(tipo: 'dinamica'), class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear lista dinámica</span>
+<% end %>
+
+<%= link_to new_lista_path(tipo: 'estatica'), class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear lista estática</span>
+<% end %>
+
+<hr>
+
+<div class="container">
+  <span class="subtitle">Listas dinámicas</span>
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @listas.where(type: ListaDinamica.name).each do |lista| %>
+      <tr>
+        <td><%= lista.nombre %></td>
+        <td><%= link_to "Detalles", lista_path(lista), data: { turbo_frame: "_top" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+<div class="container">
+  <span class="subtitle">Listas estáticas</span>
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @listas.where(type: ListaEstatica.name).each do |lista| %>
+      <tr>
+        <td><%= lista.nombre %></td>
+        <td><%= link_to "Detalles", lista_path(lista), data: { turbo_frame: "_top" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

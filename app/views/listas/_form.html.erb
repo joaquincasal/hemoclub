@@ -1,20 +1,22 @@
-<%= search_form_for @filtros_donante, url: listas_dinamicas_path, html: { method: :post } do |form| %>
-  <% if @lista_dinamica.errors.any? %>
+<%= search_form_for filtros_donante, url: lista.persisted? ? lista_path(lista) : listas_path, html: { method: lista.persisted? ? :put : :post } do |form| %>
+  <% if lista.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(@lista_dinamica.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
+      <h2><%= pluralize(lista.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
 
       <ul>
-        <% @lista_dinamica.errors.each do |error| %>
+        <% lista.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <%= hidden_field_tag "lista[type]", lista.type %>
+
   <div class="field">
-    <%= label_tag "lista_dinamica[nombre]", "Nombre", class: "label" %>
+    <%= label_tag "lista[nombre]", "Nombre", class: "label" %>
     <div class="control">
-      <%= text_field_tag "lista_dinamica[nombre]", @lista_dinamica&.nombre, class: "input is-rounded" %>
+      <%= text_field_tag "lista[nombre]", lista&.nombre, class: "input is-rounded" %>
     </div>
   </div>
 

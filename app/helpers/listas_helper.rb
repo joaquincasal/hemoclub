@@ -1,4 +1,4 @@
-module ListasDinamicasHelper
+module ListasHelper
   def condiciones_filtro(lista_dinamica)
     condiciones = []
     filtros = lista_dinamica.filtro.condiciones['c'] || []

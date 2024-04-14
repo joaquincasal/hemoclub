@@ -22,7 +22,7 @@ class DifusionesController < ApplicationController
     @difusion = Difusion.new(difusion_params)
 
     if @difusion.save
-      redirect_to @difusion, notice: "Difusion was successfully created."
+      redirect_to @difusion, notice: "Difusion creada exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class DifusionesController < ApplicationController
   # PATCH/PUT /difusiones/1
   def update
     if @difusion.update(difusion_params)
-      redirect_to @difusion, notice: "Difusion was successfully updated.", status: :see_other
+      redirect_to @difusion, notice: "Difusion actualizada exitosamente.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class DifusionesController < ApplicationController
   # DELETE /difusiones/1
   def destroy
     @difusion.destroy!
-    redirect_to difusiones_url, notice: "Difusion was successfully destroyed.", status: :see_other
+    redirect_to difusiones_url, notice: "Difusion eliminada exitosamente.", status: :see_other
   end
 
   def send_now

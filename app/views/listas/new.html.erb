@@ -1,5 +1,5 @@
 <div>
-  <%= link_to listas_dinamicas_path, class: "button is-link is-rounded is-small" do %>
+  <%= link_to listas_path, class: "button is-link is-rounded is-small" do %>
     <span class="icon">
       <i class="fas fa-arrow-left"></i>
     </span>
@@ -9,4 +9,4 @@
 
 <h1 class="title">Crear lista</h1>
 
-<%= render "form", lista_dinamica: @lista_dinamica %>
+<%= render "form", lista: @lista, filtros_donante: @filtros_donante %>

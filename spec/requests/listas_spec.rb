@@ -12,11 +12,11 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/listas_dinamicas", type: :request do
+RSpec.describe "/listas", type: :request do
   include Devise::Test::IntegrationHelpers
 
   # This should return the minimal set of attributes required to create a valid
-  # ListaDinamica. As you add validations to ListaDinamica, be sure to
+  # Lista. As you add validations to Lista, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
@@ -24,12 +24,13 @@ RSpec.describe "/listas_dinamicas", type: :request do
       filtro_attributes: {
         condiciones: { "s" => "tipo_donante asc" },
         nombre: "un filtro"
-      }
+      },
+      type: "ListaDinamica"
     }
   end
 
   let(:invalid_attributes) do
-    { nombre: "" }
+    { nombre: "", type: "ListaDinamica" }
   end
 
   before { sign_in Usuario.new }
@@ -37,30 +38,30 @@ RSpec.describe "/listas_dinamicas", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       ListaDinamica.create! valid_attributes
-      get listas_dinamicas_url
+      get listas_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      lista_dinamica = ListaDinamica.create! valid_attributes
-      get lista_dinamica_url(lista_dinamica)
+      lista = ListaDinamica.create! valid_attributes
+      get lista_url(lista)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_lista_dinamica_url
+      get new_lista_url(tipo: 'dinamica')
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      lista_dinamica = ListaDinamica.create! valid_attributes
-      get edit_lista_dinamica_url(lista_dinamica)
+      lista = ListaDinamica.create! valid_attributes
+      get edit_lista_url(lista)
       expect(response).to be_successful
     end
   end
@@ -69,26 +70,26 @@ RSpec.describe "/listas_dinamicas", type: :request do
     context "with valid parameters" do
       it "creates a new ListaDinamica" do
         expect do
-          post listas_dinamicas_url, params: { lista_dinamica: valid_attributes }
+          post listas_url, params: { lista: valid_attributes }
         end.to change(ListaDinamica, :count).by(1)
                                             .and change(Filtro, :count).by(1)
       end
 
-      it "redirects to the created lista dinamica" do
-        post listas_dinamicas_url, params: { lista_dinamica: valid_attributes }
-        expect(response).to redirect_to(lista_dinamica_url(ListaDinamica.last))
+      it "redirects to the created lista" do
+        post listas_url, params: { lista: valid_attributes }
+        expect(response).to redirect_to(lista_url(ListaDinamica.last))
       end
     end
 
     context "with invalid parameters" do
       it "does not create a new ListaDinamica" do
         expect do
-          post listas_dinamicas_url, params: { lista_dinamica: invalid_attributes }
+          post listas_url, params: { lista: invalid_attributes }
         end.not_to change(ListaDinamica, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post listas_dinamicas_url, params: { lista_dinamica: invalid_attributes }
+        post listas_url, params: { lista: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -100,42 +101,42 @@ RSpec.describe "/listas_dinamicas", type: :request do
         { nombre: "otro nombre" }
       end
 
-      it "updates the requested lista dinamica" do
-        lista_dinamica = ListaDinamica.create! valid_attributes
-        patch lista_dinamica_url(lista_dinamica), params: { lista_dinamica: new_attributes }
-        lista_dinamica.reload
-        expect(lista_dinamica.nombre).to eq new_attributes[:nombre]
+      it "updates the requested lista" do
+        lista = ListaDinamica.create! valid_attributes
+        patch lista_url(lista), params: { lista: new_attributes }
+        lista.reload
+        expect(lista.nombre).to eq new_attributes[:nombre]
       end
 
-      it "redirects to the lista dinamica" do
-        lista_dinamica = ListaDinamica.create! valid_attributes
-        patch lista_dinamica_url(lista_dinamica), params: { lista_dinamica: new_attributes }
-        lista_dinamica.reload
-        expect(response).to redirect_to(lista_dinamica_url(lista_dinamica))
+      it "redirects to the lista" do
+        lista = ListaDinamica.create! valid_attributes
+        patch lista_url(lista), params: { lista: new_attributes }
+        lista.reload
+        expect(response).to redirect_to(lista_url(lista))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        lista_dinamica = ListaDinamica.create! valid_attributes
-        patch lista_dinamica_url(lista_dinamica), params: { lista_dinamica: invalid_attributes }
+        lista = ListaDinamica.create! valid_attributes
+        patch lista_url(lista), params: { lista: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested lista dinamica" do
-      lista_dinamica = ListaDinamica.create! valid_attributes
+    it "destroys the requested lista" do
+      lista = ListaDinamica.create! valid_attributes
       expect do
-        delete lista_dinamica_url(lista_dinamica)
+        delete lista_url(lista)
       end.to change(ListaDinamica, :count).by(-1)
     end
 
-    it "redirects to the listas dinamicas list" do
-      lista_dinamica = ListaDinamica.create! valid_attributes
-      delete lista_dinamica_url(lista_dinamica)
-      expect(response).to redirect_to(listas_dinamicas_url)
+    it "redirects to the listas list" do
+      lista = ListaDinamica.create! valid_attributes
+      delete lista_url(lista)
+      expect(response).to redirect_to(listas_url)
     end
   end
 end

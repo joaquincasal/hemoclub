@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_09_050448) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_14_213728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -68,6 +68,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_050448) do
     t.string "motivo_rechazo_predonante_plaquetas"
   end
 
+  create_table "donantes_listas", id: false, force: :cascade do |t|
+    t.bigint "donante_id"
+    t.bigint "lista_estatica_id"
+    t.index ["donante_id", "lista_estatica_id"], name: "index_donantes_listas_on_donante_id_and_lista_estatica_id"
+    t.index ["donante_id"], name: "index_donantes_listas_on_donante_id"
+    t.index ["lista_estatica_id"], name: "index_donantes_listas_on_lista_estatica_id"
+  end
+
   create_table "exclusiones", force: :cascade do |t|
     t.date "fecha_inicio"
     t.date "fecha_fin"
@@ -83,7 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_050448) do
     t.json "condiciones"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "lista_dinamica_id"
+    t.bigint "lista_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -165,10 +173,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_050448) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
-  create_table "listas_dinamicas", force: :cascade do |t|
+  create_table "listas", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
   end
 
   create_table "plantillas", force: :cascade do |t|
@@ -204,6 +213,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_050448) do
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "difusiones", "listas_dinamicas"
+  add_foreign_key "difusiones", "listas", column: "lista_dinamica_id"
   add_foreign_key "difusiones", "plantillas"
 end

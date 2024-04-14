@@ -9,7 +9,7 @@ class UsuariosController < ApplicationController
   # DELETE /usuarios/1
   def destroy
     @usuario.destroy!
-    redirect_to usuarios_url, notice: "Usuario was successfully destroyed.", status: :see_other
+    redirect_to usuarios_url, notice: "Usuario eliminado exitosamente.", status: :see_other
   end
 
   private
