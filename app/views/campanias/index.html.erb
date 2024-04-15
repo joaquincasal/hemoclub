@@ -1,0 +1,27 @@
+<span class="title">Campañas</span>
+
+<%= link_to new_campania_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear campaña</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @campanias.each do |campania| %>
+      <tr>
+        <td><%= campania.nombre %></td>
+        <td><%= link_to "Detalles", campania, data: { turbo_frame: "_top" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         delete "cancelar", to: "difusiones#cancel"
       end
     end
+    resources :campanias
     get "graficos", to: "graficos#index"
 
     # Defines the root path route ("/")

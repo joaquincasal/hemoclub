@@ -1,4 +1,4 @@
-class Difusion < ApplicationRecord
+class Campania < ApplicationRecord
   belongs_to :lista
   belongs_to :plantilla
 

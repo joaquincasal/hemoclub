@@ -1,10 +1,10 @@
-<%= form_with(model: difusion) do |form| %>
-  <% if difusion.errors.any? %>
+<%= form_with(model: campania) do |form| %>
+  <% if campania.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(difusion.errors.count, "error") %> evitaron que la difusión sea guardada:</h2>
+      <h2><%= pluralize(campania.errors.count, "error") %> evitaron que la campaña sea guardada:</h2>
 
       <ul>
-        <% difusion.errors.each do |error| %>
+        <% campania.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

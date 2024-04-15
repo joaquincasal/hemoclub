@@ -64,6 +64,6 @@ class DifusionesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def difusion_params
-    params.require(:difusion).permit(:nombre, :lista_dinamica_id, :plantilla_id)
+    params.require(:difusion).permit(:nombre, :lista_id, :plantilla_id)
   end
 end

@@ -5,8 +5,8 @@
   </p>
   <br>
   <p>
-    <strong>Lista dinamica:</strong>
-    <%= difusion.lista_dinamica.nombre %>
+    <strong>Lista:</strong>
+    <%= difusion.lista.nombre %>
   </p>
   <br>
   <p>
@@ -26,7 +26,7 @@
   </div>
 
   <div id="programar" class="field is-hidden">
-    <%= form_with(url: programar_difusion_path(@difusion)) do |form| %>
+    <%= form_with(url: programar_difusion_path(difusion)) do |form| %>
       <input name="fecha" type="datetime-local" style="width: 20%" class="input is-rounded">
 
       <%= form.button type: "submit", class: "button is-rounded" do %>
