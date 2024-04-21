@@ -169,9 +169,11 @@ class Importador
     campos_donante = campos_donante(fila)
     donante_existente = buscar_donante_existente(campos_donante)
     if donante_existente.present?
+      campos_donante["candidato"] = nil
       donante_existente.update!(campos_donante)
       donante_existente
     else
+      campos_donante["candidato"] = false
       Donante.create!(campos_donante)
     end
   end

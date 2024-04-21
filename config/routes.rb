@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         post "importar", to: "donantes#do_import"
         get "errores", to: "donantes#import_errors"
         match 'buscar' => 'donantes#search', via: [:get, :post], as: :search
+        get "candidatos" => "donantes#index_candidatos"
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]

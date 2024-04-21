@@ -1,5 +1,5 @@
 <div class="buttons">
-  <%= link_to donantes_path, class: "button is-link is-rounded is-small" do %>
+  <%= link_to @donante.candidato? ? candidatos_donantes_path : donantes_path, class: "button is-link is-rounded is-small" do %>
   <span class="icon">
       <i class="fas fa-arrow-left"></i>
     </span>

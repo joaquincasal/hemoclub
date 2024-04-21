@@ -11,6 +11,13 @@ class DonantesController < ApplicationController
     @pagy, @donantes = pagy(donantes)
   end
 
+  def index_candidatos
+    @filtros_donante = Donante.where(candidato: true).ransack(params[:q])
+    donantes = @filtros_donante.result.includes(:donaciones)
+    # @filtros_donante.build_condition
+    @pagy, @donantes = pagy(donantes)
+  end
+
   def search
     index
     render :index
