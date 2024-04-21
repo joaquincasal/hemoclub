@@ -4,3 +4,4 @@ toolbar:
 plugins:
   - preview autolink image link nonbreaking advlist lists emoticons
 promotion: false
+language: es_MX

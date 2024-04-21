@@ -3,9 +3,14 @@
     <strong>Nombre:</strong>
     <%= plantilla.nombre %>
   </p>
-  <p><strong>Contenido:</strong></p>
+  <p><strong>Contenido (incluyendo encabezado y firma):</strong></p>
   <div class="box">
     <%= sanitize plantilla.contenido_completo %>
+  </div>
+
+  <p><strong>Ejemplo de contenido:</strong> (usando a <a target="_blank" href="/donantes/<%= Donante.first.id %>">este donante</a> como ejemplo)</p>
+  <div class="box">
+    <%= sanitize plantilla.contenido_reemplazado(Donante.first) %>
   </div>
 
 </div>

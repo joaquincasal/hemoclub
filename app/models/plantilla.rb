@@ -1,9 +1,21 @@
 class Plantilla < ApplicationRecord
   validates :nombre, :contenido, presence: true
-  belongs_to :header, optional: true, class_name: "Plantilla"
-  belongs_to :footer, optional: true, class_name: "Plantilla"
+  belongs_to :encabezado, optional: true, class_name: "Plantilla"
+  belongs_to :firma, optional: true, class_name: "Plantilla"
 
   def contenido_completo
-    (header&.contenido || "") + contenido + (footer&.contenido || "")
+    (encabezado&.contenido || "") + contenido + (firma&.contenido || "")
+  end
+
+  def contenido_reemplazado(donante)
+    reemplazar_variables(contenido_completo, donante.attributes)
+  end
+
+  private
+
+  def reemplazar_variables(contenido, atributos)
+    atributos.each { |atributo, valor| contenido.gsub!("{{#{atributo}}}", valor.to_s) }
+    contenido.gsub!(/{{(.*?)}}/, '')
+    contenido
   end
 end

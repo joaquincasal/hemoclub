@@ -319,6 +319,8 @@ GEM
       activejob (>= 6.0.0)
       railties (>= 3.1.1)
       railties (>= 6.0.0)
+    tinymce-rails-langs (6.20230529)
+      tinymce-rails (~> 6.0)
     turbo-rails (2.0.5)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -373,6 +375,7 @@ DEPENDENCIES
   sprockets-rails
   stimulus-rails
   tinymce-rails
+  tinymce-rails-langs
   turbo-rails
   tzinfo-data
   web-console
