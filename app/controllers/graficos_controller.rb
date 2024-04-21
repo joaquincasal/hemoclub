@@ -6,6 +6,9 @@ class GraficosController < ApplicationController
     @grupo_y_factor = grupo_y_factor
     @donaciones_por_institucion = donaciones_por_institucion
     @predonantes_recientes = predonantes_recientes
+    @donaciones_por_tipo_donante = donaciones_por_mes_por_tipo_donante
+    @voluntarios_recurrentes = recurrentes
+    @convertidos = convertidos
   end
 
   private
@@ -57,5 +60,59 @@ class GraficosController < ApplicationController
            .where(donaciones: { fecha: 2.months.ago.beginning_of_month.. })
            .group_by_month(:fecha, format: "%B")
            .count
+  end
+
+  def donaciones_por_mes_por_tipo_donante
+    Donacion.group(:tipo_donante)
+            .where(fecha: 1.year.ago.next_month..)
+            .group_by_month(:fecha, format: "%B")
+            .count
+  end
+
+  def recurrentes
+    voluntarios = voluntarios_recurrentes.count
+    club = club_recurrentes.count
+    { voluntarios:, club: }
+  end
+
+  def convertidos
+    { voluntarios: reposicion_convertidos.count }
+  end
+
+  def reposicion_convertidos
+    desde = Date.today - 1.year
+    hasta = Date.today
+    ActiveRecord::Base.connection.execute <<-SQL
+      select distinct donante_id
+      from donaciones
+      where fecha between '#{desde}' and '#{hasta}'
+      group by donante_id, tipo_donante
+      having count(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1
+        and count(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1
+    SQL
+  end
+
+  def voluntarios_recurrentes
+    desde = Date.today - 1.year
+    hasta = Date.today
+    ActiveRecord::Base.connection.execute <<-SQL
+      select donante_id
+      from donaciones
+      where fecha between '#{desde}' and '#{hasta}'
+      group by donante_id, tipo_donante
+      having count(case tipo_donante when 'voluntario' then 1 end) > 1
+    SQL
+  end
+
+  def club_recurrentes
+    desde = Date.today - 1.year
+    hasta = Date.today
+    ActiveRecord::Base.connection.execute <<-SQL
+      select donante_id
+      from donaciones
+      where fecha between '#{desde}' and '#{hasta}'
+      group by donante_id, tipo_donante
+      having count(case tipo_donante when 'club' then 1 end) > 1
+    SQL
   end
 end

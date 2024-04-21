@@ -20,6 +20,21 @@
 <div class="columns">
   <div class="column">
     <div class="box">
+      <p class="subtitle">Voluntarios o del club con más de una donación en ese status en el último año</p>
+      <%= column_chart @voluntarios_recurrentes %>
+    </div>
+  </div>
+  <div class="column">
+    <div class="box">
+      <p class="subtitle">Donaciones por reposición que volvieron como voluntarios/del club</p>
+      <%= column_chart @convertidos %>
+    </div>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column">
+    <div class="box">
       <p class="subtitle">Porcentaje de predonantes aptos</p>
       <%= pie_chart @predonantes_aptos %>
     </div>
@@ -35,6 +50,11 @@
 <div class="box">
   <p class="subtitle">Donaciones del último año por mes</p>
   <%= column_chart @donaciones_por_mes, stacked: true %>
+</div>
+
+<div class="box">
+  <p class="subtitle">Donaciones del último año por tipo de donante</p>
+  <%= column_chart @donaciones_por_tipo_donante, stacked: true %>
 </div>
 
 <div class="columns">

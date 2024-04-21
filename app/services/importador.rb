@@ -207,6 +207,7 @@ class Importador
 
   def crear_donacion(fila, donante)
     campos_donacion = campos_donacion(fila).merge(donante:)
+    campos_donacion["tipo_donante"] = donante.tipo_donante
     Donacion.create!(campos_donacion)
   end
 
