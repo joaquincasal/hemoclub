@@ -43,10 +43,6 @@ class CampaniasController < ApplicationController
     redirect_to campanias_url, notice: "Campaña eliminada exitosamente.", status: :see_other
   end
 
-  def cancel
-    GoodJob::Execution.destroy(params[:id])
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -56,6 +52,6 @@ class CampaniasController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def campania_params
-    params.require(:campania).permit(:nombre, :lista_id, :plantilla_id)
+    params.require(:campania).permit(:nombre, :activa, :lista_id, :plantilla_id)
   end
 end

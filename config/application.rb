@@ -43,6 +43,10 @@ module Hemoclub
         cron: "0 3 * * *",
         class: "ActualizarDonantesJob",
       },
+      enviar_campanias_job: {
+        cron: "0 10 * * *",
+        class: "EnviarCampaniasJob",
+      },
     }
   end
 end

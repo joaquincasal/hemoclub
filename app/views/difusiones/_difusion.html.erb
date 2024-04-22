@@ -38,13 +38,14 @@
     <% end %>
   </div>
 
-  <div class="subtitle">Envíos programados</div>
+  <div class="subtitle">Envíos</div>
 
-  <% GoodJob::Execution.where(job_class: "EnviarDifusionJob", performed_at: nil).where("serialized_params #>> '{arguments,0}' = ':id' ", id: @difusion.id).each do |job| %>
+  <% difusion.ejecuciones.each do |ejecucion| %>
     <div>
-      <%= localize(job.scheduled_at) %>
-      <%= link_to "Cancelar envío", cancelar_difusion_path(job.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "delete" %>
+      <%= localize(ejecucion.fecha) %>
+      <% unless ejecucion.ejecutada? %>
+        <%= link_to "Cancelar envío", cancelar_difusion_path(ejecucion.id), data: {turbo_method: :delete, turbo_confirm: '¿Confirmar cancelación de envío?'}, class: "delete" %>
+      <% end %>
     </div>
-<% end %>
-
+  <% end %>
 </div>

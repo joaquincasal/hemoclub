@@ -44,15 +44,20 @@ class DifusionesController < ApplicationController
   end
 
   def send_now
-    # TODO: difusion.enviar
+    @difusion.enviar
+    redirect_to @difusion, notice: "Difusion enviada exitosamente."
   end
 
   def schedule
-    EnviarDifusionJob.set(wait_until: Time.zone.parse(params[:fecha])).perform_later(@difusion.id)
+    @difusion.programar_envio(Time.zone.parse(params[:fecha]))
+    redirect_to @difusion, notice: "Difusion programada exitosamente."
   end
 
   def cancel
-    GoodJob::Execution.destroy(params[:id])
+    ejecucion = Ejecucion.find(params[:id])
+    difusion = ejecucion.ejecutable
+    ejecucion.cancelar_envio
+    redirect_to difusion, notice: "Difusion cancelada exitosamente."
   end
 
   private

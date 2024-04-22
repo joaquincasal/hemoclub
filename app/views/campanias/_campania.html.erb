@@ -1,3 +1,4 @@
+
 <div id="<%= dom_id campania %>">
   <p>
     <strong>Nombre:</strong>
@@ -12,5 +13,15 @@
   <p>
     <strong>Plantilla:</strong>
     <%= campania.plantilla.nombre %>
+  </p>
+  <br>
+  <p>
+    <strong>Activa:</strong>
+    <%= campania.activa? ? "Sí" : "No" %>
+  </p>
+  <br>
+  <p>
+    <strong>Última ejecución:</strong>
+    <%= localize(campania.ejecuciones.last&.fecha) %>
   </p>
 </div>

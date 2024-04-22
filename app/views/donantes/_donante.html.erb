@@ -116,4 +116,27 @@
     </div>
   </div>
 
+  <section class="section">
+    <h2 class="subtitle is-3">Campañas y difusiones</h2>
+    <table class="table is-striped is-hoverable">
+      <thead>
+      <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% donante.ejecuciones.where(ejecutada: true).each do |ejecucion| %>
+      <% ejecutable = ejecucion.ejecutable %>
+        <tr>
+          <td><%= ejecutable.class.name %></td>
+          <td><%= ejecutable.nombre %></td>
+          <td><%= localize ejecucion.fecha %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+
 </div>

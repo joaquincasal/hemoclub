@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_21_182646) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_182646) do
     t.bigint "plantilla_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activa", default: true
     t.index ["lista_id"], name: "index_campanias_on_lista_id"
     t.index ["plantilla_id"], name: "index_campanias_on_plantilla_id"
   end
@@ -80,12 +81,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_182646) do
     t.boolean "candidato"
   end
 
+  create_table "donantes_ejecuciones", id: false, force: :cascade do |t|
+    t.bigint "ejecucion_id"
+    t.bigint "donante_id"
+    t.index ["donante_id"], name: "index_donantes_ejecuciones_on_donante_id"
+    t.index ["ejecucion_id"], name: "index_donantes_ejecuciones_on_ejecucion_id"
+  end
+
   create_table "donantes_listas", id: false, force: :cascade do |t|
     t.bigint "donante_id"
     t.bigint "lista_estatica_id"
     t.index ["donante_id", "lista_estatica_id"], name: "index_donantes_listas_on_donante_id_and_lista_estatica_id"
     t.index ["donante_id"], name: "index_donantes_listas_on_donante_id"
     t.index ["lista_estatica_id"], name: "index_donantes_listas_on_lista_estatica_id"
+  end
+
+  create_table "ejecuciones", force: :cascade do |t|
+    t.string "ejecutable_type"
+    t.bigint "ejecutable_id"
+    t.datetime "fecha", default: -> { "CURRENT_TIMESTAMP" }
+    t.boolean "ejecutada", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ejecutable_type", "ejecutable_id"], name: "index_ejecuciones_on_ejecutable"
   end
 
   create_table "exclusiones", force: :cascade do |t|

@@ -80,9 +80,9 @@ class GraficosController < ApplicationController
   end
 
   def reposicion_convertidos
-    desde = Date.today - 1.year
-    hasta = Date.today
-    ActiveRecord::Base.connection.execute <<-SQL
+    desde = Time.zone.today - 1.year
+    hasta = Time.zone.today
+    ActiveRecord::Base.connection.execute <<-SQL.squish
       select distinct donante_id
       from donaciones
       where fecha between '#{desde}' and '#{hasta}'
@@ -93,9 +93,9 @@ class GraficosController < ApplicationController
   end
 
   def voluntarios_recurrentes
-    desde = Date.today - 1.year
-    hasta = Date.today
-    ActiveRecord::Base.connection.execute <<-SQL
+    desde = Time.zone.today - 1.year
+    hasta = Time.zone.today
+    ActiveRecord::Base.connection.execute <<-SQL.squish
       select donante_id
       from donaciones
       where fecha between '#{desde}' and '#{hasta}'
@@ -105,9 +105,9 @@ class GraficosController < ApplicationController
   end
 
   def club_recurrentes
-    desde = Date.today - 1.year
-    hasta = Date.today
-    ActiveRecord::Base.connection.execute <<-SQL
+    desde = Time.zone.today - 1.year
+    hasta = Time.zone.today
+    ActiveRecord::Base.connection.execute <<-SQL.squish
       select donante_id
       from donaciones
       where fecha between '#{desde}' and '#{hasta}'

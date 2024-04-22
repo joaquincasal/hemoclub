@@ -26,4 +26,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'lista estatica', 'listas estaticas'
   inflect.irregular 'lista_estatica', 'listas_estaticas'
   inflect.irregular 'campania', 'campanias'
+  inflect.irregular 'ejecucion', 'ejecuciones'
 end

@@ -12,6 +12,7 @@
     <thead>
     <tr>
       <th scope="col">Nombre</th>
+      <th scope="col">Activa</th>
       <th scope="col">Detalles</th>
     </tr>
     </thead>
@@ -19,6 +20,7 @@
     <% @campanias.each do |campania| %>
       <tr>
         <td><%= campania.nombre %></td>
+        <td><%= campania.activa? ? "Sí" : "No" %></td>
         <td><%= link_to "Detalles", campania, data: { turbo_frame: "_top" } %></td>
       </tr>
     <% end %>
