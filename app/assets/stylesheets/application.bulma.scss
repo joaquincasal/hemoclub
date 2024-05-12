@@ -44,3 +44,11 @@ $fa-font-path: ".";
 @import "@fortawesome/fontawesome-free/scss/solid";
 @import "@fortawesome/fontawesome-free/scss/regular";
 @import "@fortawesome/fontawesome-free/scss/v4-shims";
+
+th {
+  text-align: center !important;
+}
+
+td {
+  text-align: center !important;
+}

@@ -2,7 +2,9 @@
 
 class EnviarCampaniaJob < ApplicationJob
   def perform(ejecucion_id)
-    # Email.enviar
-    Ejecucion.find(ejecucion_id).update(ejecutada: true)
+    ejecucion = Ejecucion.find(ejecucion_id)
+    plantilla = ejecucion.ejecutable.plantilla
+    ejecucion.donantes.each { |donante| EnviarEmailJob.perform_later(plantilla.id, donante.id) }
+    ejecucion.update(ejecutada: true)
   end
 end

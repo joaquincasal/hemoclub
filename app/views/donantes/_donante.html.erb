@@ -7,6 +7,7 @@
         <p><span class="has-text-weight-bold">Documento: </span><%= "#{donante.tipo_documento} #{donante.numero_documento}" %></p>
         <p><span class="has-text-weight-bold">Sexo: </span><%= donante.sexo&.humanize %></p>
         <p><span class="has-text-weight-bold">Fecha de nacimiento: </span><%= "#{localize donante.fecha_nacimiento} (#{donante.edad} años)" %></p>
+        <p><span class="has-text-weight-bold">Es candidato: </span><%= donante.candidato? ? "Sí" : "No" %></p>
       </div>
     </div>
     <div class="column">
@@ -15,7 +16,7 @@
         <p><span class="has-text-weight-bold">Tipo de donante: </span><%= tipo_donante(donante.tipo_donante) %></p>
         <p><span class="has-text-weight-bold">Grupo y factor: </span><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></p>
         <p><span class="has-text-weight-bold">Predonante de plaquetas: </span><%= mostrar_booleano(donante.predonante_plaquetas) %></p>
-        <p><span class="has-text-weight-bold">Motivo rechazo predonante: </span><%= donante.motivo_rechazo_predonante_plaquetas %></p>
+        <p><span class="has-text-weight-bold">Motivo rechazo predonante: </span><%= motivo_rechazo(donante.motivo_rechazo_predonante_plaquetas).presence || "N/A" %></p>
       </div>
     </div>
     <div class="column">
@@ -48,11 +49,11 @@
           <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
             <tr>
               <td><%= localize donacion.fecha %></td>
-              <td><%= donacion.serologia&.humanize %></td>
+              <td><%= donacion.serologia&.humanize.presence || "Sin información" %></td>
               <td><%= mostrar_booleano(donacion.colecta?) %></td>
               <td><%= donacion.clinica&.nombre %></td>
               <td><%= mostrar_booleano(donacion.relacionado?) %></td>
-              <td><%= donacion.motivo_rechazo %></td>
+              <td><%= motivo_rechazo(donacion.motivo_rechazo) %></td>
             </tr>
           <% end %>
           </tbody>
