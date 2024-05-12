@@ -2,7 +2,8 @@ class Donante < ApplicationRecord
   has_many :donaciones, dependent: :destroy
   has_many :exclusiones, dependent: :destroy
   has_and_belongs_to_many :lista_estaticas
-  has_and_belongs_to_many :ejecuciones
+  has_many :interacciones, dependent: :destroy
+  has_many :ejecuciones, through: :interacciones
 
   enum tipo_donante: [:reposicion, :voluntario, :club]
   enum tipo_documento: [:DNI, :CIE, :PAS, :DOC]

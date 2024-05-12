@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     mount GoodJob::Engine => 'good_job'
   end
 
+  post "interacciones", to: "interacciones#update"
+
   scope(path_names: { new: 'nueva', edit: 'editar' }) do
     devise_for :usuarios, path_names: {
       sign_in: 'iniciar_sesion', sign_out: 'cerrar_sesion',

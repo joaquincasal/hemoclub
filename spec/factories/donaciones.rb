@@ -7,6 +7,6 @@ FactoryBot.define do
   end
 
   trait :rechazada do
-    motivo_rechazo { "autoexclusion" }
+    motivo_rechazo { 0 }
   end
 end

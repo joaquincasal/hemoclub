@@ -1,6 +1,7 @@
 class Ejecucion < ApplicationRecord
   belongs_to :ejecutable, polymorphic: true
-  has_and_belongs_to_many :donantes, dependant: :destroy
+  has_many :interacciones, dependent: :destroy
+  has_many :donantes, through: :interacciones
 
   def cancelar_envio
     GoodJob::Execution.where(job_class: "EnviarDifusionJob", performed_at: nil)

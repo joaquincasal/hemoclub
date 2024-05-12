@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_210124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
   create_table "donaciones", force: :cascade do |t|
     t.date "fecha"
     t.integer "serologia"
-    t.string "motivo_rechazo"
+    t.integer "motivo_rechazo"
     t.bigint "donante_id"
     t.integer "clinica_id"
     t.datetime "created_at", null: false
@@ -77,15 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "predonante_plaquetas"
-    t.string "motivo_rechazo_predonante_plaquetas"
+    t.integer "motivo_rechazo_predonante_plaquetas"
     t.boolean "candidato"
-  end
-
-  create_table "donantes_ejecuciones", id: false, force: :cascade do |t|
-    t.bigint "ejecucion_id"
-    t.bigint "donante_id"
-    t.index ["donante_id"], name: "index_donantes_ejecuciones_on_donante_id"
-    t.index ["ejecucion_id"], name: "index_donantes_ejecuciones_on_ejecucion_id"
   end
 
   create_table "donantes_listas", id: false, force: :cascade do |t|
@@ -203,6 +196,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "interacciones", force: :cascade do |t|
+    t.bigint "donante_id", null: false
+    t.bigint "ejecucion_id", null: false
+    t.integer "estado_envio"
+    t.integer "estado_interaccion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["donante_id"], name: "index_interacciones_on_donante_id"
+    t.index ["ejecucion_id"], name: "index_interacciones_on_ejecucion_id"
+  end
+
   create_table "listas", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
@@ -247,4 +251,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_223124) do
   add_foreign_key "campanias", "plantillas"
   add_foreign_key "difusiones", "listas"
   add_foreign_key "difusiones", "plantillas"
+  add_foreign_key "interacciones", "donantes"
+  add_foreign_key "interacciones", "ejecuciones"
 end
