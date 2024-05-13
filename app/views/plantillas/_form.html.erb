@@ -51,6 +51,13 @@
     </p>
   </div>
 
+  <div class="field">
+    <%= form.label :asunto, class: "label" %>
+    <div class="control">
+      <%= form.text_field :asunto, class: "input is-rounded" %>
+    </div>
+  </div>
+
   <%= form.text_area :contenido, value: plantilla.contenido ? plantilla.contenido : nil, class: "tinymce", rows: 20, cols: 120 %>
   <%= tinymce %>
 

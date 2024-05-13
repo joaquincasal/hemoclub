@@ -8,19 +8,10 @@ class DifusionesController < ApplicationController
 
   # GET /difusiones/1
   def show
-    volvieron = ActiveRecord::Base.connection.execute <<-SQL.squish
-      select distinct d.donante_id
-      from donaciones d
-      inner join interacciones i on d.donante_id = i.donante_id
-      where d.fecha > i.fecha
-      and i.ejecutable_id = #{@difusion.id} and i.ejecutable_type = '#{@difusion.class}'
-    SQL
-    total = ActiveRecord::Base.connection.execute <<-SQL.squish
-      select distinct d.donante_id
-      from donaciones d
-      inner join interacciones i on d.donante_id = i.donante_id
-      and i.ejecutable_id = #{@difusion.id} and i.ejecutable_type = '#{@difusion.class}'
-    SQL
+    total = Donacion.select("donaciones.donante_id").distinct
+                    .joins("INNER JOIN interacciones ON interacciones.donante_id = donaciones.donante_id")
+                    .where(interacciones: { ejecutable_id: @difusion.id, ejecutable_type: @difusion.class.name })
+    volvieron = total.where("donaciones.fecha >= interacciones.fecha")
     @efectividad = { "Donaron" => volvieron.count, "No donaron" => total.count - volvieron.count }
   end
 

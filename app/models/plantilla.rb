@@ -11,6 +11,10 @@ class Plantilla < ApplicationRecord
     reemplazar_variables(contenido_completo, donante.attributes)
   end
 
+  def asunto_reemplazado(donante)
+    reemplazar_variables(asunto, donante.attributes)
+  end
+
   private
 
   def reemplazar_variables(contenido, atributos)

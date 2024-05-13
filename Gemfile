@@ -54,6 +54,8 @@ gem 'ransack'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 
+gem 'httparty'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

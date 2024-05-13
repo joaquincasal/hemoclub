@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_210124) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_13_044634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -199,12 +199,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_210124) do
   create_table "interacciones", force: :cascade do |t|
     t.bigint "donante_id", null: false
     t.bigint "ejecucion_id", null: false
+    t.string "ejecutable_type"
+    t.bigint "ejecutable_id"
     t.integer "estado_envio"
     t.integer "estado_interaccion"
+    t.string "id_mensaje"
+    t.datetime "fecha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["donante_id"], name: "index_interacciones_on_donante_id"
     t.index ["ejecucion_id"], name: "index_interacciones_on_ejecucion_id"
+    t.index ["ejecutable_type", "ejecutable_id"], name: "index_interacciones_on_ejecutable"
   end
 
   create_table "listas", force: :cascade do |t|
@@ -222,6 +227,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_210124) do
     t.boolean "reutilizable"
     t.bigint "encabezado_id"
     t.bigint "firma_id"
+    t.string "asunto"
   end
 
   create_table "usuarios", force: :cascade do |t|
