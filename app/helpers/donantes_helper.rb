@@ -24,6 +24,10 @@ module DonantesHelper
     "#{grupo}#{factor_mapper[factor]}"
   end
 
+  def estado_interaccion(estado)
+    Interaccion.estado_interacciones.key(estado).humanize
+  end
+
   def mostrar_booleano(valor)
     valor ? "Sí" : "No"
   end

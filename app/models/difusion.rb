@@ -2,12 +2,14 @@ class Difusion < ApplicationRecord
   belongs_to :lista
   belongs_to :plantilla
   has_many :ejecuciones, as: :ejecutable, dependent: :destroy
+  has_many :interacciones, through: :ejecuciones
+
+  delegate :donantes, to: :lista
 
   validates :nombre, presence: true
 
   def enviar
-    donantes = lista.donantes
-    ejecucion = Ejecucion.create!(ejecutable: self, donantes:)
+    ejecucion = Ejecucion.create!(ejecutable: self)
     EnviarDifusionJob.perform_later(ejecucion.id)
   end
 

@@ -1,51 +1,63 @@
 <div id="<%= dom_id difusion %>">
-  <p>
-    <strong>Nombre:</strong>
-    <%= difusion.nombre %>
-  </p>
-  <br>
-  <p>
-    <strong>Lista:</strong>
-    <%= difusion.lista.nombre %>
-  </p>
-  <br>
-  <p>
-    <strong>Plantilla:</strong>
-    <%= difusion.plantilla.nombre %>
-  </p>
-  <br>
-  <div class="buttons">
-    <%= button_to enviar_difusion_path(difusion), method: :post, form: { data: { turbo_confirm: '¿Enviar difusión?' } }, class: "button is-info is-rounded" do %>
+  <div class="columns">
+    <div class="column">
+      <p>
+        <strong>Nombre:</strong>
+        <%= difusion.nombre %>
+      </p>
+      <br>
+      <p>
+        <strong>Lista:</strong>
+        <%= difusion.lista.nombre %>
+      </p>
+      <br>
+      <p>
+        <strong>Plantilla:</strong>
+        <%= difusion.plantilla.nombre %>
+      </p>
+      <br>
+      <div class="buttons">
+        <%= button_to enviar_difusion_path(difusion), method: :post, form: { data: { turbo_confirm: '¿Enviar difusión?' } }, class: "button is-info is-rounded" do %>
     <span class="icon">
       <i class="far fa-paper-plane"></i>
     </span>
-      <span>Enviar ahora</span>
-    <% end %>
+          <span>Enviar ahora</span>
+        <% end %>
 
-    <button class="button is-rounded" data-controller="hello" data-action="click->hello#toggleProgramar">Programar</button>
-  </div>
+        <button class="button is-rounded" data-controller="hello" data-action="click->hello#toggleProgramar">Programar</button>
+      </div>
 
-  <div id="programar" class="field is-hidden">
-    <%= form_with(url: programar_difusion_path(difusion)) do |form| %>
-      <input name="fecha" type="datetime-local" style="width: 20%" class="input is-rounded">
+      <div id="programar" class="field is-hidden">
+        <%= form_with(url: programar_difusion_path(difusion)) do |form| %>
+          <input name="fecha" type="datetime-local" style="width: 20%" class="input is-rounded">
 
-      <%= form.button type: "submit", class: "button is-rounded" do %>
+          <%= form.button type: "submit", class: "button is-rounded" do %>
       <span class="icon">
         <i class="far fa-paper-plane"></i>
       </span>
-        <span>Programar</span>
-      <% end %>
-    <% end %>
-  </div>
+            <span>Programar</span>
+          <% end %>
+        <% end %>
+      </div>
 
-  <div class="subtitle">Envíos</div>
+      <div class="subtitle">Envíos</div>
 
-  <% difusion.ejecuciones.each do |ejecucion| %>
-    <div>
-      <%= localize(ejecucion.fecha) %>
-      <% unless ejecucion.ejecutada? %>
-        <%= link_to "Cancelar envío", cancelar_difusion_path(ejecucion.id), data: {turbo_method: :delete, turbo_confirm: '¿Confirmar cancelación de envío?'}, class: "delete" %>
+      <% difusion.ejecuciones.each do |ejecucion| %>
+        <div>
+          <%= localize(ejecucion.fecha) %>
+          <% unless ejecucion.ejecutada? %>
+            <%= link_to "Cancelar envío", cancelar_difusion_path(ejecucion.id), data: {turbo_method: :delete, turbo_confirm: '¿Confirmar cancelación de envío?'}, class: "delete" %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+
+    <div class="column">
+      <div class="box">
+        <p class="subtitle">Efectividad</p>
+        <p>Cuántos donantes de los que se invitaron donaron efectivamente luego de recibirla</p>
+        <%= pie_chart @efectividad %>
+      </div>
+    </div>
+  </div>
 </div>

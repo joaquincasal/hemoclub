@@ -125,15 +125,17 @@
         <th scope="col">Tipo</th>
         <th scope="col">Nombre</th>
         <th scope="col">Fecha</th>
+        <th scope="col">Estado</th>
       </tr>
       </thead>
       <tbody>
-      <% donante.ejecuciones.where(ejecutada: true).each do |ejecucion| %>
-      <% ejecutable = ejecucion.ejecutable %>
+      <% donante.interacciones.each do |interaccion| %>
+      <% ejecutable = interaccion.ejecutable %>
         <tr>
           <td><%= ejecutable.class.name %></td>
           <td><%= ejecutable.nombre %></td>
-          <td><%= localize ejecucion.fecha %></td>
+          <td><%= localize interaccion.fecha %></td>
+          <td><%= estado_interaccion(interaccion.estado_interaccion) %></td>
         </tr>
       <% end %>
       </tbody>

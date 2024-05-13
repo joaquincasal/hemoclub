@@ -71,3 +71,21 @@
     </div>
   </div>
 </div>
+
+<hr/>
+<div class="title">Informes de comunicaciones</div>
+
+<div class="columns">
+  <div class="column">
+    <div class="box">
+      <p class="subtitle">Emails enviados vs Emails abiertos</p>
+      <%= pie_chart @porcentaje_abiertos %>
+    </div>
+  </div>
+  <div class="column">
+    <div class="box">
+      <p class="subtitle">Emails entregados vs Emails fallidos</p>
+      <%= pie_chart @porcentaje_entregados %>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,8 @@ class GraficosController < ApplicationController
     @donaciones_por_tipo_donante = donaciones_por_mes_por_tipo_donante
     @voluntarios_recurrentes = recurrentes
     @convertidos = convertidos
+    @porcentaje_abiertos = porcentaje_abiertos
+    @porcentaje_entregados = porcentaje_entregados
   end
 
   private
@@ -114,5 +116,19 @@ class GraficosController < ApplicationController
       group by donante_id, tipo_donante
       having count(case tipo_donante when 'club' then 1 end) > 1
     SQL
+  end
+
+  def porcentaje_abiertos
+    {
+      Enviados: Interaccion.entregado.enviado.count,
+      Leidos: Interaccion.leido.count
+    }
+  end
+
+  def porcentaje_entregados
+    Interaccion.estado_envios.keys.each_with_object({}) do |estado, estados|
+      estados[estado.humanize] = Interaccion.public_send(estado).count
+      estados
+    end
   end
 end
