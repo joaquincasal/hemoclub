@@ -2,6 +2,7 @@ class DonantesController < ApplicationController
   include Pagy::Backend
 
   before_action :set_donante, only: %i[show edit update destroy]
+  skip_before_action :authenticate_usuario!, only: %i[welcome]
 
   # GET /donantes
   def index
@@ -76,6 +77,13 @@ class DonantesController < ApplicationController
     send_file(Rails.root.join("errores.csv"))
   end
 
+  def welcome
+    token = params[:token]
+    @donante = Donante.find_by_token_for(:recordatorios, token)
+    @donante&.update(respondio_bienvenida: true)
+    render "welcome", layout: false
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -88,7 +96,7 @@ class DonantesController < ApplicationController
     params.require("donante").permit(:nombre, :segundo_nombre, :apellidos, :tipo_documento, :numero_documento,
                                      :sexo, :fecha_nacimiento, :tipo_donante, :telefono, :correo_electronico,
                                      :ocupacion, :grupo_sanguineo, :factor, :direccion, :localidad,
-                                     :provincia, :pais, :codigo_postal)
+                                     :provincia, :pais, :codigo_postal, :candidato, :respondio_bienvenida)
   end
 
   def sort_column

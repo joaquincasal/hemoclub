@@ -5,12 +5,14 @@ class Donacion < ApplicationRecord
   CODIGO_CLINICA_VOLUNTARIOS = 29
   CODIGO_CLINICA_COLECTA = 99
 
-  belongs_to :donante
+  belongs_to :donante, counter_cache: true
   belongs_to :clinica, optional: true
 
-  enum serologia: [:reactiva, :negativa]
+  enum serologia: [:negativa, :reactiva]
 
   validates :fecha, uniqueness: { scope: [:donante_id] }, allow_nil: false
+
+  after_create :actualizar_donante
 
   scope :rechazadas, -> { where.not(motivo_rechazo: nil) }
   scope :no_rechazadas, -> { where(motivo_rechazo: nil) }
@@ -33,5 +35,11 @@ class Donacion < ApplicationRecord
 
   def apta?
     !rechazada? && negativa?
+  end
+
+  private
+
+  def actualizar_donante
+    donante.update(ultima_donacion: self)
   end
 end

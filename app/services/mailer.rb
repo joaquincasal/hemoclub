@@ -9,8 +9,8 @@ class Mailer
   def initialize(donante, plantilla)
     @email_destinatario = donante.correo_electronico
     @nombre_destinatario = donante.nombre_completo
-    @asunto = plantilla.asunto_reemplazado(donante)
-    @cuerpo_email = plantilla.contenido_reemplazado(donante)
+    @asunto = plantilla.asunto_reemplazado(donante, enviar: true)
+    @cuerpo_email = plantilla.contenido_reemplazado(donante, enviar: true)
   end
 
   def enviar

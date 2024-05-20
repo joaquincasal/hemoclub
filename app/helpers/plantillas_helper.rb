@@ -1,5 +1,8 @@
 module PlantillasHelper
+
+  VARIABLES = %w[apellidos nombre segundo_nombre codigo_postal localidad grupo_sanguineo
+                 factor cantidad_donaciones fecha_ultima_donacion link_recibir_recordatorios]
   def atributos_donante
-    Donante.columns.filter { |columna| columna.type == :string }.map { |columna| columna.name}
+    VARIABLES
   end
 end

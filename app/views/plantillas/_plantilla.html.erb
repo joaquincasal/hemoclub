@@ -15,7 +15,7 @@
   <% if Donante.first.present? %>
   <p><strong>Ejemplo de contenido:</strong> (usando a <a target="_blank" href="/donantes/<%= Donante.first.id %>">este donante</a> como ejemplo)</p>
   <div class="box">
-    <%= sanitize plantilla.contenido_reemplazado(Donante.first) %>
+    <%= plantilla.contenido_reemplazado(Donante.first) %>
   </div>
   <% end %>
 

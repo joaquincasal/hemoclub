@@ -1,5 +1,6 @@
 class Donante < ApplicationRecord
   has_many :donaciones, dependent: :destroy
+  belongs_to :ultima_donacion, class_name: "Donacion", optional: true
   has_many :exclusiones, dependent: :destroy
   has_and_belongs_to_many :lista_estaticas
   has_many :interacciones, dependent: :destroy
@@ -18,6 +19,12 @@ class Donante < ApplicationRecord
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
   scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
+  # scope :sin_exclusiones, -> { where{} }
+  # scope :con_email, -> { where.not(correo_electronico: nil) }
+
+  generates_token_for :recordatorios do
+    respondio_bienvenida
+  end
 
   def nombre_completo
     [nombre, apellidos].compact_blank.join(" ")

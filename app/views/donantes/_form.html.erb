@@ -63,6 +63,28 @@
             <%= form.date_field :fecha_nacimiento, class: "input is-rounded" %>
           </div>
         </div>
+        <div class="field">
+          <%= form.label :candidato, class: "label" %>
+          <div class="control">
+            <%= form.label :candidato, class: "radio" do %>
+              <%= form.radio_button :candidato, true %> Sí
+            <% end %>
+            <%= form.label :candidato, class: "radio" do %>
+              <%= form.radio_button :candidato, false %> No
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :respondio_bienvenida, class: "label" %>
+          <div class="control">
+            <%= form.label :respondio_bienvenida, class: "radio" do %>
+              <%= form.radio_button :respondio_bienvenida, true %> Sí
+            <% end %>
+            <%= form.label :respondio_bienvenida, class: "radio" do %>
+              <%= form.radio_button :respondio_bienvenida, false %> No
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
 

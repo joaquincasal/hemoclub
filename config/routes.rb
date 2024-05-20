@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get "errores", to: "donantes#import_errors"
         match 'buscar' => 'donantes#search', via: [:get, :post], as: :search
         get "candidatos" => "donantes#index_candidatos"
+        get "recordatorios" => "donantes#welcome"
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]

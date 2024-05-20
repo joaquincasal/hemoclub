@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html data-theme="light">
+<head>
+  <title>Hemcentro</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+</head>
+
+<body>
+<% if @donante.present? %>
+  <section class="section is-large">
+    <div class="container">
+      <div class="notification is-info is-light">
+        <h2 class="subtitle has-text-centered">
+          ¡Gracias por suscribirte!
+        </h2>
+      </div>
+    </div>
+  </section>
+<% else %>
+  <section class="section is-large">
+    <div class="container">
+      <div class="notification is-danger is-light">
+        <h2 class="subtitle has-text-centered">
+          Ocurrió un error.
+        </h2>
+      </div>
+    </div>
+  </section>
+<% end %>
+</body>
+</html>
