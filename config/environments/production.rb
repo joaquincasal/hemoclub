@@ -1,6 +1,6 @@
 require "active_support/core_ext/integer/time"
 
-Rails.application.default_url_options = { host: ENV.fetch("APP_HOST") }
+Rails.application.default_url_options = { host: ENV.fetch("APP_HOST", "") }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
