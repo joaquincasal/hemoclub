@@ -50,7 +50,8 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :solid_cache_store
+  config.session_store :active_record_store, key: "_session_development"
 
   config.action_mailer.perform_caching = false
 

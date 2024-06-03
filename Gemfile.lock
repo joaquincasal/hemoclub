@@ -59,6 +59,13 @@ GEM
       activemodel (= 7.1.3.2)
       activesupport (= 7.1.3.2)
       timeout (>= 0.4.0)
+    activerecord-session_store (2.1.0)
+      actionpack (>= 6.1)
+      activerecord (>= 6.1)
+      cgi (>= 0.3.6)
+      multi_json (~> 1.11, >= 1.11.2)
+      rack (>= 2.0.8, < 4)
+      railties (>= 6.1)
     activestorage (7.1.3.2)
       actionpack (= 7.1.3.2)
       activejob (= 7.1.3.2)
@@ -80,11 +87,18 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    cable_ready (5.0.5)
+      actionpack (>= 5.2)
+      actionview (>= 5.2)
+      activesupport (>= 5.2)
+      observer (~> 0.1)
+      railties (>= 5.2)
+      thread-local (>= 1.1.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -94,8 +108,9 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    cgi (0.4.1)
     chartkick (5.0.6)
-    concurrent-ruby (1.2.3)
+    concurrent-ruby (1.3.1)
     connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.4.0)
@@ -145,11 +160,11 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.1)
+    i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
-    irb (1.11.2)
-      rdoc
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jsbundling-rails (1.3.0)
       railties (>= 6.0.0)
@@ -166,8 +181,9 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     mini_mime (1.1.5)
-    minitest (5.22.2)
+    minitest (5.23.1)
     msgpack (1.7.2)
+    multi_json (1.15.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mutex_m (0.2.0)
@@ -180,13 +196,16 @@ GEM
       timeout
     net-smtp (0.4.0.1)
       net-protocol
-    nio4r (2.7.0)
+    nio4r (2.7.3)
     nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
+    nokogiri-html5-inference (0.3.0)
+      nokogiri (~> 1.14)
+    observer (0.1.2)
     orm_adapter (0.5.0)
     pagy (6.5.0)
     parallel (1.24.0)
@@ -201,7 +220,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.0)
-    rack (3.0.9.1)
+    rack (3.0.11)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -239,15 +258,19 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.1.0)
+    rake (13.2.1)
     ransack (4.1.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
-    rdoc (6.6.2)
+    rdoc (6.7.0)
       psych (>= 4.0.0)
+    redis (5.2.0)
+      redis-client (>= 0.22.0)
+    redis-client (0.22.2)
+      connection_pool
     regexp_parser (2.9.0)
-    reline (0.4.3)
+    reline (0.5.8)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
@@ -310,6 +333,10 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    solid_cache (0.6.0)
+      activejob (>= 7)
+      activerecord (>= 7)
+      railties (>= 7)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -319,9 +346,21 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
+    stimulus_reflex (3.5.2)
+      actioncable (>= 5.2, < 8)
+      actionpack (>= 5.2, < 8)
+      actionview (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
+      cable_ready (~> 5.0)
+      nokogiri (~> 1.0)
+      nokogiri-html5-inference (~> 0.3)
+      rack (>= 2, < 4)
+      railties (>= 5.2, < 8)
+      redis (>= 4.0, < 6.0)
     stringio (3.1.0)
     strscan (3.1.0)
     thor (1.3.1)
+    thread-local (1.1.0)
     timeout (0.4.1)
     tinymce-rails (6.8.3)
       actionpack (>= 6.0.0)
@@ -351,7 +390,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.13)
+    zeitwerk (2.6.15)
 
 PLATFORMS
   arm64-darwin-22
@@ -359,6 +398,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-session_store
   bootsnap
   capybara
   chartkick
@@ -382,8 +422,10 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   simplecov
+  solid_cache
   sprockets-rails
   stimulus-rails
+  stimulus_reflex (~> 3.5)
   tinymce-rails
   tinymce-rails-langs
   turbo-rails

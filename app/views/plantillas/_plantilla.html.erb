@@ -4,15 +4,26 @@
     <%= plantilla.nombre %>
   </p>
   <p>
-    <strong>Asunto:</strong>
-    <%= plantilla.asunto %>
+    <strong>Tipo:</strong>
+    <%= plantilla.reutilizable ? "Reutilizable (encabezado o firma)" : "Para campaña o automatización" %>
   </p>
-  <p><strong>Contenido (incluyendo encabezado y firma):</strong></p>
+  <% unless plantilla.reutilizable %>
+    <p>
+      <strong>Asunto:</strong>
+      <%= plantilla.asunto %>
+    </p>
+  <% end %>
+
+  <% if plantilla.reutilizable %>
+    <p><strong>Contenido:</strong></p>
+  <% else %>
+    <p><strong>Contenido (incluyendo encabezado y firma):</strong></p>
+  <% end %>
   <div class="box">
     <%= sanitize plantilla.contenido_completo %>
   </div>
 
-  <% if Donante.first.present? %>
+  <% if !plantilla.reutilizable && Donante.first.present? %>
   <p><strong>Ejemplo de contenido:</strong> (usando a <a target="_blank" href="/donantes/<%= Donante.first.id %>">este donante</a> como ejemplo)</p>
   <div class="box">
     <%= plantilla.contenido_reemplazado(Donante.first) %>

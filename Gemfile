@@ -85,3 +85,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'simplecov', require: false, group: :test
 end
+
+gem "activerecord-session_store"
+gem "solid_cache"
+gem "stimulus_reflex", "~> 3.5"

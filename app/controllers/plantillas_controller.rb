@@ -43,15 +43,15 @@ class PlantillasController < ApplicationController
     redirect_to plantillas_url, notice: "Plantilla eliminada exitosamente.", status: :see_other
   end
 
+  # Only allow a list of trusted parameters through.
+  def plantilla_params
+    params.require(:plantilla).permit(:nombre, :contenido, :reutilizable, :encabezado_id, :firma_id, :asunto)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_plantilla
     @plantilla = Plantilla.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def plantilla_params
-    params.require(:plantilla).permit(:nombre, :contenido, :reutilizable, :encabezado_id, :firma_id, :asunto)
   end
 end

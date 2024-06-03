@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_022637) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_02_233943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -113,11 +113,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_022637) do
   end
 
   create_table "filtros", force: :cascade do |t|
-    t.string "nombre"
-    t.json "condiciones"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "lista_id"
+    t.string "nombre"
+    t.hstore "condiciones"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -231,6 +231,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_022637) do
     t.bigint "encabezado_id"
     t.bigint "firma_id"
     t.string "asunto"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.binary "key", null: false
+    t.binary "value", null: false
+    t.datetime "created_at", null: false
+    t.bigint "key_hash", null: false
+    t.integer "byte_size", null: false
+    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
   create_table "usuarios", force: :cascade do |t|

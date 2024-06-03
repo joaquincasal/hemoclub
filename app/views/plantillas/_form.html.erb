@@ -19,29 +19,42 @@
   </div>
 
   <div class="field">
-    <%= form.label :reutilizable, "Reutilizable (marcar para poder usar esta planilla como encabezado o firma de otra plantilla)", class: "label" %>
-    <%= form.check_box :reutilizable %>
-  </div>
-
-  <div class="field">
-    <%= form.label :encabezado_id, "Encabezado", class: "label" %>
+    <%= form.label :reutilizable, "Tipo", class: "label" %>
     <div class="control">
       <div class="select is-rounded">
-        <%= form.collection_select :encabezado_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+        <%= form.select :reutilizable, [["Para campaña o automatización", false], ["Reutilizable (encabezado o firma)", true]], { }, { data: { reflex: "change->PlantillasReflex#actualizar_campos" } } %>
       </div>
     </div>
   </div>
 
-  <div class="field">
-    <%= form.label :firma_id, "Firma", class: "label" %>
-    <div class="control">
-      <div class="select is-rounded">
-        <%= form.collection_select :firma_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+  <fieldset id="form-plantilla" <%= plantilla.reutilizable ? "disabled" : "" %>>
+    <div class="field">
+      <%= form.label :encabezado_id, "Encabezado", class: "label" %>
+      <div class="control">
+        <div class="select is-rounded">
+          <%= form.collection_select :encabezado_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="box">
+    <div class="field">
+      <%= form.label :firma_id, "Firma", class: "label" %>
+      <div class="control">
+        <div class="select is-rounded">
+          <%= form.collection_select :firma_id, Plantilla.where(reutilizable: true), :id, :nombre, { include_blank: "" } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :asunto, class: "label" %>
+      <div class="control">
+        <%= form.text_field :asunto, class: "input is-rounded" %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="box mt-4">
     <p>En este editor pueden usarse variables con información del donante que serán reemplazadas al enviarse el mail.</p>
     <p>Las variables disponibles son:</p>
     <p>
@@ -53,21 +66,14 @@
     <p>La variable <span class="tag">{{link_recibir_recordatorios}}</span> muestra un botón con el texto "Quiero recibir recordatorios", con un link clickeable por el donante.</p>
   </div>
 
-  <div class="field">
-    <%= form.label :asunto, class: "label" %>
-    <div class="control">
-      <%= form.text_field :asunto, class: "input is-rounded" %>
-    </div>
-  </div>
-
   <%= form.text_area :contenido, value: plantilla.contenido ? plantilla.contenido : nil, class: "tinymce", rows: 20, cols: 120 %>
   <%= tinymce %>
 
   <div>
     <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right mt-4" do %>
-        <span class="icon">
-          <i class="fas fa-floppy-disk"></i>
-        </span>
+      <span class="icon">
+        <i class="fas fa-floppy-disk"></i>
+      </span>
       <span>Guardar</span>
     <% end %>
   </div>
