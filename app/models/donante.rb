@@ -1,4 +1,9 @@
 class Donante < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :buscar,
+                  against: [:apellidos, :nombre, :segundo_nombre, :numero_documento, :correo_electronico],
+                  using: { tsearch: { prefix: true } }
+
   has_many :donaciones, dependent: :destroy
   belongs_to :ultima_donacion, class_name: "Donacion", optional: true
   has_many :exclusiones, dependent: :destroy
@@ -34,14 +39,5 @@ class Donante < ApplicationRecord
     return nil if fecha_nacimiento.blank?
 
     ((Time.zone.now - fecha_nacimiento.to_time) / 1.year.seconds).floor
-  end
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[apellidos correo_electronico nombre numero_documento segundo_nombre tipo_donante grupo_sanguineo factor
-       fecha_nacimiento localidad codigo_postal predonante_plaquetas]
-  end
-
-  def self.ransackable_associations(_auth_object = nil)
-    ["donaciones"]
   end
 end

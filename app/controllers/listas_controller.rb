@@ -1,6 +1,5 @@
 class ListasController < ApplicationController
   before_action :set_lista, only: %i[show edit update destroy actualizar_donantes]
-  before_action :set_filtros_donante
 
   # GET /listas
   def index
@@ -67,12 +66,6 @@ class ListasController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_lista
     @lista = Lista.find(params[:id])
-  end
-
-  def set_filtros_donante
-    filtros = @lista&.filtro&.condiciones || params[:q]
-    @filtros_donante = Donante.ransack(filtros)
-    @filtros_donante.build_condition
   end
 
   # Only allow a list of trusted parameters through.

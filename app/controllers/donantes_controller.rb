@@ -6,22 +6,18 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    @filtros_donante = Donante.ransack(params[:q])
-    donantes = @filtros_donante.result.includes(:donaciones)
-    # @filtros_donante.build_condition
+    donantes = Donante.includes(:donaciones)
+    donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
+    donantes = donantes.order("#{sort_column} #{sort_direction}")
+
     @pagy, @donantes = pagy(donantes)
   end
 
   def index_candidatos
-    @filtros_donante = Donante.where(candidato: true).ransack(params[:q])
-    donantes = @filtros_donante.result.includes(:donaciones)
-    # @filtros_donante.build_condition
+    donantes = Donante.where(candidato: true).includes(:donaciones)
+    donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
+    donantes = donantes.order("#{sort_column} #{sort_direction}")
     @pagy, @donantes = pagy(donantes)
-  end
-
-  def search
-    index
-    render :index
   end
 
   # GET /donantes/1

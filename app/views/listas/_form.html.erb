@@ -1,4 +1,4 @@
-<%= search_form_for filtros_donante, url: lista.persisted? ? lista_path(lista) : listas_path, html: { method: lista.persisted? ? :put : :post } do |form| %>
+<%= form_with(model: lista, url: lista.persisted? ? lista_path(lista) : listas_path) do |form| %>
   <% if lista.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(lista.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
@@ -18,11 +18,6 @@
     <div class="control">
       <%= text_field_tag "lista[nombre]", lista&.nombre, class: "input is-rounded" %>
     </div>
-  </div>
-
-  <div data-controller="hello">
-    <%= render "condicion", form: form %>
-    <button class="button is-rounded" type="button" data-action="click->hello#addCondition">Agregar condición</button>
   </div>
 
   <div>

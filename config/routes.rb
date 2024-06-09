@@ -18,7 +18,6 @@ Rails.application.routes.draw do
         get "importar", to: "donantes#import"
         post "importar", to: "donantes#do_import"
         get "errores", to: "donantes#import_errors"
-        match 'buscar' => 'donantes#search', via: [:get, :post], as: :search
         get "candidatos" => "donantes#index_candidatos"
         get "recordatorios" => "donantes#welcome"
       end

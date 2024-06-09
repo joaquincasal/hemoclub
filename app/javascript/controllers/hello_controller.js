@@ -6,12 +6,6 @@ export default class extends Controller {
     event.target.parentNode.parentNode.removeChild(event.target.parentNode);
   }
 
-  addCondition(event) {
-    const ultimaCondicion = event.target.previousElementSibling;
-    const nuevaCondicion = ultimaCondicion.cloneNode(true);
-    ultimaCondicion.after(nuevaCondicion);
-  }
-
   toggleProgramar(event) {
     const element = document.getElementById("programar");
     element.classList.toggle('is-hidden');

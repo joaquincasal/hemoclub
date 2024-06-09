@@ -49,7 +49,7 @@ gem 'pagy', '~> 6.2'
 gem "chartkick"
 gem "groupdate"
 
-gem 'ransack'
+gem 'pg_search'
 
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'

@@ -1,5 +1,6 @@
 class ListaDinamica < Lista
   def donantes
-    Donante.ransack(filtro.condiciones).result.includes(:donaciones)
+    # FIXME
+    Donante.limit(1)
   end
 end
