@@ -58,7 +58,7 @@ class Plantilla < ApplicationRecord
 
   def link_recordatorios(donante)
     token = donante.generate_token_for(:recordatorios)
-    Rails.application.routes.url_helpers.recordatorios_donantes_url(token:)
+    Rails.application.routes.url_helpers.recordatorios_donantes_url(token: token)
   end
 
   def estilos_boton

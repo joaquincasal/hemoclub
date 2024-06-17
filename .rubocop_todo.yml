@@ -1,7 +1,13 @@
 Metrics/AbcSize:
   Exclude:
     - 'app/controllers/graficos_controller.rb'
+    - 'app/reflexes/listas_reflex.rb'
+    - 'app/services/filtro_por_atributo.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/controllers/graficos_controller.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/services/filtro_por_atributo.rb'

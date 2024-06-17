@@ -74,7 +74,7 @@ class GraficosController < ApplicationController
   def recurrentes
     voluntarios = voluntarios_recurrentes.count
     club = club_recurrentes.count
-    { voluntarios:, club: }
+    { voluntarios: voluntarios, club: club }
   end
 
   def convertidos

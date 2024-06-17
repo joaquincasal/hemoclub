@@ -1,6 +1,5 @@
 class ListaDinamica < Lista
   def donantes
-    # FIXME
-    Donante.limit(1)
+    filtro.aplicar
   end
 end

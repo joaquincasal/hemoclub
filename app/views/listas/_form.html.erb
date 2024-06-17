@@ -1,4 +1,4 @@
-<%= form_with(model: lista, url: lista.persisted? ? lista_path(lista) : listas_path) do |form| %>
+<%= form_with(model: lista, scope: :lista, url: lista.persisted? ? lista_path(lista) : listas_path) do |form| %>
   <% if lista.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(lista.errors.count, "error", "errores") %> evitaron que la lista sea guardada:</h2>
@@ -11,14 +11,25 @@
     </div>
   <% end %>
 
-  <%= hidden_field_tag "lista[type]", lista.type %>
+  <%= form.hidden_field :type %>
 
   <div class="field">
-    <%= label_tag "lista[nombre]", "Nombre", class: "label" %>
+    <%= form.label :nombre, "Nombre", class: "label" %>
     <div class="control">
-      <%= text_field_tag "lista[nombre]", lista&.nombre, class: "input is-rounded" %>
+      <%= form.text_field :nombre, value: lista&.nombre, class: "input is-rounded" %>
     </div>
   </div>
+
+  <div id="filtros">
+    <% if lista.persisted? %>
+      <% lista.filtro.parametros.each_with_index do |filtro, indice| %>
+        <%= render "/filtros/filtros", form: form, id: indice, filtro: filtro %>
+      <% end %>
+    <% else %>
+      <%= render "/filtros/filtros", form: form, id: "0", filtro: nil %>
+    <% end %>
+  </div>
+  <button class="button is-rounded is-small mt-4" data-reflex="click->ListasReflex#agregar_filtro">Agregar filtro</button>
 
   <div>
     <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right mt-4" do %>

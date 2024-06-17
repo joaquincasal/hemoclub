@@ -1,0 +1,14 @@
+<div id="atributo-<%= id %>">
+  <div class="field">
+    <%= form.fields_for :filtro do |filtro_form| %>
+      <%= filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
+        <%= parametros_form.label :atributo, "Atributo", class: "label" %>
+        <div class="control">
+          <div class="select is-rounded">
+            <%= parametros_form.select :atributo, filtro.atributos, { prompt: "Elegir..." }, { name: "lista[filtro_attributes][parametros][][atributo]", data: { reflex: "change->ListasReflex#atributo_seleccionado", filtro: filtro.to_s, id: id } } %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

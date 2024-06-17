@@ -13,12 +13,11 @@
   <br>
   <p><strong>Filtros:</strong></p>
   <dl>
-    <!--    FIXME: mostrar los filtros de la lista -->
-    <% condiciones_filtro(lista_estatica).each do |condicion| %>
+    <% lista_estatica.filtro.parametros.each do |condicion| %>
       <li>
-        <i><%= "#{condicion[:atributo]}" %></i>
-        <b><%= "#{condicion[:predicado]}" %></b>
-        <span>"<%= "#{condicion[:valor]}" %>"</span>
+        <i><%= "#{condicion["atributo"]}" %></i>
+        <b><%= "#{condicion["operador"]}" %></b>
+        <span>"<%= "#{condicion["valor"]}" %>"</span>
       </li>
     <% end %>
   </dl>

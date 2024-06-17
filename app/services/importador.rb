@@ -184,10 +184,12 @@ class Importador
     tipo_documento = campos_donante["tipo_documento"]
 
     if correo_electronico.present?
-      donante_existente_por_email = Donante.where.not(correo_electronico: nil).find_by(correo_electronico:)
+      donante_existente_por_email = Donante.where.not(correo_electronico: nil)
+                                           .find_by(correo_electronico: correo_electronico)
     end
     if numero_documento && tipo_documento.present?
-      donante_existente_por_documento = Donante.find_by(numero_documento:, tipo_documento:)
+      donante_existente_por_documento = Donante.find_by(numero_documento: numero_documento,
+                                                        tipo_documento: tipo_documento)
     end
 
     seleccionar_donante_existente(donante_existente_por_email, donante_existente_por_documento, numero_documento)
@@ -206,7 +208,7 @@ class Importador
   end
 
   def crear_donacion(fila, donante)
-    campos_donacion = campos_donacion(fila).merge(donante:)
+    campos_donacion = campos_donacion(fila).merge(donante: donante)
     campos_donacion["tipo_donante"] = donante.tipo_donante
     Donacion.create!(campos_donacion)
   end

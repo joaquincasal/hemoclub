@@ -13,9 +13,9 @@ class ListasController < ApplicationController
   def new
     case params[:tipo]
     when 'estatica'
-      @lista = ListaEstatica.new
+      @lista = ListaEstatica.new(filtro: Filtro.new(parametros: {}))
     when 'dinamica'
-      @lista = ListaDinamica.new
+      @lista = ListaDinamica.new(filtro: Filtro.new(parametros: {}))
     end
   end
 
@@ -24,14 +24,14 @@ class ListasController < ApplicationController
 
   # POST /listas
   def create
-    params2 = lista_params
-    tipo = params2[:type]
+    parametros = lista_params
+    tipo = parametros[:type]
     case tipo
     when ListaEstatica.name
-      @lista = ListaEstatica.new(params2)
+      @lista = ListaEstatica.new(parametros)
       @lista.set_donantes
     when ListaDinamica.name
-      @lista = ListaDinamica.new(params2)
+      @lista = ListaDinamica.new(parametros)
     end
 
     if @lista.save
@@ -61,16 +61,16 @@ class ListasController < ApplicationController
     redirect_to lista_path(@lista), notice: "Donantes actualizados exitosamente.", status: :see_other
   end
 
+  # Only allow a list of trusted parameters through.
+  def lista_params
+    params.require(:lista).permit(:nombre, :type,
+                                  filtro_attributes: [{ parametros: [:tipo, :atributo, :operador, :valor] }])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_lista
     @lista = Lista.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def lista_params
-    params[:lista][:filtro_attributes] ||= { condiciones: params[:q] } if params[:q] # FIXME
-    params.require(:lista).permit(:nombre, :type, filtro_attributes: [:nombre, { condiciones: {} }])
   end
 end

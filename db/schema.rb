@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_02_233943) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_040149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -116,8 +116,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_02_233943) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "lista_id"
-    t.string "nombre"
-    t.hstore "condiciones"
+    t.json "parametros"
+    t.string "type"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

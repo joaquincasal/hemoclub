@@ -22,8 +22,10 @@ RSpec.describe "/listas", type: :request do
     {
       nombre: "un nombre",
       filtro_attributes: {
-        condiciones: { "s" => "tipo_donante asc" },
-        nombre: "un filtro"
+        parametros: [{ tipo: "FiltroPorAtributo",
+                       atributo: "tipo_donante",
+                       operador: "distinto",
+                       valor: "reposicion" }]
       },
       type: "ListaDinamica"
     }

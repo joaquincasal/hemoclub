@@ -7,10 +7,10 @@ class InteraccionesController < ApplicationController
     id_mensaje = evento["messageId"]
     if evento["eventType"] == "Microsoft.Communication.EmailDeliveryReportReceived"
       estado = evento["status"]
-      Interaccion.find_by(id_mensaje:).actualizar_estado_envio(estado)
+      Interaccion.find_by(id_mensaje: id_mensaje).actualizar_estado_envio(estado)
     elsif event["eventType"] == "Microsoft.Communication.EmailEngagementTrackingReportReceived" &&
           evento["data"]["engagementType"] == "view"
-      Interaccion.find_by(id_mensaje:).marcar_leido
+      Interaccion.find_by(id_mensaje: id_mensaje).marcar_leido
     end
   end
 end

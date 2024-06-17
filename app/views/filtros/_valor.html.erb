@@ -1,0 +1,43 @@
+<div id="valor-<%= id %>">
+  <div class="field">
+    <%= form.fields_for :filtro do |filtro_form| %>
+      <%= filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
+        <div class="field">
+          <%= parametros_form.label :valor, "Valor", class: "label" %>
+
+          <% if info_valor["tipo"] == "lista" %>
+            <div class="control">
+              <div class="select is-rounded">
+                <%= parametros_form.select :valor, info_valor["valores"], { prompt: "Elegir..." }, { name: "lista[filtro_attributes][parametros][][valor]" } %>
+              </div>
+            </div>
+          <% end %>
+
+          <% if info_valor["tipo"] == "string" %>
+            <div class="control">
+              <%= parametros_form.text_field :valor, class: "input is-rounded", name: "lista[filtro_attributes][parametros][][valor]" %>
+            </div>
+          <% end %>
+
+          <% if info_valor["tipo"] == "number" %>
+            <div class="control">
+              <%= parametros_form.number_field :valor, class: "input is-rounded", name: "lista[filtro_attributes][parametros][][valor]" %>
+            </div>
+          <% end %>
+
+          <% if info_valor["tipo"] == "boolean" %>
+            <div class="control">
+              <%= parametros_form.label :valor, class: "radio" do %>
+                <%= parametros_form.radio_button :valor, true, name: "lista[filtro_attributes][parametros][][valor]" %> Sí
+              <% end %>
+              <%= parametros_form.label :valor, class: "radio" do %>
+                <%= parametros_form.radio_button :valor, false, name: "lista[filtro_attributes][parametros][][valor]" %> No
+              <% end %>
+            </div>
+          <% end %>
+
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

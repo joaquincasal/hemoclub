@@ -15,7 +15,7 @@ class Difusion < ApplicationRecord
 
   def programar_envio(fecha)
     donantes = lista.donantes
-    ejecucion = Ejecucion.create!(ejecutable: self, donantes:, fecha:)
+    ejecucion = Ejecucion.create!(ejecutable: self, donantes: donantes, fecha: fecha)
     EnviarDifusionJob.set(wait_until: fecha).perform_later(ejecucion.id)
   end
 end

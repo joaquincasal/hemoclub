@@ -1,0 +1,36 @@
+<div id="filtro-<%= id %>">
+  <%= form.fields_for :filtro do |filtro_form| %>
+    <% filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
+      <div class="columns">
+        <button class="delete mt-6" data-reflex="click->ListasReflex#borrar_filtro" data-id="<%= id %>"></button>
+        <div class="column is-narrow">
+          <div id="tipo-<%= id %>">
+            <div class="field">
+              <%= parametros_form.label :tipo, "Filtro", class: "label" %>
+              <div class="control">
+                <div class="select is-rounded">
+                  <%= parametros_form.select :tipo, filtros_disponibles, { prompt: "Elegir..." }, { name: "lista[filtro_attributes][parametros][][tipo]", data: { reflex: "change->ListasReflex#filtro_seleccionado", id: id } } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if filtro.present? %>
+          <div class="column is-narrow">
+            <%= render(partial: "filtros/atributos", locals: { form: form, id: id, filtro: tipo_del(filtro) }) %>
+          </div>
+          <div class="column is-narrow">
+            <%= render(partial: "filtros/operadores", locals: { form: form, id: id, filtro: tipo_del(filtro), atributo: atributo_del(filtro) }) %>
+          </div>
+          <div class="column is-narrow">
+            <%= render(partial: "filtros/valor", locals: { form: form, id: id, info_valor: valor_del(filtro) }) %>
+          </div>
+        <% else %>
+          <div class="column is-narrow"><div id="atributo-<%= id %>"></div></div>
+          <div class="column is-narrow"><div id="operador-<%= id %>"></div></div>
+          <div class="column is-narrow"><div id="valor-<%= id %>"></div></div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
