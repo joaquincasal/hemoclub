@@ -23,7 +23,7 @@ class Mailer
       "x-ms-content-sha256" => token[:body_digest],
       "Authorization" => token[:token]
     }
-    response = HTTParty.post(API_URL + ENDPOINT, body: body.to_json, headers:)
+    response = HTTParty.post(API_URL + ENDPOINT, body: body.to_json, headers: headers)
     response["id"]
   end
 
@@ -55,6 +55,6 @@ class Mailer
 
     token = "HMAC-SHA256 SignedHeaders=x-ms-date;host;x-ms-content-sha256&Signature=#{firma}"
 
-    { token:, ahora:, body_digest:, host: }
+    { token: token, ahora: ahora, body_digest: body_digest, host: host }
   end
 end

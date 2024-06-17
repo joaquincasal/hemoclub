@@ -7,7 +7,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/graficos_controller.rb",
-      "line": 88,
+      "line": 90,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"      select distinct donante_id\\n      from donaciones\\n      where fecha between '#{(Time.zone.today - 1.year)}' and '#{Time.zone.today}'\\n      group by donante_id, tipo_donante\\n      having count(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1\\n        and count(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1\\n\".squish)",
       "render_path": null,
@@ -26,11 +26,34 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "848bd19496b26abc63c384586319666511a08b4c043ea2706ecb38860e047a47",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/filtro_por_atributo.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Donante.where(\"#{atributo} #{Filtro::OPERADORES[operador]} ?\", valor)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FiltroPorAtributo",
+        "method": "aplicar"
+      },
+      "user_input": "atributo",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "d6f386286796b622283ffbcbffc179cd8b9e5fd9fc03833ae1076c29dd2aa03b",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/graficos_controller.rb",
-      "line": 101,
+      "line": 103,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"      select donante_id\\n      from donaciones\\n      where fecha between '#{(Time.zone.today - 1.year)}' and '#{Time.zone.today}'\\n      group by donante_id, tipo_donante\\n      having count(case tipo_donante when 'voluntario' then 1 end) > 1\\n\".squish)",
       "render_path": null,
@@ -53,7 +76,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/graficos_controller.rb",
-      "line": 113,
+      "line": 115,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"      select donante_id\\n      from donaciones\\n      where fecha between '#{(Time.zone.today - 1.year)}' and '#{Time.zone.today}'\\n      group by donante_id, tipo_donante\\n      having count(case tipo_donante when 'club' then 1 end) > 1\\n\".squish)",
       "render_path": null,
@@ -70,6 +93,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-04-21 21:18:49 -0300",
+  "updated": "2024-06-17 17:34:00 -0300",
   "brakeman_version": "6.1.2"
 }

@@ -81,7 +81,7 @@ RSpec.describe "/donantes", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post donantes_url, params: { donante: valid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -113,7 +113,7 @@ RSpec.describe "/donantes", type: :request do
         donante = Donante.create! valid_attributes.merge(numero_documento: "11222333",
                                                          correo_electronico: "hola@hola.com")
         patch donante_url(donante), params: { donante: { numero_documento: valid_attributes[:numero_documento] } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

@@ -72,7 +72,7 @@ RSpec.describe "/clinicas", type: :request do
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         Clinica.create! valid_attributes
         post clinicas_url, params: { clinica: valid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe "/clinicas", type: :request do
         Clinica.create! valid_attributes
         clinica = Clinica.create! valid_attributes.merge(codigo: 1)
         patch clinica_url(clinica), params: { clinica: { codigo: valid_attributes[:codigo] } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

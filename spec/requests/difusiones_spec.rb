@@ -82,7 +82,7 @@ RSpec.describe "/difusiones", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post difusiones_url, params: { difusion: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -112,7 +112,7 @@ RSpec.describe "/difusiones", type: :request do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         difusion = Difusion.create! valid_attributes
         patch difusion_url(difusion), params: { difusion: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

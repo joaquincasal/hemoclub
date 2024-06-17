@@ -68,7 +68,7 @@ RSpec.describe "/exclusiones", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post donante_exclusiones_url(@donante), params: { exclusion: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -98,7 +98,7 @@ RSpec.describe "/exclusiones", type: :request do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         exclusion = Exclusion.create! valid_attributes
         patch donante_exclusion_url(@donante, exclusion), params: { exclusion: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
