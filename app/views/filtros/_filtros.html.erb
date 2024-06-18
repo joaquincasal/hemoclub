@@ -23,7 +23,7 @@
             <%= render(partial: "filtros/operadores", locals: { form: form, id: id, filtro: tipo_del(filtro), atributo: atributo_del(filtro) }) %>
           </div>
           <div class="column is-narrow">
-            <%= render(partial: "filtros/valor", locals: { form: form, id: id, info_valor: valor_del(filtro) }) %>
+            <%= render(partial: "filtros/valor", locals: { form: form, id: id, filtro: tipo_del(filtro), info_valor: valor_del(filtro) }) %>
           </div>
         <% else %>
           <div class="column is-narrow"><div id="atributo-<%= id %>"></div></div>

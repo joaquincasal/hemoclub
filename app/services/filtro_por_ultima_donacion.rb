@@ -1,4 +1,4 @@
-class FiltroPorAtributo
+class FiltroPorUltimaDonacion
   attr_reader :atributo, :operador, :valor
 
   def initialize(atributo:, operador:, valor:)
@@ -14,29 +14,22 @@ class FiltroPorAtributo
   def aplicar
     validar_parametros
     operador_query = Filtro::OPERADORES[operador]
-    Donante.where("#{atributo} #{operador_query} ?", valor)
+    Donante.joins(:ultima_donacion).where("donaciones.#{atributo} #{operador_query} ?", valor)
   end
 
   def self.nombre
-    "Información del donante"
+    "Información de la última donación"
   end
 
   def self.atributos
     {
       "Tipo de donante" => "tipo_donante",
-      "Sexo" => "sexo",
-      "Grupo sanguíneo" => "grupo_sanguineo",
-      "Factor sanguíneo" => "factor",
-      "Código postal" => "codigo_postal",
-      "Predonante de plaquetas" => "predonante_plaquetas",
-      "Candidato" => "candidato",
-      "Respondió mail de bienvenida" => "respondio_bienvenida",
-      "Cantidad de donaciones" => "donaciones_count"
+      "Fecha" => "fecha"
     }
   end
 
   def self.operadores(atributo)
-    if atributo == "donaciones_count"
+    if atributo == "fecha"
       {
         "Igual" => "igual",
         "Distinto" => "distinto",
@@ -62,27 +55,7 @@ class FiltroPorAtributo
                              "voluntario" => Donante.tipo_donantes[:voluntario],
                              "club" => Donante.tipo_donantes[:club] }
       },
-      "sexo" => {
-        "tipo" => "lista",
-        "valores" => { "Masculino" => "masculino", "Femenino" => "femenino" },
-        "valores_query" => { "masculino" => Donante.sexos[:masculino], "femenino" => Donante.sexos[:femenino] }
-      },
-      "grupo_sanguineo" => {
-        "tipo" => "lista",
-        "valores" => { "0" => "0", "A" => "A", "B" => "B", "AB" => "AB" },
-        "valores_query" => { "0" => Donante.grupo_sanguineos[:"0"], "A" => Donante.grupo_sanguineos[:A],
-                             "B" => Donante.grupo_sanguineos[:B], "AB" => Donante.grupo_sanguineos[:AB] }
-      },
-      "factor" => {
-        "tipo" => "lista",
-        "valores" => { "Positivo" => "positivo", "Negativo" => "negativo" },
-        "valores_query" => { "positivo" => Donante.factores[:positivo], "negativo" => Donante.factores[:negativo] }
-      },
-      "codigo_postal" => { "tipo" => "string" },
-      "predonante_plaquetas" => { "tipo" => "boolean" },
-      "candidato" => { "tipo" => "boolean" },
-      "respondio_bienvenida" => { "tipo" => "boolean" },
-      "donaciones_count" => { "tipo" => "number" }
+      "fecha" => { "tipo" => "date" }
     }[atributo]
   end
 

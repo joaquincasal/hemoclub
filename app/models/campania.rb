@@ -7,6 +7,8 @@ class Campania < ApplicationRecord
 
   validates :nombre, presence: true
 
+  scope :activa, -> { where(activa: true) }
+
   def enviar
     ejecucion = Ejecucion.create!(ejecutable: self)
     EnviarDifusionJob.perform_later(ejecucion.id)

@@ -1,6 +1,10 @@
 module ListasHelper
   def filtros_disponibles
-    [[FiltroPorAtributo.nombre, FiltroPorAtributo]]
+    [
+      [FiltroPorAtributo.nombre, FiltroPorAtributo],
+      [FiltroPorUltimaDonacion.nombre, FiltroPorUltimaDonacion],
+      [FiltroPorInteraccion.nombre, FiltroPorInteraccion]
+    ]
   end
 
   def tipo_del(filtro)

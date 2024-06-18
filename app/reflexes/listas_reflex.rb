@@ -23,8 +23,11 @@ class ListasReflex < ApplicationReflex
     tipo_valor = filtro.constantize.valores(atributo)
     morph "#operador-#{id}",
           render(partial: "filtros/operadores",
-                 locals: { filtro: filtro.constantize, atributo: atributo, form: form, id: id })
-    morph "#valor-#{id}", render(partial: "filtros/valor", locals: { info_valor: tipo_valor, form: form, id: id })
+                 locals: { form: form, id: id, filtro: filtro.constantize, atributo: atributo })
+    return unless filtro != "FiltroPorInteraccion"
+
+    morph "#valor-#{id}", render(partial: "filtros/valor",
+                                 locals: { form: form, id: id, filtro: filtro.constantize, info_valor: tipo_valor })
   end
 
   def agregar_filtro
@@ -44,11 +47,20 @@ class ListasReflex < ApplicationReflex
   end
 
   def create_lista
-    case params[:tipo]
-    when 'estatica'
-      ListaEstatica.new(lista_params)
-    when 'dinamica'
-      ListaDinamica.new(lista_params)
+    if params[:id]
+      case params[:tipo]
+      when 'estatica'
+        ListaEstatica.find(params[:id])
+      when 'dinamica'
+        ListaDinamica.find(params[:id])
+      end
+    else
+      case params[:tipo]
+      when 'estatica'
+        ListaEstatica.new(lista_params)
+      when 'dinamica'
+        ListaDinamica.new(lista_params)
+      end
     end
   end
 end

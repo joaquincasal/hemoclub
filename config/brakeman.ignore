@@ -3,6 +3,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "25c6f34414c5b2549c9edc1e5b0db6f95d95820db693705b02977389955c1d7c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/filtro_por_ultima_donacion.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Donante.joins(:ultima_donacion).where(\"donaciones.#{atributo} #{Filtro::OPERADORES[operador]} ?\", valor)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FiltroPorUltimaDonacion",
+        "method": "aplicar"
+      },
+      "user_input": "atributo",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "61144234d7723f87f7457f7b99267a0f142e7fd094025ba73e6560eb0bf095d9",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -93,6 +116,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-06-17 17:34:00 -0300",
+  "updated": "2024-06-17 23:11:44 -0300",
   "brakeman_version": "6.1.2"
 }
