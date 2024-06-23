@@ -36,7 +36,7 @@ class FiltroPorUltimaDonacion
         "Mayor" => "mayor",
         "Menor" => "menor",
         "Mayor o igual" => "mayor_o_igual",
-        "Menor o igual" => "menos_o_igual"
+        "Menor o igual" => "menor_o_igual"
       }
     else
       {
@@ -51,9 +51,9 @@ class FiltroPorUltimaDonacion
       "tipo_donante" => {
         "tipo" => "lista",
         "valores" => { "Reposicion" => "reposicion", "Voluntario" => "voluntario", "Club de donantes" => "club" },
-        "valores_query" => { "reposicion" => Donante.tipo_donantes[:reposicion],
-                             "voluntario" => Donante.tipo_donantes[:voluntario],
-                             "club" => Donante.tipo_donantes[:club] }
+        "valores_query" => { "reposicion" => Donante.tipo_donantes.key(Donante.tipo_donantes[:reposicion]),
+                             "voluntario" => Donante.tipo_donantes.key(Donante.tipo_donantes[:voluntario]),
+                             "club" => Donante.tipo_donantes.key(Donante.tipo_donantes[:club]) }
       },
       "fecha" => { "tipo" => "date" }
     }[atributo]

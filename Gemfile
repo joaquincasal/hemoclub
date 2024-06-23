@@ -56,6 +56,11 @@ gem 'tinymce-rails-langs'
 
 gem 'httparty'
 
+gem "actioncable-enhanced-postgresql-adapter"
+gem "activerecord-session_store"
+gem "solid_cache"
+gem "stimulus_reflex", "~> 3.5"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -85,7 +90,3 @@ group :test do
   gem "selenium-webdriver"
   gem 'simplecov', require: false, group: :test
 end
-
-gem "activerecord-session_store"
-gem "solid_cache"
-gem "stimulus_reflex", "~> 3.5"

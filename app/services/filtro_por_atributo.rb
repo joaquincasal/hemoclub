@@ -43,7 +43,7 @@ class FiltroPorAtributo
         "Mayor" => "mayor",
         "Menor" => "menor",
         "Mayor o igual" => "mayor_o_igual",
-        "Menor o igual" => "menos_o_igual"
+        "Menor o igual" => "menor_o_igual"
       }
     else
       {
