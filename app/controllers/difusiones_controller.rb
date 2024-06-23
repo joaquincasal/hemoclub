@@ -12,6 +12,7 @@ class DifusionesController < ApplicationController
                     .joins("INNER JOIN interacciones ON interacciones.donante_id = donaciones.donante_id")
                     .where(interacciones: { ejecutable_id: @difusion.id, ejecutable_type: @difusion.class.name })
     volvieron = total.where("donaciones.fecha >= interacciones.fecha")
+                     .where("donaciones.fecha <= interacciones.fecha + interval '2 months'")
     @efectividad = { "Donaron" => volvieron.count, "No donaron" => total.count - volvieron.count }
   end
 
