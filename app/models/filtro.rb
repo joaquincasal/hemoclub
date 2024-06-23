@@ -7,8 +7,12 @@ class Filtro < ApplicationRecord
     end
   end
 
-  def aplicar
-    query = Donante.all
+  def aplicar(id = nil)
+    query = Donante.con_email.sin_exclusiones
+    if id
+      ya_contactados = Interaccion.where(ejecutable_id: id, donacion_id: Donante.where.not(ultima_donacion_id: nil).pluck(:ultima_donacion_id)).pluck(:donante_id)
+      query = query.where.not(id: ya_contactados)
+    end
     filtros.each do |filtro|
       query.merge!(filtro.aplicar)
     end

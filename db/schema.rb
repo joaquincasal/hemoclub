@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_040149) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_193842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -210,6 +210,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_040149) do
     t.datetime "fecha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "donacion_id"
     t.index ["donante_id"], name: "index_interacciones_on_donante_id"
     t.index ["ejecucion_id"], name: "index_interacciones_on_ejecucion_id"
     t.index ["ejecutable_type", "ejecutable_id"], name: "index_interacciones_on_ejecutable"
