@@ -25,11 +25,12 @@ class Donante < ApplicationRecord
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
   scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
   scope :con_email, -> { where.not(correo_electronico: nil) }
-  scope :sin_exclusiones, lambda {
-    left_joins(:exclusiones).where(exclusiones: nil).or(
-      left_joins(:exclusiones).where(exclusiones: { fecha_fin: [nil, ..Time.current] })
-    )
+  scope :edad_apta, -> { where(fecha_nacimiento: 65.years.ago..) }
+  scope :con_exclusiones, -> { joins(:exclusiones).where(exclusiones: { fecha_fin: [Time.current.., nil] }) }
+  scope :serologia_reactiva, lambda {
+    joins(:donaciones).where(donaciones: { serologia: [Donacion.serologia[:reactiva], nil] })
   }
+  scope :aptos, -> { con_email.edad_apta.where.not(id: con_exclusiones).where.not(id: serologia_reactiva) }
 
   generates_token_for :recordatorios do
     respondio_bienvenida

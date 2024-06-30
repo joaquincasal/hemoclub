@@ -8,7 +8,7 @@ class Filtro < ApplicationRecord
   end
 
   def aplicar(id = nil)
-    query = Donante.con_email.sin_exclusiones
+    query = Donante.aptos
     if id
       ya_contactados = Interaccion
                        .where(ejecutable_id: id, donacion_id: Donante.where.not(ultima_donacion_id: nil)
