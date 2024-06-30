@@ -125,7 +125,7 @@ RSpec.describe "/campanias", type: :request do
       end.to change(Campania, :count).by(-1)
     end
 
-    it "redirects to the campañas list" do
+    it "redirects to the campanias list" do
       campania = Campania.create! valid_attributes
       delete campania_url(campania)
       expect(response).to redirect_to(campanias_url)

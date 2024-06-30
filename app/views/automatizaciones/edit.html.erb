@@ -1,0 +1,12 @@
+<div>
+  <%= link_to @automatizacion, class: "button is-link is-rounded is-small" do %>
+    <span class="icon">
+      <i class="fas fa-arrow-left"></i>
+    </span>
+    <span>Volver</span>
+  <% end %>
+</div>
+
+<h1 class="title">Editar automatización</h1>
+
+<%= render "form", automatizacion: @automatizacion %>

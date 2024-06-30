@@ -29,18 +29,18 @@ Rails.application.routes.draw do
         post "actualizar_donantes", to: "listas#actualizar_donantes"
       end
     end
-    resources :difusiones do
+    resources :campanias do
       member do
-        post "enviar", to: "difusiones#send_now"
-        post "programar", to: "difusiones#schedule"
-        delete "cancelar", to: "difusiones#cancel"
+        post "enviar", to: "campanias#send_now"
+        post "programar", to: "campanias#schedule"
+        delete "cancelar", to: "campanias#cancel"
       end
     end
-    resources :campanias
-    get "graficos", to: "graficos#index"
+    resources :automatizaciones
+    get "informes", to: "informes#index"
 
     # Defines the root path route ("/")
-    root "graficos#index"
+    root "informes#index"
     get "up" => "rails/health#show", as: :rails_health_check
   end
 end

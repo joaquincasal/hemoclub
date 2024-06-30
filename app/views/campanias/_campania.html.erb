@@ -1,27 +1,63 @@
-
 <div id="<%= dom_id campania %>">
-  <p>
-    <strong>Nombre:</strong>
-    <%= campania.nombre %>
-  </p>
-  <br>
-  <p>
-    <strong>Lista:</strong>
-    <%= campania.lista.nombre %>
-  </p>
-  <br>
-  <p>
-    <strong>Plantilla:</strong>
-    <%= campania.plantilla.nombre %>
-  </p>
-  <br>
-  <p>
-    <strong>Activa:</strong>
-    <%= campania.activa? ? "Sí" : "No" %>
-  </p>
-  <br>
-  <p>
-    <strong>Última ejecución:</strong>
-    <%= localize(campania.ejecuciones.last&.fecha) %>
-  </p>
+  <div class="columns">
+    <div class="column">
+      <p>
+        <strong>Nombre:</strong>
+        <%= campania.nombre %>
+      </p>
+      <br>
+      <p>
+        <strong>Lista:</strong>
+        <%= campania.lista.nombre %>
+      </p>
+      <br>
+      <p>
+        <strong>Plantilla:</strong>
+        <%= campania.plantilla.nombre %>
+      </p>
+      <br>
+      <div class="buttons">
+        <%= button_to enviar_campania_path(campania), method: :post, form: { data: { turbo_confirm: '¿Enviar campaña?' } }, class: "button is-info is-rounded" do %>
+    <span class="icon">
+      <i class="far fa-paper-plane"></i>
+    </span>
+          <span>Enviar ahora</span>
+        <% end %>
+
+        <button class="button is-rounded" data-controller="hello" data-action="click->hello#toggleProgramar">Programar</button>
+      </div>
+
+      <div id="programar" class="field is-hidden">
+        <%= form_with(url: programar_campania_path(campania)) do |form| %>
+          <input name="fecha" type="datetime-local" style="width: 35%" class="input is-rounded">
+
+          <%= form.button type: "submit", class: "button is-rounded" do %>
+      <span class="icon">
+        <i class="far fa-paper-plane"></i>
+      </span>
+            <span>Programar</span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="subtitle">Envíos</div>
+
+      <% campania.ejecuciones.each do |ejecucion| %>
+        <div>
+          <%= localize(ejecucion.fecha) %>
+          <% unless ejecucion.ejecutada? %>
+            <%= link_to "Cancelar envío", cancelar_campania_path(ejecucion.id), data: {turbo_method: :delete, turbo_confirm: '¿Confirmar cancelación de envío?'}, class: "delete" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="column">
+      <div class="box">
+        <p class="subtitle">Efectividad</p>
+        <p>Cuántos donantes de los que se invitaron donaron efectivamente luego de recibirla</p>
+        <%= pie_chart @efectividad %>
+      </div>
+    </div>
+  </div>
 </div>

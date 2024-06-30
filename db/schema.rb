@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_23_193842) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_30_231420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "automatizaciones", force: :cascade do |t|
+    t.string "nombre"
+    t.bigint "lista_id", null: false
+    t.bigint "plantilla_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "activa", default: true
+    t.index ["lista_id"], name: "index_automatizaciones_on_lista_id"
+    t.index ["plantilla_id"], name: "index_automatizaciones_on_plantilla_id"
+  end
 
   create_table "campanias", force: :cascade do |t|
     t.string "nombre"
@@ -21,7 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_193842) do
     t.bigint "plantilla_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "activa", default: true
     t.index ["lista_id"], name: "index_campanias_on_lista_id"
     t.index ["plantilla_id"], name: "index_campanias_on_plantilla_id"
   end
@@ -30,16 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_193842) do
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "difusiones", force: :cascade do |t|
-    t.string "nombre"
-    t.bigint "lista_id", null: false
-    t.bigint "plantilla_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["lista_id"], name: "index_difusiones_on_lista_id"
-    t.index ["plantilla_id"], name: "index_difusiones_on_plantilla_id"
   end
 
   create_table "donaciones", force: :cascade do |t|
@@ -277,10 +277,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_23_193842) do
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "automatizaciones", "listas"
+  add_foreign_key "automatizaciones", "plantillas"
   add_foreign_key "campanias", "listas"
   add_foreign_key "campanias", "plantillas"
-  add_foreign_key "difusiones", "listas"
-  add_foreign_key "difusiones", "plantillas"
   add_foreign_key "interacciones", "donantes"
   add_foreign_key "interacciones", "ejecuciones"
 end

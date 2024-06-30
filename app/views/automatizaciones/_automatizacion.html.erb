@@ -1,0 +1,27 @@
+
+<div id="<%= dom_id automatizacion %>">
+  <p>
+    <strong>Nombre:</strong>
+    <%= automatizacion.nombre %>
+  </p>
+  <br>
+  <p>
+    <strong>Lista:</strong>
+    <%= automatizacion.lista.nombre %>
+  </p>
+  <br>
+  <p>
+    <strong>Plantilla:</strong>
+    <%= automatizacion.plantilla.nombre %>
+  </p>
+  <br>
+  <p>
+    <strong>Activa:</strong>
+    <%= automatizacion.activa? ? "Sí" : "No" %>
+  </p>
+  <br>
+  <p>
+    <strong>Última ejecución:</strong>
+    <%= localize(automatizacion.ejecuciones.last&.fecha) %>
+  </p>
+</div>

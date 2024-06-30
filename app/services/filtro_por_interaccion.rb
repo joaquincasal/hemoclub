@@ -24,19 +24,19 @@ class FiltroPorInteraccion
 
   def self.atributos
     {
-      "Campañas" => "Campania",
-      "Difusiones" => "Difusion"
+      "Automatizaciones" => "Automatizacion",
+      "Campañas" => "Campania"
     }
   end
 
   def self.operadores(atributo)
-    if atributo == "campanias"
-      Campania.activa.each_with_object({}) do |campania, acumulador|
-        acumulador[campania.nombre] = campania.id.to_s
+    if atributo == "automatizaciones"
+      Automatizacion.activa.each_with_object({}) do |automatizacion, acumulador|
+        acumulador[automatizacion.nombre] = automatizacion.id.to_s
       end
     else
-      Difusion.all.each_with_object({}) do |difusion, acumulador|
-        acumulador[difusion.nombre] = difusion.id.to_s
+      Campania.all.each_with_object({}) do |campania, acumulador|
+        acumulador[campania.nombre] = campania.id.to_s
       end
     end
   end
@@ -47,7 +47,7 @@ class FiltroPorInteraccion
 
   def self.nombre_dato(orden)
     {
-      1 => "Campaña o Difusión",
+      1 => "Automatización o Campaña",
       2 => "Comunicación enviada"
     }[orden].to_s
   end

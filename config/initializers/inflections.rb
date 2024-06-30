@@ -22,10 +22,10 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'lista', 'listas'
   inflect.irregular 'lista dinamica', 'listas dinamicas'
   inflect.irregular 'lista_dinamica', 'listas_dinamicas'
-  inflect.irregular 'difusion', 'difusiones'
   inflect.irregular 'lista estatica', 'listas estaticas'
   inflect.irregular 'lista_estatica', 'listas_estaticas'
   inflect.irregular 'campania', 'campanias'
   inflect.irregular 'ejecucion', 'ejecuciones'
   inflect.irregular 'interaccion', 'interacciones'
+  inflect.irregular 'automatizacion', 'automatizaciones'
 end

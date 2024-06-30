@@ -1,0 +1,29 @@
+<span class="title">Automatizaciones</span>
+
+<%= link_to new_automatizacion_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear automatización</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Activa</th>
+      <th scope="col">Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @automatizaciones.each do |automatizacion| %>
+      <tr>
+        <td><%= automatizacion.nombre %></td>
+        <td><%= automatizacion.activa? ? "Sí" : "No" %></td>
+        <td><%= link_to "Detalles", automatizacion, data: { turbo_frame: "_top" } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

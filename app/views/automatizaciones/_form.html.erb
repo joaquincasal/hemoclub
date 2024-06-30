@@ -1,10 +1,10 @@
-<%= form_with(model: difusion) do |form| %>
-  <% if difusion.errors.any? %>
+<%= form_with(model: automatizacion) do |form| %>
+  <% if automatizacion.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(difusion.errors.count, "error") %> evitaron que la difusión sea guardada:</h2>
+      <h2><%= pluralize(automatizacion.errors.count, "error") %> evitaron que la automatización sea guardada:</h2>
 
       <ul>
-        <% difusion.errors.each do |error| %>
+        <% automatizacion.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -34,6 +34,11 @@
         <%= form.collection_select :plantilla_id, Plantilla.all, :id, :nombre, { include_blank: "" } %>
       </div>
     </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :activa, class: "label" %>
+    <%= form.check_box :activa %>
   </div>
 
   <div>

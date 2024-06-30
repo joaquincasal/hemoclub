@@ -1,4 +1,4 @@
-class GraficosController < ApplicationController
+class InformesController < ApplicationController
   def index
     @donantes_por_tipo = donantes_por_tipo
     @donaciones_por_mes = donaciones_por_mes

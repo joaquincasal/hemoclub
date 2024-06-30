@@ -1,5 +1,5 @@
 class CampaniasController < ApplicationController
-  before_action :set_campania, only: %i[show edit update destroy]
+  before_action :set_campania, only: %i[show edit update destroy send_now schedule]
 
   # GET /campanias
   def index
@@ -7,7 +7,14 @@ class CampaniasController < ApplicationController
   end
 
   # GET /campanias/1
-  def show; end
+  def show
+    total = Donacion.select("donaciones.donante_id").distinct
+                    .joins("INNER JOIN interacciones ON interacciones.donante_id = donaciones.donante_id")
+                    .where(interacciones: { ejecutable_id: @campania.id, ejecutable_type: @campania.class.name })
+    volvieron = total.where("donaciones.fecha >= interacciones.fecha")
+                     .where("donaciones.fecha <= interacciones.fecha + interval '2 months'")
+    @efectividad = { "Donaron" => volvieron.count, "No donaron" => total.count - volvieron.count }
+  end
 
   # GET /campanias/new
   def new
@@ -43,6 +50,23 @@ class CampaniasController < ApplicationController
     redirect_to campanias_url, notice: "Campaña eliminada exitosamente.", status: :see_other
   end
 
+  def send_now
+    @campania.enviar
+    redirect_to @campania, notice: "Campaña enviada exitosamente."
+  end
+
+  def schedule
+    @campania.programar_envio(Time.zone.parse(params[:fecha]))
+    redirect_to @campania, notice: "Campaña programada exitosamente."
+  end
+
+  def cancel
+    ejecucion = Ejecucion.find(params[:id])
+    campania = ejecucion.ejecutable
+    ejecucion.cancelar_envio
+    redirect_to campania, notice: "Campaña cancelada exitosamente."
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -52,6 +76,6 @@ class CampaniasController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def campania_params
-    params.require(:campania).permit(:nombre, :activa, :lista_id, :plantilla_id)
+    params.require(:campania).permit(:nombre, :lista_id, :plantilla_id)
   end
 end
