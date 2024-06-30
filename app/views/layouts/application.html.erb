@@ -24,14 +24,21 @@
       </div>
     </section>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
+      <div class="navbar-brand" data-controller="hello">
         <a class="navbar-item" href="/">
           <%= image_tag("logo.png") %>
+        </a>
+
+        <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-action="click->hello#toggleBurger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </a>
       </div>
 
       <% if usuario_signed_in? %>
-      <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="/graficos">
             Gráficos

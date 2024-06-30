@@ -17,4 +17,9 @@ export default class extends Controller {
       document.querySelector(".file-name").textContent = event.target.files[0].name;
     }
   }
+
+  toggleBurger(event) {
+    document.getElementsByClassName("navbar-burger")[0].classList.toggle("is-active")
+    document.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")
+  }
 }
