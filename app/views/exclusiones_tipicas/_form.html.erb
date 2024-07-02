@@ -1,0 +1,39 @@
+<%= form_with(model: exclusion_tipica) do |form| %>
+  <% if exclusion_tipica.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(exclusion_tipica.errors.count, "error", "errores") %> evitaron que la exclusión sea guardada:</h2>
+
+      <ul>
+        <% exclusion_tipica.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="columns">
+    <div class="column is-4">
+      <div class="field">
+        <%= form.label :motivo, class: "label" %>
+        <div class="control">
+          <%= form.text_field :motivo, class: "input is-rounded" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= form.label :duracion, "Duración en meses", class: "label" %>
+        <div class="control">
+          <%= form.number_field :duracion, class: "input is-rounded" %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.button type: "submit", class: "button is-primary is-rounded is-pulled-right" do %>
+        <span class="icon">
+          <i class="fas fa-floppy-disk"></i>
+        </span>
+          <span>Guardar</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

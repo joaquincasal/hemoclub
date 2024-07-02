@@ -1,0 +1,42 @@
+<span class="title">Exclusiones</span>
+
+<%= link_to new_exclusion_tipica_path, class: "button is-primary is-rounded ml-5" do %>
+  <span class="icon">
+    <i class="fas fa-circle-plus"></i>
+  </span>
+  <span>Crear exclusión</span>
+<% end %>
+
+<div class="container">
+  <table class="table is-striped is-hoverable mx-auto">
+    <thead>
+    <tr>
+      <th scope="col">Motivo</th>
+      <th scope="col">Duración</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @exclusiones_tipicas.each do |exclusion| %>
+      <tr>
+        <td><%= exclusion.motivo %></td>
+        <td><%= exclusion.duracion %> meses</td>
+        <td>
+          <div class="is-flex">
+            <%= link_to edit_exclusion_tipica_path(exclusion), class: "button is-rounded is-small mr-2" do %>
+              <span class="icon">
+                <i class="far fa-pen-to-square"></i>
+              </span>
+            <% end %>
+            <%= button_to exclusion, method: :delete, form: { data: { turbo_confirm: '¿Confirmar eliminación de exclusión?' } }, class: "button is-danger is-rounded is-small" do %>
+            <span class="icon">
+              <i class="fas fa-trash-can"></i>
+            </span>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

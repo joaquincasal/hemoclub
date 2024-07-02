@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       end
     end
     resources :automatizaciones
+    resources :exclusiones_tipicas
     get "informes", to: "informes#index"
 
     # Defines the root path route ("/")

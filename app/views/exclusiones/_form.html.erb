@@ -13,8 +13,17 @@
 
   <%= form.hidden_field :donante_id, value: @donante.id %>
 
-  <div class="columns">
+  <div class="columns" data-controller="hello">
     <div class="column is-3">
+      <div class="field">
+        <%= label_tag :exclusion_tipica, "Tipo de exclusión" , class: "label" %>
+        <div class="control">
+          <div class="select is-rounded">
+            <%= select_tag :exclusion_tipica, options_for_select(ExclusionTipica.all.map { |exclusion| [exclusion.motivo, exclusion.duracion] }), include_blank: "Otro", data: { action: "input->hello#setFechaExclusion" } %>
+          </div>
+        </div>
+      </div>
+
       <div class="field">
         <%= form.label :fecha_inicio, class: "label" %>
         <div class="control">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_30_231420) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_224815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -110,6 +110,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_231420) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["donante_id"], name: "index_exclusiones_on_donante_id"
+  end
+
+  create_table "exclusiones_tipicas", force: :cascade do |t|
+    t.integer "duracion"
+    t.string "motivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "filtros", force: :cascade do |t|

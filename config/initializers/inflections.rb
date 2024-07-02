@@ -28,4 +28,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'ejecucion', 'ejecuciones'
   inflect.irregular 'interaccion', 'interacciones'
   inflect.irregular 'automatizacion', 'automatizaciones'
+  inflect.irregular 'exclusion_tipica', 'exclusiones_tipicas'
+  inflect.irregular 'exclusion tipica', 'exclusiones tipicas'
 end

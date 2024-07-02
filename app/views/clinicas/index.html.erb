@@ -13,6 +13,7 @@
     <tr>
       <th scope="col">Código</th>
       <th scope="col">Nombre</th>
+      <th scope="col">Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +21,15 @@
       <tr>
         <td><%= clinica.codigo %></td>
         <td><%= clinica.nombre %></td>
+        <td>
+          <div>
+            <%= link_to edit_clinica_path(clinica), class: "button is-rounded is-small mr-2" do %>
+              <span class="icon">
+                <i class="far fa-pen-to-square"></i>
+              </span>
+            <% end %>
+          </div>
+        </td>
       </tr>
     <% end %>
     </tbody>
