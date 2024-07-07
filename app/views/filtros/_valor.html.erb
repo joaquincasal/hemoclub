@@ -27,7 +27,9 @@
 
           <% if info_valor["tipo"] == "date" %>
             <div class="control">
-              <%= parametros_form.date_field :valor, class: "input is-rounded", name: "lista[filtro_attributes][parametros][][valor]" %>
+              <div class="select is-rounded">
+                <%= parametros_form.select :valor, info_valor["valores"], { prompt: "Elegir..." }, { name: "lista[filtro_attributes][parametros][][valor]" } %>
+              </div>
             </div>
           <% end %>
 

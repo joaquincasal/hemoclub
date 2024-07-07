@@ -55,7 +55,17 @@ class FiltroPorUltimaDonacion
                              "voluntario" => Donante.tipo_donantes.key(Donante.tipo_donantes[:voluntario]),
                              "club" => Donante.tipo_donantes.key(Donante.tipo_donantes[:club]) }
       },
-      "fecha" => { "tipo" => "date" }
+      "fecha" => {
+        "tipo" => "lista",
+        "valores" => { "Hoy" => "0", "1 mes" => "1", "2 meses" => "2", "3 meses" => "3", "4 meses" => "4",
+                       "5 meses" => "5", "6 meses" => "6", "7 meses" => "7", "8 meses" => "8", "9 meses" => "9",
+                       "10 meses" => "10", "11 meses" => "11", "12 meses" => "12" },
+        "valores_query" => { "0" => 0.months.from_now, "1" => 1.month.from_now, "2" => 2.months.from_now,
+                             "3" => 3.months.from_now, "4" => 4.months.from_now, "5" => 5.months.from_now,
+                             "6" => 6.months.from_now, "7" => 7.months.from_now, "8" => 8.months.from_now,
+                             "9" => 9.months.from_now, "10" => 10.months.from_now, "11" => 11.months.from_now,
+                             "12" => 12.months.from_now }
+      }
     }[atributo]
   end
 

@@ -3,7 +3,8 @@ module ListasHelper
     [
       [FiltroPorAtributo.nombre, FiltroPorAtributo],
       [FiltroPorUltimaDonacion.nombre, FiltroPorUltimaDonacion],
-      [FiltroPorInteraccion.nombre, FiltroPorInteraccion]
+      [FiltroPorInteraccion.nombre, FiltroPorInteraccion],
+      [FiltroPorCumpleanios.nombre, FiltroPorCumpleanios]
     ]
   end
 
