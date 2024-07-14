@@ -80,8 +80,8 @@
         <table class="table is-striped is-hoverable">
           <thead>
           <tr>
-            <th scope="col">Fecha inicio</th>
-            <th scope="col">Fecha fin</th>
+            <th scope="col">Fecha<br>inicio</th>
+            <th scope="col">Fecha<br>fin</th>
             <th scope="col">Motivo</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -135,7 +135,7 @@
         <tr>
           <td><%= ejecutable.class.name %></td>
           <td><%= ejecutable.nombre %></td>
-          <td><%= localize interaccion.fecha %></td>
+          <td><%= localize(interaccion.fecha, format: :long) %></td>
           <td><%= estado_interaccion(interaccion.estado_interaccion) %></td>
         </tr>
       <% end %>

@@ -10,6 +10,7 @@ class ListasReflex < ApplicationReflex
     id = element["data-id"]
     morph "#atributo-#{id}",
           render(partial: "filtros/atributos", locals: { filtro: filtro.constantize, form: form, id: id })
+            .gsub("&lt;/div&gt;", "")
     morph "#operador-#{id}", ""
     morph "#valor-#{id}", ""
   end
@@ -24,10 +25,12 @@ class ListasReflex < ApplicationReflex
     morph "#operador-#{id}",
           render(partial: "filtros/operadores",
                  locals: { form: form, id: id, filtro: filtro.constantize, atributo: atributo })
+            .gsub("&lt;/div&gt;", "")
     return unless filtro != "FiltroPorInteraccion"
 
     morph "#valor-#{id}", render(partial: "filtros/valor",
                                  locals: { form: form, id: id, filtro: filtro.constantize, info_valor: tipo_valor })
+      .gsub("&lt;/div&gt;", "")
   end
 
   def agregar_filtro
@@ -37,7 +40,8 @@ class ListasReflex < ApplicationReflex
     lista = create_lista
     form = ActionView::Helpers::FormBuilder.new(:lista, lista, view_context, {})
     cable_ready.append(selector: "#filtros",
-                       html: render(partial: "filtros/filtros", locals: { form: form, id: contador, filtro: nil }))
+                       html: render(partial: "filtros/filtros", locals: { form: form, id: contador, filtro: nil })
+                               .gsub("&lt;/div&gt;", ""))
   end
 
   def borrar_filtro

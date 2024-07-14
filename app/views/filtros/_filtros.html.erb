@@ -1,6 +1,6 @@
 <div id="filtro-<%= id %>">
   <%= form.fields_for :filtro do |filtro_form| %>
-    <% filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
+    <%= filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
       <div class="columns">
         <button class="delete mt-6" data-reflex="click->ListasReflex#borrar_filtro" data-id="<%= id %>"></button>
         <div class="column is-narrow">

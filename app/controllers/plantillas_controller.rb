@@ -3,7 +3,7 @@ class PlantillasController < ApplicationController
 
   # GET /plantillas
   def index
-    @plantillas = Plantilla.all
+    @plantillas = Plantilla.order(:nombre)
   end
 
   # GET /plantillas/1

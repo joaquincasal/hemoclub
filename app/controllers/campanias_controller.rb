@@ -3,7 +3,7 @@ class CampaniasController < ApplicationController
 
   # GET /campanias
   def index
-    @campanias = Campania.all
+    @campanias = Campania.order(:nombre)
   end
 
   # GET /campanias/1

@@ -3,7 +3,7 @@ class ListasController < ApplicationController
 
   # GET /listas
   def index
-    @listas = Lista.all
+    @listas = Lista.order(:nombre)
   end
 
   # GET /listas/1

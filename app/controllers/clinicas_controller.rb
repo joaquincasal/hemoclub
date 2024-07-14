@@ -3,7 +3,7 @@ class ClinicasController < ApplicationController
 
   # GET /clinicas
   def index
-    @clinicas = Clinica.all
+    @clinicas = Clinica.order(:codigo)
   end
 
   # GET /clinicas/new

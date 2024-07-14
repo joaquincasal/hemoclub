@@ -3,7 +3,7 @@ class AutomatizacionesController < ApplicationController
 
   # GET /automatizaciones
   def index
-    @automatizaciones = Automatizacion.all
+    @automatizaciones = Automatizacion.order(:nombre)
   end
 
   # GET /automatizaciones/1

@@ -3,7 +3,7 @@ class ExclusionesTipicasController < ApplicationController
 
   # GET /exclusiones_tipicas
   def index
-    @exclusiones_tipicas = ExclusionTipica.all
+    @exclusiones_tipicas = ExclusionTipica.order(:duracion)
   end
 
   # GET /exclusiones_tipicas/new
