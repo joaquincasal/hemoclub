@@ -21,7 +21,7 @@ class ListasController < ApplicationController
   def create
     @lista = Lista.new(lista_params)
     if @lista.save
-      redirect_to lista_path(@lista), notice: "Lista creada exitosamente."
+      redirect_to @lista, notice: "Lista creada exitosamente."
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class ListasController < ApplicationController
   # PATCH/PUT /listas/1
   def update
     if @lista.update(lista_params)
-      redirect_to lista_path(@lista), notice: "Lista actualizada exitosamente.", status: :see_other
+      redirect_to @lista, notice: "Lista actualizada exitosamente.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,11 +40,6 @@ class ListasController < ApplicationController
   def destroy
     @lista.destroy!
     redirect_to listas_path, notice: "Lista eliminada exitosamente.", status: :see_other
-  end
-
-  def actualizar_donantes
-    @lista.set_donantes
-    redirect_to lista_path(@lista), notice: "Donantes actualizados exitosamente.", status: :see_other
   end
 
   # Only allow a list of trusted parameters through.

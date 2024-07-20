@@ -3,6 +3,9 @@ class Plantilla < ApplicationRecord
   belongs_to :encabezado, optional: true, class_name: "Plantilla"
   belongs_to :firma, optional: true, class_name: "Plantilla"
 
+  scope :reutilizable, -> { where(reutilizable: true) }
+  scope :para_email, -> { where(reutilizable: false) }
+
   def contenido_completo
     texto = (encabezado&.contenido || "") + contenido + (firma&.contenido || "")
     ActionController::Base.helpers.sanitize(texto, attributes: %w[href target style])

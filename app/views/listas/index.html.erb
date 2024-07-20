@@ -21,7 +21,7 @@
     <% @listas.each do |lista| %>
       <tr>
         <td><%= lista.nombre %></td>
-        <td><%= link_to "Detalles", lista_path(lista), data: { turbo_frame: "_top" } %></td>
+        <td><%= link_to "Detalles", lista, data: { turbo_frame: "_top" } %></td>
       </tr>
     <% end %>
     </tbody>

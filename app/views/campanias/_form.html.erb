@@ -31,7 +31,7 @@
     <%= form.label :plantilla_id, "Plantilla", class: "label" %>
     <div class="control">
       <div class="select is-rounded">
-        <%= form.collection_select :plantilla_id, Plantilla.all, :id, :nombre, { include_blank: "" } %>
+        <%= form.collection_select :plantilla_id, Plantilla.para_email, :id, :nombre, { include_blank: "" } %>
       </div>
     </div>
   </div>

@@ -7,12 +7,12 @@
   <br>
   <p>
     <strong>Lista:</strong>
-    <%= automatizacion.lista.nombre %>
+    <%= link_to "#{automatizacion.lista.nombre}", automatizacion.lista, data: { turbo_frame: "_top" } %>
   </p>
   <br>
   <p>
     <strong>Plantilla:</strong>
-    <%= automatizacion.plantilla.nombre %>
+    <%= link_to "#{automatizacion.plantilla.nombre}", automatizacion.plantilla, data: { turbo_frame: "_top" } %>
   </p>
   <br>
   <p>
