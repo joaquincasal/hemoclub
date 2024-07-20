@@ -14,8 +14,7 @@ class Campania < ApplicationRecord
   end
 
   def programar_envio(fecha)
-    donantes = lista.donantes
-    ejecucion = Ejecucion.create!(ejecutable: self, donantes: donantes, fecha: fecha)
+    ejecucion = Ejecucion.create!(ejecutable: self, fecha: fecha)
     EnviarCampaniaJob.set(wait_until: fecha).perform_later(ejecucion.id)
   end
 end

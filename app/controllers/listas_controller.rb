@@ -11,12 +11,7 @@ class ListasController < ApplicationController
 
   # GET /listas/new
   def new
-    case params[:tipo]
-    when 'estatica'
-      @lista = ListaEstatica.new(filtro: Filtro.new(parametros: {}))
-    when 'dinamica'
-      @lista = ListaDinamica.new(filtro: Filtro.new(parametros: {}))
-    end
+    @lista = Lista.new(filtro: Filtro.new(parametros: {}))
   end
 
   # GET /listas/1/edit
@@ -24,16 +19,7 @@ class ListasController < ApplicationController
 
   # POST /listas
   def create
-    parametros = lista_params
-    tipo = parametros[:type]
-    case tipo
-    when ListaEstatica.name
-      @lista = ListaEstatica.new(parametros)
-      @lista.set_donantes
-    when ListaDinamica.name
-      @lista = ListaDinamica.new(parametros)
-    end
-
+    @lista = Lista.new(lista_params)
     if @lista.save
       redirect_to lista_path(@lista), notice: "Lista creada exitosamente."
     else

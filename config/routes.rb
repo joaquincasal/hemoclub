@@ -24,11 +24,7 @@ Rails.application.routes.draw do
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
     resources :plantillas
-    resources :listas do
-      member do
-        post "actualizar_donantes", to: "listas#actualizar_donantes"
-      end
-    end
+    resources :listas
     resources :campanias do
       member do
         post "enviar", to: "campanias#send_now"

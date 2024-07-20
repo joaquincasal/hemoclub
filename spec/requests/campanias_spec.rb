@@ -19,7 +19,7 @@ RSpec.describe "/campanias", type: :request do
   # Campania. As you add validations to Campania, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { nombre: "una campaña", lista_id: create(:lista_dinamica).id, plantilla_id: create(:plantilla).id }
+    { nombre: "una campaña", lista_id: create(:lista).id, plantilla_id: create(:plantilla).id }
   end
 
   let(:invalid_attributes) do

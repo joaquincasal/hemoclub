@@ -26,20 +26,19 @@ RSpec.describe "/listas", type: :request do
                        atributo: "tipo_donante",
                        operador: "distinto",
                        valor: "reposicion" }]
-      },
-      type: "ListaDinamica"
+      }
     }
   end
 
   let(:invalid_attributes) do
-    { nombre: "", type: "ListaDinamica" }
+    { nombre: "" }
   end
 
   before { sign_in Usuario.new }
 
   describe "GET /index" do
     it "renders a successful response" do
-      ListaDinamica.create! valid_attributes
+      Lista.create! valid_attributes
       get listas_url
       expect(response).to be_successful
     end
@@ -47,7 +46,7 @@ RSpec.describe "/listas", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      lista = ListaDinamica.create! valid_attributes
+      lista = Lista.create! valid_attributes
       get lista_url(lista)
       expect(response).to be_successful
     end
@@ -55,14 +54,14 @@ RSpec.describe "/listas", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_lista_url(tipo: 'dinamica')
+      get new_lista_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      lista = ListaDinamica.create! valid_attributes
+      lista = Lista.create! valid_attributes
       get edit_lista_url(lista)
       expect(response).to be_successful
     end
@@ -70,24 +69,24 @@ RSpec.describe "/listas", type: :request do
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new ListaDinamica" do
+      it "creates a new Lista" do
         expect do
           post listas_url, params: { lista: valid_attributes }
-        end.to change(ListaDinamica, :count).by(1)
-                                            .and change(Filtro, :count).by(1)
+        end.to change(Lista, :count).by(1)
+                                    .and change(Filtro, :count).by(1)
       end
 
       it "redirects to the created lista" do
         post listas_url, params: { lista: valid_attributes }
-        expect(response).to redirect_to(lista_url(ListaDinamica.last))
+        expect(response).to redirect_to(lista_url(Lista.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new ListaDinamica" do
+      it "does not create a new Lista" do
         expect do
           post listas_url, params: { lista: invalid_attributes }
-        end.not_to change(ListaDinamica, :count)
+        end.not_to change(Lista, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
@@ -104,14 +103,14 @@ RSpec.describe "/listas", type: :request do
       end
 
       it "updates the requested lista" do
-        lista = ListaDinamica.create! valid_attributes
+        lista = Lista.create! valid_attributes
         patch lista_url(lista), params: { lista: new_attributes }
         lista.reload
         expect(lista.nombre).to eq new_attributes[:nombre]
       end
 
       it "redirects to the lista" do
-        lista = ListaDinamica.create! valid_attributes
+        lista = Lista.create! valid_attributes
         patch lista_url(lista), params: { lista: new_attributes }
         lista.reload
         expect(response).to redirect_to(lista_url(lista))
@@ -120,7 +119,7 @@ RSpec.describe "/listas", type: :request do
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        lista = ListaDinamica.create! valid_attributes
+        lista = Lista.create! valid_attributes
         patch lista_url(lista), params: { lista: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_content)
       end
@@ -129,14 +128,14 @@ RSpec.describe "/listas", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested lista" do
-      lista = ListaDinamica.create! valid_attributes
+      lista = Lista.create! valid_attributes
       expect do
         delete lista_url(lista)
-      end.to change(ListaDinamica, :count).by(-1)
+      end.to change(Lista, :count).by(-1)
     end
 
     it "redirects to the listas list" do
-      lista = ListaDinamica.create! valid_attributes
+      lista = Lista.create! valid_attributes
       delete lista_url(lista)
       expect(response).to redirect_to(listas_url)
     end

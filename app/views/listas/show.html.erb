@@ -5,7 +5,7 @@
     </span>
     <span>Volver al listado</span>
   <% end %>
-  <%= link_to edit_lista_path(@lista, tipo: @lista.class == ListaDinamica ? "dinamica" : "estatica"), class: "button is-rounded is-small" do %>
+  <%= link_to edit_lista_path(@lista), class: "button is-rounded is-small" do %>
     <span class="icon">
       <i class="far fa-pen-to-square"></i>
     </span>

@@ -7,7 +7,6 @@ class Donante < ApplicationRecord
   has_many :donaciones, dependent: :destroy
   belongs_to :ultima_donacion, class_name: "Donacion", optional: true
   has_many :exclusiones, dependent: :destroy
-  has_and_belongs_to_many :lista_estaticas
   has_many :interacciones, dependent: :destroy
   has_many :ejecuciones, through: :interacciones
 

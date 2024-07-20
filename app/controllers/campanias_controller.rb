@@ -64,7 +64,7 @@ class CampaniasController < ApplicationController
     ejecucion = Ejecucion.find(params[:id])
     campania = ejecucion.ejecutable
     ejecucion.cancelar_envio
-    redirect_to campania, notice: "Campaña cancelada exitosamente."
+    redirect_to campania, notice: "Envío cancelado exitosamente."
   end
 
   private

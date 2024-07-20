@@ -1,28 +1,21 @@
-<div id="<%= dom_id lista_estatica %>">
-  <%= button_to actualizar_donantes_lista_path(@lista), method: :post, form: { data: { turbo_confirm: '¿Confirmar actualización de donantes?' } }, class: "button is-link is-rounded is-small" do %>
-    <span class="icon">
-      <i class="fas fa-rotate"></i>
-    </span>
-    <span>Actualizar donantes</span>
-  <% end %>
-
+<div id="<%= dom_id lista %>">
   <p>
     <strong>Nombre:</strong>
-    <%= lista_estatica.nombre %>
+    <%= lista.nombre %>
   </p>
   <br>
   <p><strong>Filtros:</strong></p>
   <dl>
-    <% lista_estatica.filtro.parametros.each do |condicion| %>
+    <% lista.filtro.parametros.each do |condicion| %>
       <li>
         <i><%= "#{condicion["atributo"]}" %></i>
-        <b><%= "#{condicion["operador"]}" %></b>
+        <b><%= "#{condicion["operador"]}" %> a</b>
         <span>"<%= "#{condicion["valor"]}" %>"</span>
       </li>
     <% end %>
   </dl>
   <br>
-  <p><strong>Donantes (se muestran todos, <%= lista_estatica.donantes.count %> en total):</strong></p>
+  <p><strong>Muestra de resultado (se muestran <%= [10, lista.donantes.count].min %>, hay <%= lista.donantes.count %> en total):</strong></p>
     <div class="container">
       <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
         <thead>
@@ -37,7 +30,7 @@
         </tr>
         </thead>
         <tbody>
-        <% lista_estatica.donantes.each do |donante| %>
+        <% lista.donantes.limit(10).each do |donante| %>
           <tr>
             <td style="width: 20%"><%= donante.nombre_completo %></td>
             <td><%= donante.edad %></td>

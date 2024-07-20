@@ -51,20 +51,6 @@ class ListasReflex < ApplicationReflex
   end
 
   def create_lista
-    if params[:id]
-      case params[:tipo]
-      when 'estatica'
-        ListaEstatica.find(params[:id])
-      when 'dinamica'
-        ListaDinamica.find(params[:id])
-      end
-    else
-      case params[:tipo]
-      when 'estatica'
-        ListaEstatica.new(lista_params)
-      when 'dinamica'
-        ListaDinamica.new(lista_params)
-      end
-    end
+    params[:id] ? Lista.find(params[:id]) : Lista.new(lista_params)
   end
 end

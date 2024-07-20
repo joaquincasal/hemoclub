@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :campania do
     nombre { "una campaña" }
-    lista_dinamica
+    lista
     plantilla
   end
 end

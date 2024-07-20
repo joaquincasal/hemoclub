@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_01_224815) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_20_220220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -82,14 +82,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_224815) do
     t.integer "donaciones_count", default: 0
     t.boolean "respondio_bienvenida"
     t.bigint "ultima_donacion_id"
-  end
-
-  create_table "donantes_listas", id: false, force: :cascade do |t|
-    t.bigint "donante_id"
-    t.bigint "lista_estatica_id"
-    t.index ["donante_id", "lista_estatica_id"], name: "index_donantes_listas_on_donante_id_and_lista_estatica_id"
-    t.index ["donante_id"], name: "index_donantes_listas_on_donante_id"
-    t.index ["lista_estatica_id"], name: "index_donantes_listas_on_lista_estatica_id"
   end
 
   create_table "ejecuciones", force: :cascade do |t|
@@ -227,7 +219,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_224815) do
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
   end
 
   create_table "plantillas", force: :cascade do |t|
