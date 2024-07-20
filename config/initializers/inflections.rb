@@ -26,4 +26,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'automatizacion', 'automatizaciones'
   inflect.irregular 'exclusion_tipica', 'exclusiones_tipicas'
   inflect.irregular 'exclusion tipica', 'exclusiones tipicas'
+  inflect.irregular 'comunicacion', 'comunicaciones'
 end

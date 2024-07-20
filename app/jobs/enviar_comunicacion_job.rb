@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EnviarCampaniaJob < ApplicationJob
+class EnviarComunicacionJob < ApplicationJob
   def perform(ejecucion_id)
     ejecucion = Ejecucion.find(ejecucion_id)
     plantilla = ejecucion.ejecutable.plantilla
