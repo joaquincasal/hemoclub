@@ -3,7 +3,7 @@
 <%= form_with url: "/donantes/importar", multipart: true do |form| %>
   <div class="file has-name is-boxed">
     <label class="file-label" data-controller="hello">
-      <%= file_field_tag :archivo, class: "file-input", data: { action: "input->hello#filename" } %>
+      <%= file_field_tag :archivo, :accept => 'text/csv', class: "file-input", data: { action: "input->hello#filename" } %>
       <span class="file-cta">
       <span class="file-icon">
         <i class="fas fa-upload"></i>

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :importacion, class: Hash do
     TipoDonante { "Voluntario" }
-    FechaIng { "22/11/2022" }
+    FechaIng { "11/22/2022" }
     Nombre { "PÉREZ PABLO" }
     TipoDoc { "DNI" }
     NroDoc { "11222333" }

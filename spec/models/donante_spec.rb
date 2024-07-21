@@ -10,8 +10,8 @@ RSpec.describe Donante, type: :model do
       it "crear donante con correo electronico invalido, no guarda correo electronico" do
         donante.correo_electronico = "email"
         donante.save
-        expect(donante).not_to be_valid
-        expect(donante.errors).to have_key(:correo_electronico)
+        expect(donante).to be_valid
+        expect(donante.correo_electronico).to be_nil
       end
 
       it "crear donante con dni duplicado falla" do

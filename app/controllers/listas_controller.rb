@@ -1,5 +1,5 @@
 class ListasController < ApplicationController
-  before_action :set_lista, only: %i[show edit update destroy actualizar_donantes]
+  before_action :set_lista, only: %i[show edit update destroy]
 
   # GET /listas
   def index

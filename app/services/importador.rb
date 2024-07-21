@@ -64,13 +64,15 @@ class Importador
   }.freeze
 
   TRANSFORMACIONES_VALORES_DONANTE = {
-    TIPO_DONANTE_HEADER => {
-      ".Común" => "reposicion",
-      "Común" => "reposicion",
-      "Acepta LLamado" => "reposicion",
-      "Club Donantes" => "club",
-      "Voluntario" => "voluntario"
-    },
+    TIPO_DONANTE_HEADER => Hash.new("reposicion").merge(
+      {
+        ".Común" => "reposicion",
+        "Común" => "reposicion",
+        "Acepta LLamado" => "reposicion",
+        "Club Donantes" => "club",
+        "Voluntario" => "voluntario"
+      }
+    ),
     SEXO_HEADER => {
       "M" => "masculino",
       "F" => "femenino"
@@ -114,7 +116,7 @@ class Importador
   def guardar_errores(filas_con_errores)
     headers = filas_con_errores.first.headers.join(',')
     errores = filas_con_errores.map(&:to_csv)
-    contenido_archivo = "#{headers}\n#{errores.join("\n")}"
+    contenido_archivo = "#{headers}\n#{errores.join}"
     Rails.root.join("errores.csv").write(contenido_archivo)
   end
 
@@ -125,8 +127,10 @@ class Importador
       next if saltear_importacion?(fila_hash)
 
       solucionar_discrepancias!(fila_hash)
-      donante = crear_o_actualizar_donante(fila_hash)
-      crear_donacion(fila_hash, donante)
+      ActiveRecord::Base.transaction do
+        donante = crear_o_actualizar_donante(fila_hash)
+        crear_donacion(fila_hash, donante)
+      end
     rescue StandardError => e
       fila['error'] = e.message
       filas_con_errores.push(fila)
@@ -225,7 +229,7 @@ class Importador
 
   def campos_donacion(fila)
     campos = filtrar_campos(fila, DONACION_HEADERS)
-    convertir_fecha!(campos, FECHA_DONACION_HEADER, '%d/%m/%Y')
+    convertir_fecha!(campos, FECHA_DONACION_HEADER, '%m/%d/%Y')
     transformar_valores!(campos, TRANSFORMACIONES_VALORES_DONACION)
     transformar_keys!(campos, TRANSFORMACIONES_KEYS_DONACION)
     borrar_vacios!(campos)
