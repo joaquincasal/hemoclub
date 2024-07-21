@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_032856) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_205332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_032856) do
     t.integer "motivo_rechazo_predonante_plaquetas"
     t.boolean "candidato"
     t.integer "donaciones_count", default: 0
-    t.boolean "respondio_bienvenida"
+    t.boolean "suscripto"
     t.bigint "ultima_donacion_id"
     t.index ["correo_electronico"], name: "index_donantes_on_correo_electronico"
     t.index ["tipo_documento", "numero_documento"], name: "index_donantes_on_tipo_documento_and_numero_documento"

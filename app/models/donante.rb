@@ -32,8 +32,8 @@ class Donante < ApplicationRecord
   }
   scope :aptos, -> { con_email.edad_apta.where.not(id: con_exclusiones).where.not(id: serologia_reactiva) }
 
-  generates_token_for :recordatorios do
-    respondio_bienvenida
+  generates_token_for :suscripcion do
+    suscripto
   end
 
   def nombre_completo

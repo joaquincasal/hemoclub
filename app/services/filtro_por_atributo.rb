@@ -30,7 +30,7 @@ class FiltroPorAtributo
       "Código postal" => "codigo_postal",
       "Predonante de plaquetas" => "predonante_plaquetas",
       "Candidato" => "candidato",
-      "Respondió mail de bienvenida" => "respondio_bienvenida",
+      "Está suscripto" => "suscripto",
       "Cantidad de donaciones" => "donaciones_count"
     }
   end
@@ -81,7 +81,7 @@ class FiltroPorAtributo
       "codigo_postal" => { "tipo" => "string" },
       "predonante_plaquetas" => { "tipo" => "boolean" },
       "candidato" => { "tipo" => "boolean" },
-      "respondio_bienvenida" => { "tipo" => "boolean" },
+      "suscripto" => { "tipo" => "boolean" },
       "donaciones_count" => { "tipo" => "number" }
     }[atributo]
   end

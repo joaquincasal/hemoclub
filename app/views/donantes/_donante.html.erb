@@ -8,7 +8,7 @@
         <p><span class="has-text-weight-bold">Sexo: </span><%= donante.sexo&.humanize %></p>
         <p><span class="has-text-weight-bold">Fecha de nacimiento: </span><%= "#{localize donante.fecha_nacimiento} (#{donante.edad} años)" %></p>
         <p><span class="has-text-weight-bold">Es candidato: </span><%= donante.candidato? ? "Sí" : "No" %></p>
-        <p><span class="has-text-weight-bold">Respondió mail de bienvenida: </span><%= donante.respondio_bienvenida ? "Sí" : "No" %></p>
+        <p><span class="has-text-weight-bold">Está suscripto: </span><%= donante.suscripto ? "Sí" : "No" %></p>
       </div>
     </div>
     <div class="column">

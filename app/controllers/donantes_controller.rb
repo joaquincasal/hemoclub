@@ -75,8 +75,9 @@ class DonantesController < ApplicationController
 
   def welcome
     token = params[:token]
-    @donante = Donante.find_by_token_for(:recordatorios, token)
-    @donante&.update(respondio_bienvenida: true)
+    @suscripcion = ActiveModel::Type::Boolean.new.cast(params[:suscripcion])
+    @donante = Donante.find_by_token_for(:suscripcion, token)
+    @donante&.update(suscripto: @suscripcion)
     render "welcome", layout: false
   end
 
@@ -92,7 +93,7 @@ class DonantesController < ApplicationController
     params.require("donante").permit(:nombre, :segundo_nombre, :apellidos, :tipo_documento, :numero_documento,
                                      :sexo, :fecha_nacimiento, :tipo_donante, :telefono, :correo_electronico,
                                      :ocupacion, :grupo_sanguineo, :factor, :direccion, :localidad,
-                                     :provincia, :pais, :codigo_postal, :candidato, :respondio_bienvenida)
+                                     :provincia, :pais, :codigo_postal, :candidato, :suscripto)
   end
 
   def sort_column

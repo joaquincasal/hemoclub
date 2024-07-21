@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         get "errores", to: "donantes#import_errors"
         get "candidatos" => "donantes#index_candidatos"
         post "candidatos" => "candidatos#create"
-        get "recordatorios" => "donantes#welcome"
+        get "suscripcion" => "donantes#welcome"
       end
     end
     resources :clinicas, param: :codigo, only: [:index, :new, :edit, :create, :update]
