@@ -16,7 +16,7 @@ class Donante < ApplicationRecord
   enum grupo_sanguineo: [:"0", :A, :B, :AB]
   enum factor: [:positivo, :negativo]
 
-  validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false
+  validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false, unless: -> { candidato? }
   validates :correo_electronico, uniqueness: true, allow_nil: true
   validate :validar_correo_electronico
 

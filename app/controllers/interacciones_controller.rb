@@ -1,10 +1,5 @@
-class InteraccionesController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  skip_before_action :authenticate_usuario!
-
+class InteraccionesController < IntegracionesController
   def update
-    return head :unauthorized if ENV["WEBHOOK_KEY"] != params[:key]
-
     evento = JSON.parse(request.raw_post)
     id_mensaje = evento["messageId"]
     if evento["eventType"] == "Microsoft.Communication.EmailDeliveryReportReceived"

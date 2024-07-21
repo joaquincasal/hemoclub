@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         post "importar", to: "donantes#do_import"
         get "errores", to: "donantes#import_errors"
         get "candidatos" => "donantes#index_candidatos"
+        post "candidatos" => "candidatos#create"
         get "recordatorios" => "donantes#welcome"
       end
     end
