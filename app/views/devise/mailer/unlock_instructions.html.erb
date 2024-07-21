@@ -1,0 +1,11 @@
+<p>Hola <%= @resource.email %>!</p>
+
+<p>Este es un email relacionado a tu cuenta de Hemoclub.</p>
+
+<p>Tu cuenta ha sido bloqueada debido a una cantidad excesiva de intentos fallidos para ingresar.</p>
+
+<p>Hacé click en el siguiente enlace para desbloquear tu cuenta:</p>
+
+<p><%= link_to 'Desbloquear mi cuenta', unlock_url(@resource, unlock_token: @token) %></p>
+
+<img src="<%= ENV["APP_HOST"] %>/logo.png" alt="Logo de hemocentro" width="230px" height="50px">

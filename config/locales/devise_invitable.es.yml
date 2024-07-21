@@ -19,7 +19,7 @@ es:
       invitation_instructions:
         subject: "Invitación a Hemoclub"
         hello: "Hola %{email}"
-        someone_invited_you: "Fuiste invitado a crearte un usuario en Hemoclub (%{url}), podés aceptar la invitación siguiendo el siguiente link"
+        someone_invited_you: "Fuiste invitado a crearte un usuario en Hemoclub, podés aceptar la invitación siguiendo el siguiente link:"
         accept: "Aceptar la invitación"
         accept_until: "Esta invitación expirará en %{due_date}."
         ignore: "Si no te interesa esta invitación, simplemente ignorá este correo."
