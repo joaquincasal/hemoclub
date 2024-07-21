@@ -64,15 +64,15 @@ es:
       reset_password_instructions:
         action: Cambiar mi contraseña
         greeting: "Hola %{recipient}"
-        instruction: Recibimos una solicitud para establecer una nueva contraseña de su cuenta de Hemoclub. Podés hacerlo a través del siguiente link.
+        instruction: "Recibimos una solicitud para establecer una nueva contraseña de su cuenta de Hemoclub. Podés hacerlo a través del siguiente link:"
         instruction_2: Si no lo solicitaste, simplemente ignorá este correo electrónico.
         instruction_3: Tu contraseña no va a cambiar a menos que accedas al link y crees una nueva.
         subject: "Hemoclub: Instrucciones de recuperación de contraseña"
       unlock_instructions:
         action: Desbloquear mi cuenta
         greeting: "¡Hola %{recipient}!"
-        instruction: 'Haga click en el siguiente enlace para desbloquear su cuenta:'
-        message: Su cuenta ha sido bloqueada debido a una cantidad excesiva de intentos infructuosos para ingresar.
+        instruction: 'Hacé click en el siguiente enlace para desbloquear tu cuenta:'
+        message: Tu cuenta de Hemoclub ha sido bloqueada debido a una cantidad excesiva de intentos infructuosos para ingresar.
         subject: Instrucciones para desbloquear
     omniauth_callbacks:
       failure: No has sido autorizado en la cuenta %{kind} porque "%{reason}".
