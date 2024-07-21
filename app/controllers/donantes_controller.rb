@@ -6,7 +6,7 @@ class DonantesController < ApplicationController
 
   # GET /donantes
   def index
-    donantes = Donante.includes(:donaciones)
+    donantes = Donante.sin_candidatos.includes(:donaciones)
     donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
     donantes = donantes.order("#{sort_column} #{sort_direction}")
 
@@ -14,7 +14,7 @@ class DonantesController < ApplicationController
   end
 
   def index_candidatos
-    donantes = Donante.where(candidato: true).includes(:donaciones)
+    donantes = Donante.candidatos.includes(:donaciones)
     donantes = donantes.where(id: Donante.buscar(params[:busqueda]).select(:id)) if params[:busqueda].present?
     donantes = donantes.order("#{sort_column} #{sort_direction}")
     @pagy, @donantes = pagy(donantes)

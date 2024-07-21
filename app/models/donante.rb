@@ -20,12 +20,14 @@ class Donante < ApplicationRecord
   validates :correo_electronico, uniqueness: true, allow_nil: true
   validate :validar_correo_electronico
 
+  scope :sin_candidatos, -> { where(candidato: false) }
+  scope :candidatos, -> { where(candidato: true) }
   scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
   scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
   scope :con_email, -> { where.not(correo_electronico: nil) }
-  scope :edad_apta, -> { where(fecha_nacimiento: 65.years.ago..) }
+  scope :edad_apta, -> { where(fecha_nacimiento: [65.years.ago.., nil]) }
   scope :con_exclusiones, -> { joins(:exclusiones).where(exclusiones: { fecha_fin: [Time.current.., nil] }) }
   scope :serologia_reactiva, lambda {
     joins(:donaciones).where(donaciones: { serologia: [Donacion.serologia[:reactiva], nil] })
