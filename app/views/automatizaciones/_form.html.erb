@@ -37,6 +37,15 @@
   </div>
 
   <div class="field">
+    <%= form.label :remitente, "Remitente", class: "label" %>
+    <div class="control">
+      <div class="select is-rounded">
+        <%= form.select :remitente, Comunicacion.remitentes, { include_blank: "" } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
     <%= form.label :activa, class: "label" %>
     <%= form.check_box :activa %>
   </div>

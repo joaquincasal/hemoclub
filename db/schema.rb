@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_000640) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_032856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_000640) do
     t.datetime "updated_at", null: false
     t.boolean "activa", default: true
     t.string "type"
+    t.string "remitente"
     t.index ["lista_id"], name: "index_comunicaciones_on_lista_id"
     t.index ["plantilla_id"], name: "index_comunicaciones_on_plantilla_id"
   end

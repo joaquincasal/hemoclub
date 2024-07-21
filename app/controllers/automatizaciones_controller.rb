@@ -52,6 +52,6 @@ class AutomatizacionesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def automatizacion_params
-    params.require(:automatizacion).permit(:nombre, :activa, :lista_id, :plantilla_id)
+    params.require(:automatizacion).permit(:nombre, :activa, :lista_id, :plantilla_id, :remitente)
   end
 end

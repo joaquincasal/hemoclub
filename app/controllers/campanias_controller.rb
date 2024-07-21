@@ -76,6 +76,6 @@ class CampaniasController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def campania_params
-    params.require(:campania).permit(:nombre, :lista_id, :plantilla_id)
+    params.require(:campania).permit(:nombre, :lista_id, :plantilla_id, :remitente)
   end
 end

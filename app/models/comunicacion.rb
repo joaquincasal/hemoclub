@@ -8,6 +8,10 @@ class Comunicacion < ApplicationRecord
 
   validates :nombre, presence: true
 
+  def self.remitentes
+    %w[sender@sender.com remitente@remitente.com]
+  end
+
   def enviar
     ejecucion = Ejecucion.create!(ejecutable: self)
     EnviarComunicacionJob.perform_later(ejecucion.id)

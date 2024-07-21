@@ -16,6 +16,11 @@
         <%= campania.plantilla.nombre %>
       </p>
       <br>
+      <p>
+        <strong>Remitente:</strong>
+        <%= campania.remitente %>
+      </p>
+      <br>
       <div class="buttons">
         <%= button_to enviar_campania_path(campania), method: :post, form: { data: { turbo_confirm: '¿Enviar campaña?' } }, class: "button is-info is-rounded" do %>
     <span class="icon">
