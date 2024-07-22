@@ -77,7 +77,7 @@ class DonantesController < ApplicationController
     token = params[:token]
     @suscripcion = ActiveModel::Type::Boolean.new.cast(params[:suscripcion])
     @donante = Donante.find_by_token_for(:suscripcion, token)
-    @donante&.update(suscripto: @suscripcion)
+    @suscripcion ? @donante&.suscribir : @donante&.desuscribir
     render "welcome", layout: false
   end
 

@@ -9,7 +9,9 @@ class Interaccion < ApplicationRecord
   attribute :estado_interaccion, :integer, default: -> { estado_interacciones[:enviado] }
 
   def actualizar_estado_envio(estado)
-    update(estado_envio: convertir_estado(estado))
+    nuevo_estado = convertir_estado(estado)
+    update(estado_envio: nuevo_estado)
+    donante.desuscribir if nuevo_estado != estado_envios[:entregado]
   end
 
   def marcar_leido

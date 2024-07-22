@@ -20,7 +20,7 @@ class Donante < ApplicationRecord
   validates :correo_electronico, uniqueness: true, allow_nil: true
   validate :validar_correo_electronico
 
-  scope :sin_candidatos, -> { where(candidato: false) }
+  scope :sin_candidatos, -> { where.not(candidato: true) }
   scope :candidatos, -> { where(candidato: true) }
   scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
@@ -46,6 +46,14 @@ class Donante < ApplicationRecord
     return nil if fecha_nacimiento.blank?
 
     ((Time.zone.now - fecha_nacimiento.to_time) / 1.year.seconds).floor
+  end
+
+  def suscribir
+    update(suscripto: true)
+  end
+
+  def desuscribir
+    update(suscripto: false)
   end
 
   private
