@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :ejecucion do
-    ejecutable factory: %i[campania]
+    comunicacion factory: %i[campania]
     fecha { "2024-04-21 18:28:34" }
   end
 end

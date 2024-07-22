@@ -1,10 +1,8 @@
 class Comunicacion < ApplicationRecord
   belongs_to :lista
   belongs_to :plantilla
-  has_many :ejecuciones, as: :ejecutable, dependent: :destroy
+  has_many :ejecuciones, dependent: :destroy
   has_many :interacciones, through: :ejecuciones
-
-  delegate :donantes, to: :lista
 
   validates :nombre, presence: true
 
@@ -13,7 +11,11 @@ class Comunicacion < ApplicationRecord
   end
 
   def enviar
-    ejecucion = Ejecucion.create!(ejecutable: self)
+    ejecucion = Ejecucion.create!(comunicacion: self)
     EnviarComunicacionJob.perform_later(ejecucion.id)
+  end
+
+  def donantes
+    lista.donantes(self)
   end
 end

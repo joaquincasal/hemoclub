@@ -10,7 +10,7 @@ class CampaniasController < ApplicationController
   def show
     total = Donacion.select("donaciones.donante_id").distinct
                     .joins("INNER JOIN interacciones ON interacciones.donante_id = donaciones.donante_id")
-                    .where(interacciones: { ejecutable_id: @campania.id, ejecutable_type: @campania.class.name })
+                    .where(interacciones: { comunicacion_id: @campania.id })
     volvieron = total.where("donaciones.fecha >= interacciones.fecha")
                      .where("donaciones.fecha <= interacciones.fecha + interval '2 months'")
     @efectividad = { "Donaron" => volvieron.count, "No donaron" => total.count - volvieron.count }
@@ -62,7 +62,7 @@ class CampaniasController < ApplicationController
 
   def cancel
     ejecucion = Ejecucion.find(params[:id])
-    campania = ejecucion.ejecutable
+    campania = ejecucion.comunicacion
     ejecucion.cancelar_envio
     redirect_to campania, notice: "Envío cancelado exitosamente."
   end

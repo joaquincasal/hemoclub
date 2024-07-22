@@ -27,6 +27,6 @@
   <br>
   <p>
     <strong>Última ejecución:</strong>
-    <%= localize(automatizacion.ejecuciones.last&.fecha, format: :long) %>
+    <%= localize(automatizacion.ejecuciones.order(fecha: :desc).first&.fecha, format: :long) %>
   </p>
 </div>

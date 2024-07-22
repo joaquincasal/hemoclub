@@ -14,7 +14,7 @@ class FiltroPorInteraccion
   def aplicar
     validar_parametros
     Donante.joins(:interacciones, :ultima_donacion)
-           .where(interacciones: { ejecutable_type: @atributo, ejecutable_id: @operador })
+           .where(interacciones: { comunicacion_id: @operador })
            .where("donaciones.fecha > interacciones.fecha")
   end
 

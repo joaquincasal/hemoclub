@@ -1,5 +1,5 @@
 class Ejecucion < ApplicationRecord
-  belongs_to :ejecutable, polymorphic: true
+  belongs_to :comunicacion
   has_many :interacciones, dependent: :destroy
   has_many :donantes, through: :interacciones
 

@@ -130,11 +130,11 @@
       </tr>
       </thead>
       <tbody>
-      <% donante.interacciones.each do |interaccion| %>
-      <% ejecutable = interaccion.ejecutable %>
+      <% donante.interacciones.order(fecha: :desc).each do |interaccion| %>
+      <% comunicacion = interaccion.comunicacion %>
         <tr>
-          <td><%= ejecutable.class.name %></td>
-          <td><%= ejecutable.nombre %></td>
+          <td><%= comunicacion.class.name %></td>
+          <td><%= comunicacion.nombre %></td>
           <td><%= localize(interaccion.fecha, format: :long) %></td>
           <td><%= estado_interaccion(interaccion.estado_interaccion) %></td>
         </tr>

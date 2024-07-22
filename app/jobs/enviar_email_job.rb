@@ -5,8 +5,8 @@ class EnviarEmailJob < ApplicationJob
     plantilla = Plantilla.find(plantilla_id)
     donante = Donante.find(donante_id)
     ejecucion = Ejecucion.find(ejecucion_id)
-    id_mensaje = Mailer.new(donante, plantilla, ejecucion.ejecutable.remitente).enviar
-    Interaccion.create!(ejecutable: ejecucion.ejecutable, donante: donante, ejecucion: ejecucion,
-                        id_mensaje: id_mensaje, fecha: Time.zone.now)
+    id_mensaje = Mailer.new(donante, plantilla, ejecucion.comunicacion.remitente).enviar
+    Interaccion.create!(comunicacion: ejecucion.comunicacion, donante: donante, ejecucion: ejecucion,
+                        id_mensaje: id_mensaje, fecha: Time.zone.now, donacion_id: donante.ultima_donacion_id)
   end
 end

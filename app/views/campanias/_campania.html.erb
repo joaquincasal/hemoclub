@@ -8,12 +8,12 @@
       <br>
       <p>
         <strong>Lista:</strong>
-        <%= campania.lista.nombre %>
+        <%= link_to "#{campania.lista.nombre}", campania.lista, data: { turbo_frame: "_top" } %>
       </p>
       <br>
       <p>
         <strong>Plantilla:</strong>
-        <%= campania.plantilla.nombre %>
+        <%= link_to "#{campania.plantilla.nombre}", campania.plantilla, data: { turbo_frame: "_top" } %>
       </p>
       <br>
       <p>
@@ -47,7 +47,7 @@
 
       <div class="subtitle">Envíos</div>
 
-      <% campania.ejecuciones.each do |ejecucion| %>
+      <% campania.ejecuciones.order(fecha: :desc).each do |ejecucion| %>
         <div>
           <%= localize(ejecucion.fecha, format: :long) %>
           <% unless ejecucion.ejecutada? %>

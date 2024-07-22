@@ -5,6 +5,5 @@ FactoryBot.define do
          operador: "distinto",
          valor: "reposicion" }]
     end
-    type { "FiltroPorAtributo" }
   end
 end

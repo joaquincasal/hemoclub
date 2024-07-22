@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_212516) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_041051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -79,13 +79,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_212516) do
   end
 
   create_table "ejecuciones", force: :cascade do |t|
-    t.string "ejecutable_type"
-    t.bigint "ejecutable_id"
+    t.bigint "comunicacion_id"
     t.datetime "fecha", default: -> { "CURRENT_TIMESTAMP" }
     t.boolean "ejecutada", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ejecutable_type", "ejecutable_id"], name: "index_ejecuciones_on_ejecutable"
   end
 
   create_table "exclusiones", force: :cascade do |t|
@@ -110,7 +108,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_212516) do
     t.datetime "updated_at", null: false
     t.bigint "lista_id"
     t.json "parametros"
-    t.string "type"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -195,8 +192,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_212516) do
   create_table "interacciones", force: :cascade do |t|
     t.bigint "donante_id", null: false
     t.bigint "ejecucion_id", null: false
-    t.string "ejecutable_type"
-    t.bigint "ejecutable_id"
+    t.bigint "comunicacion_id"
     t.integer "estado_envio"
     t.integer "estado_interaccion"
     t.string "id_mensaje"
@@ -206,7 +202,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_212516) do
     t.bigint "donacion_id"
     t.index ["donante_id"], name: "index_interacciones_on_donante_id"
     t.index ["ejecucion_id"], name: "index_interacciones_on_ejecucion_id"
-    t.index ["ejecutable_type", "ejecutable_id"], name: "index_interacciones_on_ejecutable"
   end
 
   create_table "listas", force: :cascade do |t|

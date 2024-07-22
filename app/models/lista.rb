@@ -6,7 +6,7 @@ class Lista < ApplicationRecord
 
   validates :nombre, :filtro, presence: true
 
-  def donantes
-    filtro.aplicar
+  def donantes(comunicacion = nil)
+    filtro.aplicar(comunicacion)
   end
 end

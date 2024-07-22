@@ -23,6 +23,8 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/I18nLocaleTexts:
   Enabled: false
+Rails/PluckInWhere:
+  Enabled: false
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 RSpec/ContextWording:

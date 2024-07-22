@@ -7,12 +7,11 @@ class Filtro < ApplicationRecord
     end
   end
 
-  def aplicar(id = nil)
+  def aplicar(comunicacion = nil)
     query = Donante.aptos
-    if id
+    if comunicacion
       ya_contactados = Interaccion
-                       .where(ejecutable_id: id, donacion_id: Donante.where.not(ultima_donacion_id: nil)
-                                                                     .select(:ultima_donacion_id))
+                       .where(comunicacion_id: comunicacion.id, donacion_id: Donante.pluck(:ultima_donacion_id))
                        .pluck(:donante_id)
       query = query.where.not(id: ya_contactados)
     end

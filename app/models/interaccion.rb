@@ -1,7 +1,7 @@
 class Interaccion < ApplicationRecord
   belongs_to :donante
   belongs_to :ejecucion
-  belongs_to :ejecutable, polymorphic: true
+  belongs_to :comunicacion
 
   enum estado_envio: [:entregado, :suprimido, :rebotado, :cuarentena, :filtrado, :expandido, :fallido]
   enum estado_interaccion: [:enviado, :leido]
