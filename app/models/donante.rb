@@ -20,7 +20,7 @@ class Donante < ApplicationRecord
   validates :correo_electronico, uniqueness: true, allow_nil: true
   validate :validar_correo_electronico
 
-  scope :sin_candidatos, -> { where.not(candidato: true) }
+  scope :sin_candidatos, -> { where(candidato: [false, nil]) }
   scope :candidatos, -> { where(candidato: true) }
   scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
