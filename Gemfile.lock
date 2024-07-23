@@ -137,6 +137,7 @@ GEM
       devise (>= 4.6)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    dotenv (3.1.2)
     drb (2.2.1)
     erubi (1.13.0)
     et-orbi (1.2.7)
@@ -414,6 +415,7 @@ DEPENDENCIES
   devise (~> 4.9)
   devise-i18n
   devise_invitable (~> 2.0.0)
+  dotenv
   factory_bot_rails
   good_job (~> 3.23)
   groupdate

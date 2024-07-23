@@ -1,7 +1,8 @@
 require "active_support/core_ext/integer/time"
 
+Rails.application.default_url_options = { host: 'localhost', port: 3000 }
+
 Rails.application.configure do
-  config.action_controller.default_url_options = {host: "localhost", port: 3000}
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -36,11 +37,19 @@ Rails.application.configure do
   config.session_store :active_record_store, key: "_session_development"
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = ENV["MAILER_DELIVERY_METHOD"]
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV["SMTP_MAILER_USERNAME"],
+    :password => ENV["SMTP_MAILER_PASSWORD"],
+    :address => ENV["SMTP_MAILER_ADDRESS"],
+    :port => ENV["SMTP_MAILER_PORT"],
+    authentication: :login,
+    enable_starttls_auto: true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
