@@ -61,10 +61,10 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    :user_name => ENV["MAILER_USERNAME"],
-    :password => ENV["MAILER_PASSWORD"],
-    :address => ENV["MAILER_ADDRESS"],
-    :port => ENV["MAILER_PORT"],
+    :user_name => ENV["SMTP_MAILER_USERNAME"],
+    :password => ENV["SMTP_MAILER_PASSWORD"],
+    :address => ENV["SMTP_MAILER_ADDRESS"],
+    :port => ENV["SMTP_MAILER_PORT"],
     :authentication => :login,
     :enable_starttls_auto => true
   }

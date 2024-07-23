@@ -13,7 +13,7 @@ class Donante < ApplicationRecord
   enum tipo_donante: [:reposicion, :voluntario, :club]
   enum tipo_documento: [:DNI, :CIE, :PAS, :DOC]
   enum sexo: [:masculino, :femenino]
-  enum grupo_sanguineo: [:"0", :A, :B, :AB]
+  enum grupo_sanguineo: [:"0", :A, :B, :AB, :A2B]
   enum factor: [:positivo, :negativo]
 
   validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false, unless: -> { candidato? }

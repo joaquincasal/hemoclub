@@ -7,7 +7,7 @@ class Comunicacion < ApplicationRecord
   validates :nombre, presence: true
 
   def self.remitentes
-    %w[sender@sender.com remitente@remitente.com]
+    ENV.fetch("API_MAILER_SENDERS", "").split(",")
   end
 
   def enviar
