@@ -24,7 +24,7 @@ class Mailer
       "Authorization" => token[:token]
     }
     response = HTTParty.post(API_URL + ENDPOINT, body: body.to_json, headers: headers)
-    response["id"]
+    response.success? ? response["id"] : false
   end
 
   private
