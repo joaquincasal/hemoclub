@@ -65,4 +65,37 @@
       </div>
     </div>
   </div>
+
+  <br>
+  <p>Al enviar esta campaña se contactará a los siguientes donantes:</p>
+  <div class="container">
+    <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
+      <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Tipo donante</th>
+        <th scope="col">Última donación</th>
+        <th scope="col">Grupo y factor</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Correo electrónico</th>
+        <th scope="col">Detalles</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% campania.donantes.each do |donante| %>
+        <tr>
+          <td style="width: 20%"><%= donante.nombre_completo %></td>
+          <td><%= donante.edad %></td>
+          <td><%= tipo_donante(donante.tipo_donante) %></td>
+          <td><%= fecha_ultima_donacion(donante) %></td>
+          <td><%= grupo_y_factor(donante.grupo_sanguineo, donante.factor) %></td>
+          <td><%= donante.numero_documento %></td>
+          <td><%= donante.correo_electronico %></td>
+          <td><%= link_to "Detalles", donante, data: { turbo_frame: "_top" } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

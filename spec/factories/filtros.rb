@@ -3,7 +3,8 @@ FactoryBot.define do
     parametros do
       [{ atributo: "tipo_donante",
          operador: "distinto",
-         valor: "reposicion" }]
+         valor: "reposicion",
+         tipo: "FiltroPorAtributo"}]
     end
   end
 end

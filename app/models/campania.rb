@@ -3,4 +3,8 @@ class Campania < Comunicacion
     ejecucion = Ejecucion.create!(comunicacion: self, fecha: fecha)
     EnviarComunicacionJob.set(wait_until: fecha).perform_later(ejecucion.id)
   end
+
+  def filtrar_contactados?
+    false
+  end
 end

@@ -9,7 +9,7 @@ class Filtro < ApplicationRecord
 
   def aplicar(comunicacion = nil)
     query = Donante.aptos
-    if comunicacion
+    if comunicacion.present? && comunicacion.filtrar_contactados?
       ya_contactados = Interaccion
                        .where(comunicacion_id: comunicacion.id, donacion_id: Donante.pluck(:ultima_donacion_id))
                        .pluck(:donante_id)
