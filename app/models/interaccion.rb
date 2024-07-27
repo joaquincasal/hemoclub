@@ -11,7 +11,7 @@ class Interaccion < ApplicationRecord
   def actualizar_estado_envio(estado)
     nuevo_estado = convertir_estado(estado)
     update(estado_envio: nuevo_estado)
-    donante.desuscribir if nuevo_estado != estado_envios[:entregado]
+    donante.bloquear if nuevo_estado != estado_envios[:entregado]
   end
 
   def marcar_leido

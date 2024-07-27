@@ -14,7 +14,11 @@ class FiltroPorAtributo
   def aplicar
     validar_parametros
     operador_query = Filtro::OPERADORES[operador]
-    Donante.where("donantes.#{atributo} #{operador_query} ?", valor)
+    if atributo == "candidato"
+      Donante.rewhere("donantes.#{atributo} #{operador_query} ?", valor)
+    else
+      Donante.where("donantes.#{atributo} #{operador_query} ?", valor)
+    end
   end
 
   def self.nombre

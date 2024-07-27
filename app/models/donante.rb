@@ -1,4 +1,6 @@
 class Donante < ApplicationRecord
+  FECHA_INICIO_CONTACTOS = Date.parse(ENV.fetch("FECHA_INICIO_CONTACTO", "2024-09-01"))
+
   include PgSearch::Model
   pg_search_scope :buscar,
                   against: [:apellidos, :nombre, :segundo_nombre, :numero_documento, :correo_electronico],
@@ -26,13 +28,20 @@ class Donante < ApplicationRecord
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
   scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
+
   scope :con_email, -> { where.not(correo_electronico: nil) }
   scope :edad_apta, -> { where(fecha_nacimiento: [65.years.ago.., nil]) }
+  scope :no_bloqueados, -> { where(bloqueado: [false, nil]) }
   scope :con_exclusiones, -> { joins(:exclusiones).where(exclusiones: { fecha_fin: [Time.current.., nil] }) }
   scope :serologia_reactiva, lambda {
     joins(:donaciones).where(donaciones: { serologia: [Donacion.serologia[:reactiva], nil] })
   }
-  scope :aptos, -> { con_email.edad_apta.where.not(id: con_exclusiones).where.not(id: serologia_reactiva) }
+  scope :con_donacion_rechazada, -> { joins(:ultima_donacion).where.not(ultima_donacion: { motivo_rechazo: nil }) }
+  scope :no_contactado, -> { joins(:ultima_donacion).where(ultima_donacion: { fecha: FECHA_INICIO_CONTACTOS.. }) }
+  scope :aptos, lambda {
+    no_bloqueados.con_email.edad_apta.no_contactado
+                 .where.not(id: con_exclusiones).where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
+  }
 
   generates_token_for :suscripcion do
     suscripto
@@ -54,6 +63,10 @@ class Donante < ApplicationRecord
 
   def desuscribir
     update(suscripto: false)
+  end
+
+  def bloquear
+    update(bloqueado: true)
   end
 
   private
