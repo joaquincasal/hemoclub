@@ -40,6 +40,8 @@ class ListasController < ApplicationController
   def destroy
     @lista.destroy!
     redirect_to listas_path, notice: "Lista eliminada exitosamente.", status: :see_other
+  rescue StandardError
+    redirect_to @lista, alert: "No puede ser borrada porque es utilizada por una automatización o campaña."
   end
 
   # Only allow a list of trusted parameters through.

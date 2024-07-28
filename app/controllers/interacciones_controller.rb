@@ -12,6 +12,7 @@ class InteraccionesController < IntegracionesController
         Interaccion.find_by(id_mensaje: id_mensaje).marcar_leido
       end
     end
+    head :ok
   end
 
   private

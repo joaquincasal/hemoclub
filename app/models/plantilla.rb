@@ -2,6 +2,7 @@ class Plantilla < ApplicationRecord
   validates :nombre, :contenido, presence: true
   belongs_to :encabezado, optional: true, class_name: "Plantilla"
   belongs_to :firma, optional: true, class_name: "Plantilla"
+  has_many :comunicaciones, dependent: :restrict_with_exception
 
   scope :reutilizable, -> { where(reutilizable: true) }
   scope :para_email, -> { where(reutilizable: false) }

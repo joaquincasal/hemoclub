@@ -31,7 +31,7 @@
   </p>
 
   <br>
-  <p>En la siguiente ejecución se contactará a los siguientes donantes:</p>
+  <p>En la siguiente ejecución se contactará a los siguientes donantes (<%= automatizacion.donantes.size %> en total):</p>
   <div class="container">
     <table class="table is-striped is-hoverable is-fullwidth mx-auto mt-5">
       <thead>
@@ -62,4 +62,14 @@
       </tbody>
     </table>
   </div>
+
+  <br>
+  <hr>
+
+  <% if Donante.first.present? %>
+    <p><strong>Ejemplo de contenido:</strong> (usando a <a target="_blank" href="/donantes/<%= Donante.first.id %>">este donante</a> como ejemplo)</p>
+    <div class="box">
+      <%= automatizacion.plantilla.contenido_reemplazado(Donante.first) %>
+    </div>
+  <% end %>
 </div>

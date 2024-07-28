@@ -41,6 +41,8 @@ class PlantillasController < ApplicationController
   def destroy
     @plantilla.destroy!
     redirect_to plantillas_url, notice: "Plantilla eliminada exitosamente.", status: :see_other
+  rescue StandardError
+    redirect_to @plantilla, alert: "No puede ser borrada porque es utilizada por una automatización o campaña."
   end
 
   # Only allow a list of trusted parameters through.
