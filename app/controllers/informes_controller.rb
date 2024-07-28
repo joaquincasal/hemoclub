@@ -26,12 +26,12 @@ class InformesController < ApplicationController
   def donaciones_por_mes
     donaciones = Donacion.no_rechazadas
                          .group(:serologia)
-                         .where(fecha: 1.year.ago.next_month..)
-                         .group_by_month(:fecha, format: "%B")
+                         .where(fecha: 1.year.ago.next_month.beginning_of_month..)
+                         .group_by_month(:fecha, format: "%B %Y", time_zone: false)
                          .count
     rechazadas = Donacion.rechazadas
-                         .where(fecha: 1.year.ago.next_month..)
-                         .group_by_month(:fecha, format: "%B")
+                         .where(fecha: 1.year.ago.next_month.beginning_of_month..)
+                         .group_by_month(:fecha, format: "%B %Y", time_zone: false)
                          .count
     rechazadas.each do |mes, valor|
       donaciones[['rechazada', mes]] = valor
@@ -60,14 +60,15 @@ class InformesController < ApplicationController
     Donante.joins(:donaciones)
            .predonantes_aptos
            .where(donaciones: { fecha: 2.months.ago.beginning_of_month.. })
-           .group_by_month(:fecha, format: "%B")
+           .group_by_month(:fecha, format: "%B %Y", time_zone: false)
            .count
   end
 
   def donaciones_por_mes_por_tipo_donante
     Donacion.group(:tipo_donante)
-            .where(fecha: 1.year.ago.next_month..)
-            .group_by_month(:fecha, format: "%B")
+            .where(fecha: 1.year.ago.next_month.beginning_of_month..)
+            .group_by_month(:fecha, format: "%B %Y", time_zone: false)
+            .in_order_of(:tipo_donante, [:reposicion, :voluntario, :club])
             .count
   end
 
@@ -88,9 +89,9 @@ class InformesController < ApplicationController
       select distinct donante_id
       from donaciones
       where fecha between '#{desde}' and '#{hasta}'
-      group by donante_id, tipo_donante
-      having count(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1
-        and count(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1
+      group by donante_id
+      having sum(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1
+        and sum(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1
     SQL
   end
 

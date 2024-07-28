@@ -4,7 +4,7 @@ FactoryBot.define do
       [{ atributo: "tipo_donante",
          operador: "distinto",
          valor: "reposicion",
-         tipo: "FiltroPorAtributo"}]
+         tipo: "FiltroPorAtributo" }]
     end
   end
 end

@@ -1,13 +1,16 @@
 class InteraccionesController < IntegracionesController
   def update
-    evento = JSON.parse(request.raw_post)
-    id_mensaje = evento["messageId"]
-    if evento["eventType"] == "Microsoft.Communication.EmailDeliveryReportReceived"
-      estado = evento["status"]
-      Interaccion.find_by(id_mensaje: id_mensaje).actualizar_estado_envio(estado)
-    elsif event["eventType"] == "Microsoft.Communication.EmailEngagementTrackingReportReceived" &&
-          evento["data"]["engagementType"] == "view"
-      Interaccion.find_by(id_mensaje: id_mensaje).marcar_leido
+    eventos = JSON.parse(request.raw_post)
+    eventos.each do |evento|
+      data = evento["data"]
+      id_mensaje = data["messageId"]
+      if evento["eventType"] == "Microsoft.Communication.EmailDeliveryReportReceived"
+        estado = data["status"]
+        Interaccion.find_by(id_mensaje: id_mensaje).actualizar_estado_envio(convertir_estado(estado))
+      elsif event["eventType"] == "Microsoft.Communication.EmailEngagementTrackingReportReceived" &&
+            evento["data"]["engagementType"] == "view"
+        Interaccion.find_by(id_mensaje: id_mensaje).marcar_leido
+      end
     end
   end
 

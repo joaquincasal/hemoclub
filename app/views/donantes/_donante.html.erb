@@ -39,6 +39,7 @@
           <thead>
           <tr>
             <th scope="col">Fecha</th>
+            <th scope="col">Tipo de donante</th>
             <th scope="col">Serología</th>
             <th scope="col">Colecta</th>
             <th scope="col">Clínica destino</th>
@@ -50,6 +51,7 @@
           <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
             <tr>
               <td><%= localize donacion.fecha %></td>
+              <td><%= donacion.tipo_donante.capitalize %></td>
               <td><%= donacion.serologia&.humanize.presence || "Sin información" %></td>
               <td><%= mostrar_booleano(donacion.colecta?) %></td>
               <td><%= donacion.clinica&.nombre %></td>

@@ -14,7 +14,7 @@ class FiltroPorUltimaDonacion
   def aplicar
     validar_parametros
     operador_query = Filtro::OPERADORES[operador]
-    Donante.joins(:ultima_donacion).where("donaciones.#{atributo} #{operador_query} ?", valor)
+    Donante.joins(:ultima_donacion).where("ultima_donacion.#{atributo} #{operador_query} ?", valor)
   end
 
   def self.nombre

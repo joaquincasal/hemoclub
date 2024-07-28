@@ -10,10 +10,10 @@ class Interaccion < ApplicationRecord
 
   def actualizar_estado_envio(estado)
     update(estado_envio: estado)
-    donante.bloquear if estado != estado_envios[:entregado]
+    donante.bloquear if estado != self.class.estado_envios[:entregado]
   end
 
   def marcar_leido
-    update(estado_interaccion: estado_interacciones[:leido])
+    update(estado_interaccion: self.class.estado_interacciones[:leido])
   end
 end

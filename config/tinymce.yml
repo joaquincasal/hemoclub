@@ -5,3 +5,6 @@ plugins:
   - preview autolink image link nonbreaking advlist lists emoticons
 promotion: false
 language: es_MX
+relative_urls: false
+remove_script_host: false
+convert_urls: true
