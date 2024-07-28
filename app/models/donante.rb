@@ -37,10 +37,10 @@ class Donante < ApplicationRecord
     joins(:donaciones).where(donaciones: { serologia: [Donacion.serologia[:reactiva], nil] })
   }
   scope :con_donacion_rechazada, -> { joins(:ultima_donacion).where.not(ultima_donacion: { motivo_rechazo: nil }) }
-  scope :no_contactado, -> { joins(:ultima_donacion).where(ultima_donacion: { fecha: FECHA_INICIO_CONTACTOS.. }) }
+  scope :contactados, -> { joins(:ultima_donacion).where(ultima_donacion: { fecha: ..FECHA_INICIO_CONTACTOS }) }
   scope :aptos, lambda {
-    no_bloqueados.con_email.edad_apta.no_contactado
-                 .where.not(id: con_exclusiones).where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
+    con_email.edad_apta.sin_candidatos.no_bloqueados.where.not(id: contactados).where.not(id: con_exclusiones)
+             .where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
   }
 
   generates_token_for :suscripcion do

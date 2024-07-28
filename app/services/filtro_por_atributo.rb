@@ -15,7 +15,7 @@ class FiltroPorAtributo
     validar_parametros
     operador_query = Filtro::OPERADORES[operador]
     if atributo == "candidato"
-      Donante.rewhere("donantes.#{atributo} #{operador_query} ?", valor)
+      Donante.unscope(where: "donantes.candidato").where("donantes.#{atributo} #{operador_query} ?", valor)
     else
       Donante.where("donantes.#{atributo} #{operador_query} ?", valor)
     end

@@ -95,13 +95,13 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "b41a0064a071ff0d0b56fc1c8d744e343ca46c880711b9f10952ec483ffac00d",
+      "fingerprint": "7f0008f0b3db985fe084f00c45776988ded9861d44b5dec3b199089b21a41926",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/filtro_por_atributo.rb",
       "line": 18,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Donante.rewhere(\"donantes.#{\"candidato\"} #{Filtro::OPERADORES[operador]} ?\", valor)",
+      "code": "Donante.unscope(:where => \"donantes.candidato\").where(\"donantes.#{\"candidato\"} #{Filtro::OPERADORES[operador]} ?\", valor)",
       "render_path": null,
       "location": {
         "type": "method",
@@ -139,6 +139,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-07-28 14:06:42 -0300",
+  "updated": "2024-07-28 17:51:48 -0300",
   "brakeman_version": "6.1.2"
 }
