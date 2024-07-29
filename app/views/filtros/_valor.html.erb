@@ -3,7 +3,7 @@
     <%= form.fields_for :filtro do |filtro_form| %>
       <%= filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
         <div class="field">
-          <%= parametros_form.label :valor, filtro.nombre_dato(3), class: "label" %>
+          <%= parametros_form.label :valor, filtro.nombre_parametro(3), class: "label" %>
 
           <% if info_valor["tipo"] == "lista" %>
             <div class="control">

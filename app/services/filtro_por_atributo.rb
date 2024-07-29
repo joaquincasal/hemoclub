@@ -1,28 +1,41 @@
 class FiltroPorAtributo
-  attr_reader :atributo, :operador, :valor
-
   def initialize(atributo:, operador:, valor:)
     @atributo = atributo
     @operador = operador
-    if self.class.valores(@atributo)["tipo"] == "lista"
-      @valor = self.class.valores(@atributo)["valores_query"][valor]
-    else
-      @valor = valor
-    end
+    @valor = valor
+  end
+
+  def descripcion
+    "\"#{@atributo}\" es #{@operador} a \"#{descripcion_valor}\""
   end
 
   def aplicar
-    validar_parametros
-    operador_query = Filtro::OPERADORES[operador]
-    if atributo == "candidato"
-      Donante.unscope(where: "donantes.candidato").where("donantes.#{atributo} #{operador_query} ?", valor)
+    validar_parametros!
+
+    if self.class.valores(@atributo)["tipo"] == "lista"
+      valor = self.class.valores(@atributo)["valores_query"][@valor]
     else
-      Donante.where("donantes.#{atributo} #{operador_query} ?", valor)
+      valor = @valor
+    end
+    operador = Filtro::OPERADORES[@operador]
+
+    if @atributo == "candidato"
+      Donante.unscope(where: "donantes.#{@atributo}").where("donantes.#{@atributo} #{operador} ?", valor)
+    else
+      Donante.where("donantes.#{@atributo} #{operador} ?", valor)
     end
   end
 
   def self.nombre
     "Información del donante"
+  end
+
+  def self.nombre_parametro(orden)
+    {
+      1 => "Dato",
+      2 => "Operador",
+      3 => "Valor"
+    }[orden].to_s
   end
 
   def self.atributos
@@ -90,17 +103,25 @@ class FiltroPorAtributo
     }[atributo]
   end
 
-  def self.nombre_dato(orden)
-    {
-      1 => "Dato",
-      2 => "Operador",
-      3 => "Valor"
-    }[orden].to_s
+  def self.atributo?
+    true
+  end
+
+  def self.operador?
+    true
   end
 
   private
 
-  def validar_parametros
+  def descripcion_valor
+    if self.class.valores(@atributo)["tipo"] == "boolean"
+      return ActiveModel::Type::Boolean.new.cast(@valor) ? "sí" : "no"
+    end
+
+    @valor
+  end
+
+  def validar_parametros!
     raise ArgumentError if self.class.atributos.values.exclude?(@atributo)
     raise ArgumentError if self.class.operadores(@atributo).values.exclude?(@operador)
   end

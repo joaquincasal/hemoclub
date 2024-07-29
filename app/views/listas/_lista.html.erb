@@ -6,11 +6,9 @@
   <br>
   <p><strong>Filtros:</strong></p>
   <dl>
-    <% lista.filtro.parametros.each do |condicion| %>
+    <% lista.filtro.filtros.each do |filtro| %>
       <li>
-        <i><%= "#{condicion["atributo"]}" %></i>
-        <b><%= "#{condicion["operador"]}" %> a</b>
-        <span>"<%= "#{condicion["valor"]}" %>"</span>
+        <%= filtro.descripcion %>
       </li>
     <% end %>
   </dl>

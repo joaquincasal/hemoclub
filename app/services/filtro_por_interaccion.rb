@@ -1,18 +1,14 @@
 class FiltroPorInteraccion
-  attr_reader :atributo, :operador, :valor
-
-  def initialize(atributo:, operador:, valor: nil)
+  def initialize(atributo:, _: nil, _: nil)
     @atributo = atributo
-    @operador = operador
-    if self.class.valores(@atributo)["tipo"] == "lista"
-      @valor = self.class.valores(@atributo)["valores_query"][valor]
-    else
-      @valor = valor
-    end
+  end
+
+  def descripcion
+    "Al donante se le envío la comunicación #{Comunicacion.find(@atributo).nombre}"
   end
 
   def aplicar
-    validar_parametros
+    validar_parametros!
     Donante.joins(:interacciones, :ultima_donacion)
            .where(interacciones: { comunicacion_id: @operador })
            .where("donaciones.fecha > interacciones.fecha")
@@ -22,40 +18,28 @@ class FiltroPorInteraccion
     "Donación posterior a contacto"
   end
 
-  def self.atributos
-    {
-      "Automatizaciones" => "Automatizacion",
-      "Campañas" => "Campania"
-    }
+  def self.nombre_parametro(_)
+    "Comunicación enviada"
   end
 
-  def self.operadores(atributo)
-    if atributo == "automatizaciones"
-      Automatizacion.activa.each_with_object({}) do |automatizacion, acumulador|
-        acumulador[automatizacion.nombre] = automatizacion.id.to_s
-      end
-    else
-      Campania.all.each_with_object({}) do |campania, acumulador|
-        acumulador[campania.nombre] = campania.id.to_s
-      end
+  def self.atributos
+    Comunicacion.where(type: "Automatizacion", activa: true).or(Comunicacion.where(type: "Campania"))
+                .each_with_object({}) do |comunicacion, acumulador|
+      acumulador[comunicacion.nombre] = comunicacion.id.to_s
     end
   end
 
-  def self.valores(_atributo)
-    {}
+  def self.atributo?
+    true
   end
 
-  def self.nombre_dato(orden)
-    {
-      1 => "Automatización o Campaña",
-      2 => "Comunicación enviada"
-    }[orden].to_s
+  def self.operador?
+    false
   end
 
   private
 
-  def validar_parametros
+  def validar_parametros!
     raise ArgumentError if self.class.atributos.values.exclude?(@atributo)
-    raise ArgumentError if self.class.operadores(@atributo).values.exclude?(@operador)
   end
 end

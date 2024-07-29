@@ -4,32 +4,35 @@ class ListasReflex < ApplicationReflex
   delegate :view_context, :lista_params, to: :controller
 
   def filtro_seleccionado
+    filtro = element.value.constantize
+    return unless filtro.atributo?
+
     lista = create_lista
     form = ActionView::Helpers::FormBuilder.new(:lista, lista, view_context, {})
-    filtro = element.value
     id = element["data-id"]
     morph "#atributo-#{id}",
-          render(partial: "filtros/atributos", locals: { filtro: filtro.constantize, form: form, id: id })
+          render(partial: "filtros/atributos", locals: { filtro: filtro, form: form, id: id })
             .gsub("&lt;/div&gt;", "")
     morph "#operador-#{id}", ""
     morph "#valor-#{id}", ""
   end
 
   def atributo_seleccionado
-    lista = create_lista
-    form = ActionView::Helpers::FormBuilder.new(:lista, lista, view_context, {})
-    filtro = element["data-filtro"]
+    filtro = element["data-filtro"].constantize
+    unless filtro.operador?
+      morph :nothing
+      return
+    end
+
+    form = ActionView::Helpers::FormBuilder.new(:lista, create_lista, view_context, {})
     atributo = element.value
     id = element["data-id"]
-    tipo_valor = filtro.constantize.valores(atributo)
     morph "#operador-#{id}",
-          render(partial: "filtros/operadores",
-                 locals: { form: form, id: id, filtro: filtro.constantize, atributo: atributo })
+          render(partial: "filtros/operadores", locals: { form: form, id: id, filtro: filtro, atributo: atributo })
             .gsub("&lt;/div&gt;", "")
-    return unless filtro != "FiltroPorInteraccion"
 
     morph "#valor-#{id}", render(partial: "filtros/valor",
-                                 locals: { form: form, id: id, filtro: filtro.constantize, info_valor: tipo_valor })
+                                 locals: { form: form, id: id, filtro: filtro, info_valor: filtro.valores(atributo) })
       .gsub("&lt;/div&gt;", "")
   end
 

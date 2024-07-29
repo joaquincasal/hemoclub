@@ -2,7 +2,7 @@
   <div class="field">
     <%= form.fields_for :filtro do |filtro_form| %>
       <%= filtro_form.fields_for :parametros, model: OpenStruct.new(filtro_form.object.parametros[id.to_i]) do |parametros_form| %>
-        <%= parametros_form.label :operador, filtro.nombre_dato(2), class: "label" %>
+        <%= parametros_form.label :operador, filtro.nombre_parametro(2), class: "label" %>
         <div class="control">
           <div class="select is-rounded">
             <%= parametros_form.select :operador, filtro.operadores(atributo), { prompt: "Elegir..." }, { name: "lista[filtro_attributes][parametros][][operador]" } %>

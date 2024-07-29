@@ -1,24 +1,37 @@
 class FiltroPorUltimaDonacion
-  attr_reader :atributo, :operador, :valor
-
   def initialize(atributo:, operador:, valor:)
     @atributo = atributo
     @operador = operador
-    if self.class.valores(@atributo)["tipo"] == "lista"
-      @valor = self.class.valores(@atributo)["valores_query"][valor]
-    else
-      @valor = valor
-    end
+    @valor = valor
+  end
+
+  def descripcion
+    "\"#{@atributo}\" de la última donación es #{@operador} a \"#{descripcion_valor}\""
   end
 
   def aplicar
-    validar_parametros
-    operador_query = Filtro::OPERADORES[operador]
-    Donante.joins(:ultima_donacion).where("ultima_donacion.#{atributo} #{operador_query} ?", valor)
+    validar_parametros!
+
+    if self.class.valores(@atributo)["tipo"] == "lista"
+      valor = self.class.valores(@atributo)["valores_query"][@valor]
+    else
+      valor = @valor
+    end
+    operador = Filtro::OPERADORES[@operador]
+
+    Donante.joins(:ultima_donacion).where("donaciones.#{@atributo} #{operador} ?", valor)
   end
 
   def self.nombre
     "Información de la última donación"
+  end
+
+  def self.nombre_parametro(orden)
+    {
+      1 => "Dato",
+      2 => "Operador",
+      3 => "Valor"
+    }[orden].to_s
   end
 
   def self.atributos
@@ -69,17 +82,23 @@ class FiltroPorUltimaDonacion
     }[atributo]
   end
 
-  def self.nombre_dato(orden)
-    {
-      1 => "Dato",
-      2 => "Operador",
-      3 => "Valor"
-    }[orden].to_s
+  def self.atributo?
+    true
+  end
+
+  def self.operador?
+    true
   end
 
   private
 
-  def validar_parametros
+  def descripcion_valor
+    return "#{@valor} meses" if @atributo == "fecha"
+
+    @valor
+  end
+
+  def validar_parametros!
     raise ArgumentError if self.class.atributos.values.exclude?(@atributo)
     raise ArgumentError if self.class.operadores(@atributo).values.exclude?(@operador)
   end
