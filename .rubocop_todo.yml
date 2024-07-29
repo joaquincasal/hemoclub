@@ -1,14 +1,11 @@
 Metrics/AbcSize:
   Exclude:
-    - 'app/controllers/informes_controller.rb'
-    - 'app/controllers/interacciones_controller.rb'
-    - 'app/reflexes/listas_reflex.rb'
-    - 'app/services/filtro_por_atributo.rb'
     - 'app/services/filtro_por_ultima_donacion.rb'
+    - 'app/services/informes.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'app/controllers/informes_controller.rb'
+    - 'app/services/informes.rb'
 
 Metrics/MethodLength:
   Exclude:

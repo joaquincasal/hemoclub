@@ -9,7 +9,7 @@ es:
         current_password: Contraseña actual
         current_sign_in_at: Fecha del ingreso actual
         current_sign_in_ip: IP del ingreso actual
-        email: Correo eletrónico
+        email: Correo electrónico
         encrypted_password: Contraseña cifrada
         failed_attempts: Intentos fallidos
         last_sign_in_at: Fecha del último ingreso

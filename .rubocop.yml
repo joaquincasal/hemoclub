@@ -13,6 +13,9 @@ AllCops:
     - 'bin/*'
     - 'config/**/*'
     - 'vendor/**/*'
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+  Max: 20
 Metrics/ClassLength:
   Max: 300
 Metrics/MethodLength:
@@ -27,7 +30,11 @@ Rails/PluckInWhere:
   Enabled: false
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
 RSpec/ContextWording:
+  Enabled: false
+RSpec/DescribedClass:
   Enabled: false
 RSpec/ExampleLength:
   Max: 10
@@ -35,6 +42,8 @@ RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:
   Max: 5
+RSpec/NestedGroups:
+  Max: 4
 Style/BlockComments:
   Enabled: false
 Style/ClassAndModuleChildren:

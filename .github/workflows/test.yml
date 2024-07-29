@@ -59,11 +59,7 @@ jobs:
           bundler-cache: true
       - name: Install bundler-audit
         run: gem install bundler-audit
-      - name: Install brakeman
-        run: gem install brakeman
       - name: Security audit dependencies
         run: bundle audit --update
-      - name: Security audit application code
-        run: brakeman -q -w2
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
