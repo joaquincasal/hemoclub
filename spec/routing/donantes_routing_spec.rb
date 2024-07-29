@@ -33,5 +33,29 @@ RSpec.describe DonantesController, type: :routing do
     it "routes to #destroy" do
       expect(delete: "/donantes/1").to route_to("donantes#destroy", id: "1")
     end
+
+    it "routes to #import" do
+      expect(get: "/donantes/importar").to route_to("donantes#import")
+    end
+
+    it "routes to #do_import" do
+      expect(post: "/donantes/importar").to route_to("donantes#do_import")
+    end
+
+    it "routes to #import_errors" do
+      expect(get: "/donantes/errores").to route_to("donantes#import_errors")
+    end
+
+    it "routes to #index_candidatos" do
+      expect(get: "/donantes/candidatos").to route_to("donantes#index_candidatos")
+    end
+
+    it "routes to candidatos#create" do
+      expect(post: "/donantes/candidatos").to route_to("candidatos#create")
+    end
+
+    it "routes to #suscripcion" do
+      expect(get: "/donantes/suscripcion").to route_to("donantes#welcome")
+    end
   end
 end

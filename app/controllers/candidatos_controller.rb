@@ -7,15 +7,10 @@ class CandidatosController < IntegracionesController
                                            "city" => "localidad" })
                          .merge({ "candidato" => true })
 
-    if info_candidato.fetch("correo_electronico").present? && Donante.exists?(correo_electronico: correo_electronico)
-      return head :ok
-    end
+    correo_electronico = info_candidato.fetch("correo_electronico", nil)
+    return head :ok if correo_electronico.blank? || Donante.exists?(correo_electronico: correo_electronico)
 
-    candidato = Donante.new(info_candidato)
-    if candidato.save
-      head :ok
-    else
-      head :internal_server_error
-    end
+    Donante.create(info_candidato)
+    head :ok
   end
 end

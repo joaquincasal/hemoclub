@@ -12,7 +12,7 @@
   <div class="column">
     <div class="box">
       <p class="subtitle">Donantes por grupo y factor</p>
-      <%= column_chart @grupo_y_factor, stacked: true %>
+      <%= column_chart @donantes_por_grupo_y_factor, stacked: true %>
     </div>
   </div>
 </div>
@@ -36,7 +36,7 @@
   <div class="column">
     <div class="box">
       <p class="subtitle">Porcentaje de predonantes aptos</p>
-      <%= pie_chart @predonantes_aptos %>
+      <%= pie_chart @predonantes_aptos_vs_no_aptos %>
     </div>
   </div>
   <div class="column">
@@ -79,13 +79,13 @@
   <div class="column">
     <div class="box">
       <p class="subtitle">Emails enviados vs Emails abiertos</p>
-      <%= pie_chart @porcentaje_abiertos %>
+      <%= pie_chart @porcentaje_emails_abiertos %>
     </div>
   </div>
   <div class="column">
     <div class="box">
       <p class="subtitle">Emails entregados vs Emails fallidos</p>
-      <%= pie_chart @porcentaje_entregados %>
+      <%= pie_chart @porcentaje_emails_entregados %>
     </div>
   </div>
 </div>

@@ -33,5 +33,17 @@ RSpec.describe CampaniasController, type: :routing do
     it "routes to #destroy" do
       expect(delete: "/campanias/1").to route_to("campanias#destroy", id: "1")
     end
+
+    it "routes to #send_now" do
+      expect(post: "/campanias/1/enviar").to route_to("campanias#send_now", id: "1")
+    end
+
+    it "routes to #schedule" do
+      expect(post: "/campanias/1/programar").to route_to("campanias#schedule", id: "1")
+    end
+
+    it "routes to #cancel" do
+      expect(delete: "/campanias/1/cancelar").to route_to("campanias#cancel", id: "1")
+    end
   end
 end

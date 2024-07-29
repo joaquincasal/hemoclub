@@ -23,113 +23,170 @@ RSpec.describe "/donantes", type: :request do
       sexo: "masculino", fecha_nacimiento: 20.years.ago.to_date, correo_electronico: "vzhlxfyd@mail.com" }
   end
 
-  before { sign_in Usuario.new }
+  describe "donantes" do
+    before { sign_in Usuario.new }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Donante.create! valid_attributes
-      get donantes_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      donante = Donante.create! valid_attributes
-      get donante_url(donante)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_donante_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      donante = Donante.create! valid_attributes
-      get edit_donante_url(donante)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Donante" do
-        expect do
-          post donantes_url, params: { donante: valid_attributes }
-        end.to change(Donante, :count).by(1)
-      end
-
-      it "redirects to the created donante" do
-        post donantes_url, params: { donante: valid_attributes }
-        expect(response).to redirect_to(donante_url(Donante.last))
-      end
-    end
-
-    context "con donante existente" do
-      before { create(:donante, valid_attributes) }
-
-      it "no crea un donante duplicado" do
-        expect do
-          post donantes_url, params: { donante: valid_attributes }
-        end.not_to change(Donante, :count)
-      end
-
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post donantes_url, params: { donante: valid_attributes }
-        expect(response).to have_http_status(:unprocessable_content)
-      end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) do
-        { segundo_nombre: "Facundo" }
-      end
-
-      it "updates the requested donante" do
-        donante = Donante.create! valid_attributes
-        patch donante_url(donante), params: { donante: new_attributes }
-        donante.reload
-        expect(donante.segundo_nombre).to eq new_attributes[:segundo_nombre]
-      end
-
-      it "redirects to the donante" do
-        donante = Donante.create! valid_attributes
-        patch donante_url(donante), params: { donante: new_attributes }
-        donante.reload
-        expect(response).to redirect_to(donante_url(donante))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+    describe "GET /index" do
+      it "renders a successful response" do
         Donante.create! valid_attributes
-        donante = Donante.create! valid_attributes.merge(numero_documento: "11222333",
-                                                         correo_electronico: "hola@hola.com")
-        patch donante_url(donante), params: { donante: { numero_documento: valid_attributes[:numero_documento] } }
-        expect(response).to have_http_status(:unprocessable_content)
+        get donantes_url
+        expect(response).to be_successful
+      end
+    end
+
+    describe "GET /index_candidatos" do
+      it "renders a successful response" do
+        Donante.create! valid_attributes
+        get candidatos_donantes_url
+        expect(response).to be_successful
+      end
+    end
+
+    describe "GET /show" do
+      it "renders a successful response" do
+        donante = Donante.create! valid_attributes
+        get donante_url(donante)
+        expect(response).to be_successful
+      end
+    end
+
+    describe "GET /new" do
+      it "renders a successful response" do
+        get new_donante_url
+        expect(response).to be_successful
+      end
+    end
+
+    describe "GET /edit" do
+      it "renders a successful response" do
+        donante = Donante.create! valid_attributes
+        get edit_donante_url(donante)
+        expect(response).to be_successful
+      end
+    end
+
+    describe "POST /create" do
+      context "with valid parameters" do
+        it "creates a new Donante" do
+          expect do
+            post donantes_url, params: { donante: valid_attributes }
+          end.to change(Donante, :count).by(1)
+        end
+
+        it "redirects to the created donante" do
+          post donantes_url, params: { donante: valid_attributes }
+          expect(response).to redirect_to(donante_url(Donante.last))
+        end
+      end
+
+      context "con donante existente" do
+        before { create(:donante, valid_attributes) }
+
+        it "no crea un donante duplicado" do
+          expect do
+            post donantes_url, params: { donante: valid_attributes }
+          end.not_to change(Donante, :count)
+        end
+
+        it "renders a response with 422 status (i.e. to display the 'new' template)" do
+          post donantes_url, params: { donante: valid_attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+    end
+
+    describe "PATCH /update" do
+      context "with valid parameters" do
+        let(:new_attributes) do
+          { segundo_nombre: "Facundo" }
+        end
+
+        it "updates the requested donante" do
+          donante = Donante.create! valid_attributes
+          patch donante_url(donante), params: { donante: new_attributes }
+          donante.reload
+          expect(donante.segundo_nombre).to eq new_attributes[:segundo_nombre]
+        end
+
+        it "redirects to the donante" do
+          donante = Donante.create! valid_attributes
+          patch donante_url(donante), params: { donante: new_attributes }
+          donante.reload
+          expect(response).to redirect_to(donante_url(donante))
+        end
+      end
+
+      context "with invalid parameters" do
+        it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+          Donante.create! valid_attributes
+          donante = Donante.create! valid_attributes.merge(numero_documento: "11222333",
+                                                           correo_electronico: "hola@hola.com")
+          patch donante_url(donante), params: { donante: { numero_documento: valid_attributes[:numero_documento] } }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+    end
+
+    describe "DELETE /destroy" do
+      it "destroys the requested donante" do
+        donante = Donante.create! valid_attributes
+        expect do
+          delete donante_url(donante)
+        end.to change(Donante, :count).by(-1)
+      end
+
+      it "redirects to the donantes list" do
+        donante = Donante.create! valid_attributes
+        delete donante_url(donante)
+        expect(response).to redirect_to(donantes_url)
       end
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested donante" do
+  describe "suscripcion" do
+    it "updates the donante if there was a token" do
       donante = Donante.create! valid_attributes
-      expect do
-        delete donante_url(donante)
-      end.to change(Donante, :count).by(-1)
+      donante.update(suscripto: false)
+      token = donante.generate_token_for(:suscripcion)
+      get suscripcion_donantes_url(token: token, suscripcion: true)
+      expect(donante.reload.suscripto).to be true
     end
 
-    it "redirects to the donantes list" do
+    it "response is a success when subscribing" do
       donante = Donante.create! valid_attributes
-      delete donante_url(donante)
-      expect(response).to redirect_to(donantes_url)
+      donante.update(suscripto: false)
+      token = donante.generate_token_for(:suscripcion)
+      get suscripcion_donantes_url(token: token, suscripcion: true)
+      expect(response).to be_successful
+      expect(response.body).to include("¡Gracias por suscribirte!")
+    end
+
+    it "response is a success when unsubscring" do
+      donante = Donante.create! valid_attributes
+      donante.update(suscripto: true)
+      token = donante.generate_token_for(:suscripcion)
+      get suscripcion_donantes_url(token: token, suscripcion: false)
+      expect(response).to be_successful
+      expect(response.body).to include("Te desuscribiste exitosamente.")
+    end
+
+    it "does not update the donante if there was not a token" do
+      donante = Donante.create! valid_attributes
+      donante.update(suscripto: false)
+      get suscripcion_donantes_url(suscripcion: true)
+      expect(donante.reload.suscripto).to be false
+      expect(response).to be_successful
+      expect(response.body).to include("Ocurrió un error.")
+    end
+
+    it "does not update the donante if token was invalid" do
+      donante = Donante.create! valid_attributes
+      donante.update(suscripto: false)
+      donante.generate_token_for(:suscripcion)
+      get suscripcion_donantes_url(token: "invalid", suscripcion: true)
+      expect(donante.reload.suscripto).to be false
+      expect(response).to be_successful
+      expect(response.body).to include("Ocurrió un error.")
     end
   end
 end

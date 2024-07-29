@@ -19,7 +19,8 @@ RSpec.describe "/automatizaciones", type: :request do
   # Automatizacion. As you add validations to Automatizacion, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { nombre: "una automatizacion", lista_id: create(:lista).id, plantilla_id: create(:plantilla).id }
+    { nombre: "una automatizacion", remitente: "mail@mail.com",
+      lista_id: create(:lista).id, plantilla_id: create(:plantilla).id }
   end
 
   let(:invalid_attributes) do

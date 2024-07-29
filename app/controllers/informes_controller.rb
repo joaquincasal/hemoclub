@@ -1,135 +1,15 @@
 class InformesController < ApplicationController
   def index
-    @donantes_por_tipo = donantes_por_tipo
-    @donaciones_por_mes = donaciones_por_mes
-    @predonantes_aptos = predonantes_aptos
-    @grupo_y_factor = grupo_y_factor
-    @donaciones_por_institucion = donaciones_por_institucion
-    @predonantes_recientes = predonantes_recientes
-    @donaciones_por_tipo_donante = donaciones_por_mes_por_tipo_donante
-    @voluntarios_recurrentes = recurrentes
-    @convertidos = convertidos
-    @porcentaje_abiertos = porcentaje_abiertos
-    @porcentaje_entregados = porcentaje_entregados
-  end
-
-  private
-
-  def donaciones_por_institucion
-    Donacion.joins(:clinica).select('clinicas.nombre').group('clinicas.nombre').count
-  end
-
-  def grupo_y_factor
-    Donante.where.not(factor: nil).where.not(grupo_sanguineo: nil).group(:factor, :grupo_sanguineo).count
-  end
-
-  def donaciones_por_mes
-    donaciones = Donacion.no_rechazadas
-                         .group(:serologia)
-                         .where(fecha: 1.year.ago.next_month.beginning_of_month..)
-                         .group_by_month(:fecha, format: "%B %Y", time_zone: false)
-                         .count
-    rechazadas = Donacion.rechazadas
-                         .where(fecha: 1.year.ago.next_month.beginning_of_month..)
-                         .group_by_month(:fecha, format: "%B %Y", time_zone: false)
-                         .count
-    rechazadas.each do |mes, valor|
-      donaciones[['rechazada', mes]] = valor
-    end
-    donaciones.transform_keys! do |tipo, mes|
-      next ['Apta', mes] if tipo == 'negativa'
-      next ['Rechazada', mes] if tipo == 'rechazada'
-      next ['Serología reactiva', mes] if tipo == 'reactiva'
-      next ['Sin Información', mes] if tipo.nil?
-    end
-    donaciones.sort_by { |clave, _| clave[0] }.to_h
-  end
-
-  def donantes_por_tipo
-    Donante.group(:tipo_donante).count
-  end
-
-  def predonantes_aptos
-    predonantes = {}
-    predonantes['Aptos'] = Donante.predonantes_aptos.count
-    predonantes['Rechazados'] = Donante.predonantes_rechazados.count
-    predonantes
-  end
-
-  def predonantes_recientes
-    Donante.joins(:donaciones)
-           .predonantes_aptos
-           .where(donaciones: { fecha: 2.months.ago.beginning_of_month.. })
-           .group_by_month(:fecha, format: "%B %Y", time_zone: false)
-           .count
-  end
-
-  def donaciones_por_mes_por_tipo_donante
-    Donacion.group(:tipo_donante)
-            .where(fecha: 1.year.ago.next_month.beginning_of_month..)
-            .group_by_month(:fecha, format: "%B %Y", time_zone: false)
-            .in_order_of(:tipo_donante, [:reposicion, :voluntario, :club])
-            .count
-  end
-
-  def recurrentes
-    voluntarios = voluntarios_recurrentes.count
-    club = club_recurrentes.count
-    { voluntarios: voluntarios, club: club }
-  end
-
-  def convertidos
-    { voluntarios: reposicion_convertidos.count }
-  end
-
-  def reposicion_convertidos
-    desde = Time.zone.today - 1.year
-    hasta = Time.zone.today
-    ActiveRecord::Base.connection.execute <<-SQL.squish
-      select distinct donante_id
-      from donaciones
-      where fecha between '#{desde}' and '#{hasta}'
-      group by donante_id
-      having sum(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1
-        and sum(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1
-    SQL
-  end
-
-  def voluntarios_recurrentes
-    desde = Time.zone.today - 1.year
-    hasta = Time.zone.today
-    ActiveRecord::Base.connection.execute <<-SQL.squish
-      select donante_id
-      from donaciones
-      where fecha between '#{desde}' and '#{hasta}'
-      group by donante_id, tipo_donante
-      having count(case tipo_donante when 'voluntario' then 1 end) > 1
-    SQL
-  end
-
-  def club_recurrentes
-    desde = Time.zone.today - 1.year
-    hasta = Time.zone.today
-    ActiveRecord::Base.connection.execute <<-SQL.squish
-      select donante_id
-      from donaciones
-      where fecha between '#{desde}' and '#{hasta}'
-      group by donante_id, tipo_donante
-      having count(case tipo_donante when 'club' then 1 end) > 1
-    SQL
-  end
-
-  def porcentaje_abiertos
-    {
-      Enviados: Interaccion.entregado.enviado.count,
-      Leidos: Interaccion.leido.count
-    }
-  end
-
-  def porcentaje_entregados
-    Interaccion.estado_envios.keys.each_with_object({}) do |estado, estados|
-      estados[estado.humanize] = Interaccion.public_send(estado).count
-      estados
-    end
+    @donantes_por_tipo = Informes.donantes_por_tipo
+    @donaciones_por_mes = Informes.donaciones_por_mes
+    @predonantes_aptos_vs_no_aptos = Informes.predonantes_aptos_vs_no_aptos
+    @donantes_por_grupo_y_factor = Informes.donantes_por_grupo_y_factor
+    @donaciones_por_institucion = Informes.donaciones_por_institucion
+    @predonantes_recientes = Informes.predonantes_recientes
+    @donaciones_por_tipo_donante = Informes.donaciones_por_mes_por_tipo_donante
+    @voluntarios_recurrentes = Informes.recurrentes
+    @convertidos = Informes.convertidos
+    @porcentaje_emails_abiertos = Informes.porcentaje_emails_abiertos
+    @porcentaje_emails_entregados = Informes.porcentaje_emails_entregados
   end
 end

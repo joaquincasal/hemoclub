@@ -19,7 +19,8 @@ RSpec.describe "/campanias", type: :request do
   # Campania. As you add validations to Campania, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { nombre: "una campaña", lista_id: create(:lista).id, plantilla_id: create(:plantilla).id }
+    { nombre: "una campaña", remitente: "mail@mail.com",
+      lista_id: create(:lista).id, plantilla_id: create(:plantilla).id }
   end
 
   let(:invalid_attributes) do
@@ -129,6 +130,57 @@ RSpec.describe "/campanias", type: :request do
       campania = Campania.create! valid_attributes
       delete campania_url(campania)
       expect(response).to redirect_to(campanias_url)
+    end
+  end
+
+  describe "POST /enviar" do
+    it "llama a campaña#enviar" do
+      campania = Campania.create! valid_attributes
+      allow_any_instance_of(Campania).to receive(:enviar)
+      expect_any_instance_of(Campania).to receive(:enviar)
+      post enviar_campania_url(campania)
+    end
+
+    it "redirige a campaña" do
+      campania = Campania.create! valid_attributes
+      post enviar_campania_url(campania)
+      expect(response).to redirect_to(campania_url(Campania.last))
+    end
+  end
+
+  describe "POST /programar" do
+    it "llama a campaña#programar" do
+      fecha = "2024-08-08T19:00"
+      campania = Campania.create! valid_attributes
+      allow_any_instance_of(Campania).to receive(:programar_envio)
+      expect_any_instance_of(Campania).to receive(:programar_envio).with(Time.zone.parse(fecha))
+      post programar_campania_url(campania, params: { fecha: fecha })
+    end
+
+    it "redirige a campaña" do
+      fecha = "2024-08-08T019:00"
+      campania = Campania.create! valid_attributes
+      post programar_campania_url(campania, params: { fecha: fecha })
+      expect(response).to redirect_to(campania_url(Campania.last))
+    end
+  end
+
+  describe "DELETE /cancelar" do
+    it "llama a campaña#cancelar" do
+      fecha = "2024-08-08T19:00"
+      campania = Campania.create! valid_attributes
+      campania.programar_envio(Time.zone.parse(fecha))
+      allow_any_instance_of(Ejecucion).to receive(:cancelar_envio)
+      expect_any_instance_of(Ejecucion).to receive(:cancelar_envio)
+      delete cancelar_campania_url(Ejecucion.last)
+    end
+
+    it "redirige a campaña" do
+      fecha = "2024-08-08T19:00"
+      campania = Campania.create! valid_attributes
+      campania.programar_envio(Time.zone.parse(fecha))
+      delete cancelar_campania_url(Ejecucion.last)
+      expect(response).to redirect_to(campania_url(Campania.last))
     end
   end
 end
