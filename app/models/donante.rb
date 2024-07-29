@@ -24,7 +24,7 @@ class Donante < ApplicationRecord
 
   scope :sin_candidatos, -> { where(candidato: [false, nil]) }
   scope :candidatos, -> { where(candidato: true) }
-  scope :predonantes, -> { where.not(predonante_plaquetas: nil) }
+  scope :predonantes, -> { where.not(predonante_plaquetas: [false, nil]) }
   scope :predonantes_aptos, -> { predonantes.where(motivo_rechazo_predonante_plaquetas: nil) }
   scope :predonantes_rechazados, -> { predonantes.where.not(motivo_rechazo_predonante_plaquetas: nil) }
   scope :del_club, -> { where(tipo_donante: tipo_donantes[:club]) }
@@ -42,6 +42,7 @@ class Donante < ApplicationRecord
     con_email.edad_apta.sin_candidatos.no_bloqueados.where.not(id: contactados).where.not(id: con_exclusiones)
              .where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
   }
+  scope :para_informes, -> { sin_candidatos.where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada) }
 
   generates_token_for :suscripcion do
     suscripto

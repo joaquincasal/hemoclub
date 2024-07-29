@@ -24,4 +24,17 @@ FactoryBot.define do
     provincia { "Ciudad Autónoma de Buenos Aires" }
     pais { "Argentina" }
   end
+
+  trait :candidato do
+    candidato { true }
+  end
+
+  trait :predonante_plaquetas do
+    predonante_plaquetas { true }
+  end
+
+  trait :predonante_apto do
+    predonante_plaquetas { true }
+    motivo_rechazo_predonante_plaquetas { nil }
+  end
 end

@@ -4,7 +4,7 @@ class Comunicacion < ApplicationRecord
   has_many :ejecuciones, dependent: :destroy
   has_many :interacciones, through: :ejecuciones
 
-  validates :nombre, presence: true
+  validates :nombre, :remitente, presence: true
 
   def self.remitentes
     ENV.fetch("API_MAILER_SENDERS", "").split(",")

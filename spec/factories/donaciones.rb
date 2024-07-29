@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :donacion do
     fecha { 1.day.ago.to_date }
     serologia { "negativa" }
+    tipo_donante { "reposicion" }
     donante
     clinica
   end

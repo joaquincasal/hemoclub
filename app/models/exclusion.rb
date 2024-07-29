@@ -1,6 +1,4 @@
 class Exclusion < ApplicationRecord
-  self.table_name = "exclusiones"
-
   belongs_to :donante
 
   validates :fecha_inicio, presence: true

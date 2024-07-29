@@ -2,11 +2,12 @@ class Interaccion < ApplicationRecord
   belongs_to :donante
   belongs_to :ejecucion
   belongs_to :comunicacion
+  belongs_to :donacion, optional: true
+
+  validates :fecha, presence: true
 
   enum estado_envio: [:entregado, :suprimido, :rebotado, :cuarentena, :filtrado, :expandido, :fallido]
   enum estado_interaccion: [:enviado, :leido]
-
-  attribute :estado_interaccion, :integer, default: -> { estado_interacciones[:enviado] }
 
   def actualizar_estado_envio(estado)
     update(estado_envio: estado)
