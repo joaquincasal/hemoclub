@@ -4,7 +4,7 @@ class FiltroPorInteraccion
   end
 
   def descripcion
-    "Al donante se le envío la comunicación #{Comunicacion.find(@atributo).nombre}"
+    "La última donación del donante fue luego de que se le envío la comunicación #{Comunicacion.find(@atributo).nombre}"
   end
 
   def aplicar

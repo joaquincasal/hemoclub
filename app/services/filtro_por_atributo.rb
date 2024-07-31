@@ -44,6 +44,7 @@ class FiltroPorAtributo
       "Sexo" => "sexo",
       "Grupo sanguíneo" => "grupo_sanguineo",
       "Factor sanguíneo" => "factor",
+      "Localidad" => "localidad",
       "Código postal" => "codigo_postal",
       "Predonante de plaquetas" => "predonante_plaquetas",
       "Candidato" => "candidato",
@@ -95,6 +96,7 @@ class FiltroPorAtributo
         "valores" => { "Positivo" => "positivo", "Negativo" => "negativo" },
         "valores_query" => { "positivo" => Donante.factores[:positivo], "negativo" => Donante.factores[:negativo] }
       },
+      "localidad" => { "tipo" => "string" },
       "codigo_postal" => { "tipo" => "string" },
       "predonante_plaquetas" => { "tipo" => "boolean" },
       "candidato" => { "tipo" => "boolean" },
