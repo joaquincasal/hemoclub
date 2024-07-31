@@ -16,6 +16,7 @@ class Donacion < ApplicationRecord
 
   scope :rechazadas, -> { where.not(motivo_rechazo: nil) }
   scope :no_rechazadas, -> { where(motivo_rechazo: nil) }
+  scope :ultimo_anio, -> { where(fecha: 1.year.ago..) }
 
   def relacionado?
     [CODIGO_CLINICA_CLUB, CODIGO_CLINICA_VOLUNTARIOS, CODIGO_CLINICA_COLECTA].exclude?(clinica_id)

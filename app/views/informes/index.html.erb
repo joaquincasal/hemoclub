@@ -5,13 +5,13 @@
 <div class="columns mt-5">
   <div class="column">
     <div class="box">
-      <p class="subtitle">Donantes por tipo</p>
+      <p class="subtitle">Donantes del último año por tipo</p>
       <%= column_chart @donantes_por_tipo %>
     </div>
   </div>
   <div class="column">
     <div class="box">
-      <p class="subtitle">Donantes por grupo y factor</p>
+      <p class="subtitle">Donantes del último año por grupo y factor</p>
       <%= column_chart @donantes_por_grupo_y_factor, stacked: true %>
     </div>
   </div>
@@ -20,14 +20,16 @@
 <div class="columns">
   <div class="column">
     <div class="box">
-      <p class="subtitle">Voluntarios o del club con más de una donación en ese status en el último año</p>
-      <%= column_chart @voluntarios_recurrentes %>
+      <p class="subtitle">Donantes recurrentes</p>
+      <p>Voluntarios o del club con más de una donación en ese status en el último año</p>
+      <%= column_chart @recurrentes %>
     </div>
   </div>
   <div class="column">
     <div class="box">
-      <p class="subtitle">Donaciones por reposición que volvieron como voluntarios/del club</p>
-      <%= column_chart @convertidos %>
+      <p class="subtitle">Donantes fidelizados</p>
+      <p>Donantes por reposición que volvieron como voluntarios o del club en el último año</p>
+      <%= column_chart @fidelizados %>
     </div>
   </div>
 </div>
@@ -35,7 +37,7 @@
 <div class="columns">
   <div class="column">
     <div class="box">
-      <p class="subtitle">Porcentaje de predonantes aptos</p>
+      <p class="subtitle">Porcentaje de predonantes aptos en el último año</p>
       <%= pie_chart @predonantes_aptos_vs_no_aptos %>
     </div>
   </div>
@@ -61,12 +63,13 @@
   <div class="column">
     <div class="box">
       <p class="subtitle">Predonantes recientes</p>
+      <p>Donaron (sangre o plaquetas) en los últimos 2 meses</p>
       <%= column_chart @predonantes_recientes %>
     </div>
   </div>
   <div class="column">
     <div class="box">
-      <p class="subtitle">Donaciones por institución</p>
+      <p class="subtitle">Donaciones del último año por institución</p>
       <%= column_chart @donaciones_por_institucion %>
     </div>
   </div>
@@ -79,12 +82,14 @@
   <div class="column">
     <div class="box">
       <p class="subtitle">Emails enviados vs Emails abiertos</p>
+      <p>Del último año</p>
       <%= pie_chart @porcentaje_emails_abiertos %>
     </div>
   </div>
   <div class="column">
     <div class="box">
       <p class="subtitle">Emails entregados vs Emails fallidos</p>
+      <p>Del último año</p>
       <%= pie_chart @porcentaje_emails_entregados %>
     </div>
   </div>

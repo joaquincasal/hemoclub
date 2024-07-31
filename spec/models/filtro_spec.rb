@@ -21,31 +21,47 @@ RSpec.describe Filtro, type: :model do
 
   describe "aplicar" do
     it "incluye al donante si cumple con el filtro" do
-      donante = create(:donante, :datos_completos)
+      donante = create(:donante, :con_donacion, :datos_completos)
       expect(filtro.aplicar).to include(donante)
     end
 
     it "excluye al donante si no cumple con el filtro" do
-      donante = create(:donante, :datos_completos, tipo_donante: "reposicion")
+      donante = create(:donante, :con_donacion, :datos_completos, tipo_donante: "reposicion")
       expect(filtro.aplicar).not_to include(donante)
     end
 
     it "mezcla los filtros por defecto con los de los filtros" do
-      donante = create(:donante, :datos_completos, fecha_nacimiento: "1900-1-1")
+      donante = create(:donante, :con_donacion, :datos_completos, fecha_nacimiento: "1900-1-1")
       expect(filtro.aplicar).not_to include(donante)
     end
 
     it "excluye al donante si ya fue contactado por la automatizacion" do
-      donante = create(:donante, :datos_completos)
+      donante = create(:donante, :con_donacion, :datos_completos)
       automatizacion = create(:automatizacion)
       create(:interaccion, donante: donante, comunicacion: automatizacion)
       expect(filtro.aplicar(automatizacion)).not_to include(donante)
     end
 
     it "incluye al donante si ya fue contactado por la campaña" do
-      donante = create(:donante, :datos_completos)
+      donante = create(:donante, :con_donacion, :datos_completos)
       campania = create(:campania)
       create(:interaccion, donante: donante, comunicacion: campania)
+      expect(filtro.aplicar(campania)).to include(donante)
+    end
+
+    it "excluye al donante si automatizacion y la ultima donacion fue antes de la fecha de corte" do
+      allow(ENV).to receive(:[]).with("FECHA_INICIO_CONTACTO").and_return("2024-09-01")
+      automatizacion = create(:automatizacion)
+      donante = create(:donante, :datos_completos)
+      create(:donacion, donante: donante, fecha: Date.new(2024, 8, 1))
+      expect(filtro.aplicar(automatizacion)).not_to include(donante)
+    end
+
+    it "incluye al donante si campaña, incluso si la ultima donacion fue antes de la fecha de corte" do
+      allow(ENV).to receive(:[]).with("FECHA_INICIO_CONTACTO").and_return("2024-09-01")
+      campania = create(:campania)
+      donante = create(:donante, :datos_completos)
+      create(:donacion, donante: donante, fecha: Date.new(2024, 8, 1))
       expect(filtro.aplicar(campania)).to include(donante)
     end
 

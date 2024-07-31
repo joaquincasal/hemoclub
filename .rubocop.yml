@@ -37,7 +37,7 @@ RSpec/ContextWording:
 RSpec/DescribedClass:
   Enabled: false
 RSpec/ExampleLength:
-  Max: 10
+  Max: 15
 RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:

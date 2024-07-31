@@ -1,4 +1,6 @@
 class Filtro < ApplicationRecord
+  FECHA_INICIO_CONTACTOS = Date.parse(ENV.fetch("FECHA_INICIO_CONTACTO", "2024-09-01"))
+
   validates :parametros, presence: true
 
   def filtros
@@ -10,10 +12,9 @@ class Filtro < ApplicationRecord
   def aplicar(comunicacion = nil)
     query = Donante.aptos
     if comunicacion.present? && comunicacion.filtrar_contactados?
-      ya_contactados = Interaccion
-                       .where(comunicacion_id: comunicacion.id, donacion_id: Donante.pluck(:ultima_donacion_id))
-                       .pluck(:donante_id)
-      query = query.where.not(id: ya_contactados)
+      contactados = Interaccion.contactos_ultimas_donaciones(comunicacion).pluck(:donante_id)
+      contactados_salesforce = Donante.contactados(FECHA_INICIO_CONTACTOS)
+      query = query.where.not(id: contactados).where.not(id: contactados_salesforce)
     end
     filtros.each do |filtro|
       query.merge!(filtro.aplicar)

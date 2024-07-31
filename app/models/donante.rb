@@ -1,6 +1,4 @@
 class Donante < ApplicationRecord
-  FECHA_INICIO_CONTACTOS = Date.parse(ENV.fetch("FECHA_INICIO_CONTACTO", "2024-09-01"))
-
   include PgSearch::Model
   pg_search_scope :buscar,
                   against: [:apellidos, :nombre, :segundo_nombre, :numero_documento, :correo_electronico],
@@ -37,12 +35,15 @@ class Donante < ApplicationRecord
     joins(:donaciones).where(donaciones: { serologia: [Donacion.serologia[:reactiva], nil] })
   }
   scope :con_donacion_rechazada, -> { joins(:ultima_donacion).where.not(ultima_donacion: { motivo_rechazo: nil }) }
-  scope :contactados, -> { joins(:ultima_donacion).where(ultima_donacion: { fecha: ..FECHA_INICIO_CONTACTOS }) }
+  scope :contactados, ->(fecha) { joins(:ultima_donacion).where(ultima_donacion: { fecha: ..fecha }) }
   scope :aptos, lambda {
-    con_email.edad_apta.sin_candidatos.no_bloqueados.where.not(id: contactados).where.not(id: con_exclusiones)
-             .where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
+    con_email.edad_apta.sin_candidatos.no_bloqueados
+             .where.not(id: con_exclusiones).where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
   }
-  scope :para_informes, -> { sin_candidatos.where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada) }
+  scope :para_informes, lambda {
+    joins(:ultima_donacion).where(ultima_donacion: { fecha: 1.year.ago.. }).sin_candidatos
+                           .where.not(id: serologia_reactiva).where.not(id: con_donacion_rechazada)
+  }
 
   generates_token_for :suscripcion do
     suscripto

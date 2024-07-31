@@ -249,17 +249,17 @@ RSpec.describe Donante, type: :model do
 
     describe "#contactados" do
       it "excluye donantes sin ultima_donacion" do
-        expect(Donante.contactados).not_to include(donante)
+        expect(Donante.contactados(Date.new(2024, 8, 1))).not_to include(donante)
       end
 
       it "excluye donantes con ultima donacion reciente" do
-        create(:donacion, donante: donante, fecha: Date.new(2025, 1, 1))
-        expect(Donante.contactados).not_to include(donante)
+        create(:donacion, donante: donante, fecha: Date.new(2024, 9, 1))
+        expect(Donante.contactados(Date.new(2024, 8, 1))).not_to include(donante)
       end
 
       it "incluye donantes con ultima donacion antigua" do
-        create(:donacion, donante: donante, fecha: 5.years.ago)
-        expect(Donante.contactados).to include(donante)
+        create(:donacion, donante: donante, fecha: Date.new(2020, 7, 1))
+        expect(Donante.contactados(Date.new(2024, 8, 1))).to include(donante)
       end
     end
   end

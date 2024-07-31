@@ -15,6 +15,19 @@ RSpec.describe Plantilla, type: :model do
       expect(plantilla).not_to be_valid
       expect(plantilla.errors).to have_key(:contenido)
     end
+
+    it "no puede crearse sin asunto si no es reutilizable" do
+      plantilla.reutilizable = false
+      plantilla.asunto = nil
+      expect(plantilla).not_to be_valid
+      expect(plantilla.errors).to have_key(:asunto)
+    end
+
+    it "puede crearse sin asunto si es reutilizable" do
+      plantilla.reutilizable = true
+      plantilla.asunto = nil
+      expect(plantilla).to be_valid
+    end
   end
 
   describe "#contenido_completo" do
@@ -29,7 +42,7 @@ RSpec.describe Plantilla, type: :model do
   end
 
   describe "#contenido_reemplazado" do
-    let(:donante) { create(:donante) }
+    let(:donante) { create(:donante, :con_donacion) }
 
     it "elimina variables desconocidas" do
       plantilla.contenido = "Hola {{variable}}"
@@ -50,9 +63,8 @@ RSpec.describe Plantilla, type: :model do
     end
 
     it "reemplaza variables de fecha de última donacion" do
-      donacion = create(:donacion, donante: donante)
       plantilla.contenido = "Hola {{fecha_ultima_donacion}}"
-      resultado = ActionController::Base.helpers.sanitize("Hola #{donacion.fecha&.strftime('%d/%m/%Y')}")
+      resultado = ActionController::Base.helpers.sanitize("Hola #{donante.ultima_donacion.fecha&.strftime('%d/%m/%Y')}")
       expect(plantilla.contenido_reemplazado(donante)).to eq(resultado)
     end
 

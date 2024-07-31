@@ -72,7 +72,7 @@
       <% imagenes_disponibles.each do |imagen| %>
         <div class="is-flex is-flex-direction-column">
           <%= image_tag(imagen, width: "250px") %>
-          <p class="has-text-centered"><%= "#{ENV["APP_HOST"]}/#{imagen}" %></p>
+          <p class="has-text-centered is-size-7"><%= "#{ENV["APP_HOST"]}/#{imagen}" %></p>
         </div>
       <% end %>
     </div>

@@ -37,4 +37,16 @@ FactoryBot.define do
     predonante_plaquetas { true }
     motivo_rechazo_predonante_plaquetas { nil }
   end
+
+  trait :con_donacion do
+    donaciones { build_list(:donacion, 1) }
+  end
+
+  trait :con_donacion_vieja do
+    donaciones { build_list(:donacion, 1, fecha: 2.years.ago) }
+  end
+
+  trait :con_serologia_reactiva do
+    donaciones { build_list(:donacion, 1, serologia: "reactiva") }
+  end
 end
