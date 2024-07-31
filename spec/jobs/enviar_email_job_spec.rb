@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EnviarEmailJob do
-  let(:ejecucion) { create(:ejecucion, ejecutada: false) }
+  let(:ejecucion) { create(:ejecucion, ejecutada: false, comunicacion: create(:automatizacion)) }
   let(:donante) { create(:donante) }
 
   it "llama al mailer para el donante" do
@@ -29,5 +29,13 @@ RSpec.describe EnviarEmailJob do
     allow(Mailer).to receive(:new).and_return(mailer_double)
     expect { described_class.perform_now(ejecucion.comunicacion.plantilla.id, donante.id, ejecucion.id) }
       .to change(Interaccion, :count).by(1)
+  end
+
+  it "no llama al mailer si ya existe una interaccion de la comunicacion para la ultima donacion del donante" do
+    allow(Mailer).to receive(:new)
+    create(:interaccion, comunicacion: ejecucion.comunicacion, donante: donante, donacion: donante.ultima_donacion_id)
+    described_class.perform_now(ejecucion.comunicacion.plantilla.id, donante.id, ejecucion.id)
+
+    expect(Mailer).not_to have_received(:new)
   end
 end

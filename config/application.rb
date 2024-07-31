@@ -40,7 +40,7 @@ module Hemoclub
     config.good_job.enable_cron = true
     config.good_job.cron = {
       actualizar_donantes_job: {
-        cron: "0 3 * * *",
+        cron: "0 9-18 * * *",
         class: "ActualizarDonantesJob",
       },
       enviar_automatizaciones_job: {
