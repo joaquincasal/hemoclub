@@ -53,7 +53,7 @@ RSpec.describe Importador, type: :service do
 
       it "se actualiza la información del donante" do
         importacion
-        expect(Donante.first.ocupacion).to eq(datos_archivo[:Ocupacion])
+        expect(Donante.first.ocupacion).to eq(datos_archivo[:Ocupacion].titleize)
       end
 
       it "no se actualiza si no hay información nueva" do
@@ -68,8 +68,8 @@ RSpec.describe Importador, type: :service do
     it "separa el nombre en apellido y nombres" do
       importacion
       apellido, nombre = datos_archivo[:Nombre].split
-      expect(Donante.first.nombre).to eq nombre
-      expect(Donante.first.apellidos).to eq apellido
+      expect(Donante.first.nombre).to eq nombre.titleize
+      expect(Donante.first.apellidos).to eq apellido.titleize
     end
   end
 
@@ -152,6 +152,15 @@ RSpec.describe Importador, type: :service do
       it "crea una donacion con serologia reactiva" do
         importacion
         expect(Donacion.first.reactiva?).to be true
+      end
+    end
+
+    context "con email invalido" do
+      let(:datos_archivo) { build(:importacion, Email: "invalido") }
+
+      it "crea un donante sin email" do
+        importacion
+        expect(Donante.first.correo_electronico).to be_nil
       end
     end
 

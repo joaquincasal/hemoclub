@@ -5,7 +5,7 @@ class Donacion < ApplicationRecord
   CODIGO_CLINICA_VOLUNTARIOS = 29
   CODIGO_CLINICA_COLECTA = 99
 
-  belongs_to :donante, counter_cache: true
+  belongs_to :donante
   belongs_to :clinica, optional: true
 
   enum serologia: [:negativa, :reactiva]
@@ -37,6 +37,8 @@ class Donacion < ApplicationRecord
   private
 
   def actualizar_donante
-    donante.update(ultima_donacion: self)
+    donante.ultima_donacion = self
+    donante.donaciones_count += 1
+    donante.save(validate: false)
   end
 end

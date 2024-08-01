@@ -231,6 +231,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.0)
     rack (3.1.6)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -425,6 +427,7 @@ DEPENDENCIES
   pg (~> 1.5, >= 1.5.4)
   pg_search
   puma (>= 6.4.2, < 7)
+  rack-mini-profiler
   rails (~> 7.1.1)
   rspec-rails (~> 6.0.0)
   rubocop-rails

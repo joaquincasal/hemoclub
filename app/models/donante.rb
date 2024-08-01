@@ -1,4 +1,6 @@
 class Donante < ApplicationRecord
+  attr_accessor :skip_uniqueness_validations
+
   include PgSearch::Model
   pg_search_scope :buscar,
                   against: [:apellidos, :nombre, :segundo_nombre, :numero_documento, :correo_electronico],
@@ -16,9 +18,10 @@ class Donante < ApplicationRecord
   enum grupo_sanguineo: [:"0", :A, :B, :AB, :A2B]
   enum factor: [:positivo, :negativo]
 
-  validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false, unless: -> { candidato? }
-  validates :correo_electronico, uniqueness: true, allow_nil: true
-  validate :validar_correo_electronico
+  validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false,
+                               unless: -> { candidato? || skip_uniqueness_validations }
+  validates :correo_electronico, uniqueness: true, allow_nil: true, format: { with: URI::MailTo::EMAIL_REGEXP },
+                                 unless: -> { skip_uniqueness_validations }
 
   scope :sin_candidatos, -> { where(candidato: [false, nil]) }
   scope :candidatos, -> { where(candidato: true) }
@@ -69,13 +72,5 @@ class Donante < ApplicationRecord
 
   def bloquear
     update(bloqueado: true)
-  end
-
-  private
-
-  def validar_correo_electronico
-    return if correo_electronico.blank?
-
-    self.correo_electronico = nil unless correo_electronico.match?(URI::MailTo::EMAIL_REGEXP)
   end
 end

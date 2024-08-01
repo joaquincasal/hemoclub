@@ -127,10 +127,7 @@ class Importador
       next if saltear_importacion?(fila_hash)
 
       solucionar_discrepancias!(fila_hash)
-      ActiveRecord::Base.transaction do
-        donante = crear_o_actualizar_donante(fila_hash)
-        crear_donacion(fila_hash, donante)
-      end
+      crear_donante_y_donacion(fila_hash)
     rescue StandardError => e
       fila['error'] = e.message
       filas_con_errores.push(fila)
@@ -169,17 +166,21 @@ class Importador
     fila[TIPO_DONANTE_HEADER] = TIPO_DONANTE_VOLUNTARIO
   end
 
-  def crear_o_actualizar_donante(fila)
-    campos_donante = campos_donante(fila)
-    donante_existente = buscar_donante_existente(campos_donante)
-    if donante_existente.present?
-      campos_donante["candidato"] = nil
-      donante_existente.update!(campos_donante)
-      donante_existente
+  def crear_donante_y_donacion(fila_hash)
+    campos_donante = campos_donante(fila_hash)
+    campos_donacion = campos_donacion(fila_hash)
+    campos_donante["candidato"] = false
+    campos_donante["skip_uniqueness_validations"] = true
+    donante = buscar_donante_existente(campos_donante)
+    if donante.present?
+      campos_donante["id"] = donante.id
+      donante.assign_attributes(campos_donante)
     else
-      campos_donante["candidato"] = false
-      Donante.create!(campos_donante)
+      donante = Donante.new(campos_donante)
     end
+    campos_donacion["tipo_donante"] = donante.tipo_donante
+    donante.donaciones.build(campos_donacion)
+    donante.save!
   end
 
   def buscar_donante_existente(campos_donante)
@@ -211,18 +212,14 @@ class Importador
     donante_existente_por_documento.presence || donante_existente_por_email.presence
   end
 
-  def crear_donacion(fila, donante)
-    campos_donacion = campos_donacion(fila).merge(donante: donante)
-    campos_donacion["tipo_donante"] = donante.tipo_donante
-    Donacion.create!(campos_donacion)
-  end
-
   def campos_donante(fila)
     campos = filtrar_campos(fila, DONANTE_HEADERS)
     separar_nombre_donante!(campos)
     convertir_fecha!(campos, FECHA_NACIMIENTO_HEADER, '%m/%d/%Y')
+    validar_correo_electronico!(campos)
     transformar_valores!(campos, TRANSFORMACIONES_VALORES_DONANTE)
     transformar_keys!(campos, TRANSFORMACIONES_KEYS_DONANTE)
+    cambiar_mayusculas!(campos)
     borrar_vacios!(campos)
     campos
   end
@@ -258,6 +255,19 @@ class Importador
 
   def convertir_fecha!(campos, fecha_key, formato)
     campos[fecha_key] = Date.strptime(campos[fecha_key], formato)
+  end
+
+  def validar_correo_electronico!(campos)
+    return unless campos["Email"].present? && !campos["Email"].match?(URI::MailTo::EMAIL_REGEXP)
+
+    campos["Email"] = nil
+  end
+
+  def cambiar_mayusculas!(campos)
+    %w[apellidos nombre segundo_nombre ocupacion direccion localidad provincia pais].each do |atributo|
+      campos[atributo] = campos[atributo].titleize if campos[atributo].present?
+    end
+    campos["correo_electronico"] = campos["correo_electronico"].downcase if campos["correo_electronico"].present?
   end
 
   def borrar_vacios!(campos)
