@@ -58,7 +58,7 @@ RSpec.describe Plantilla, type: :model do
 
     it "reemplaza variables de cantidad de donaciones" do
       plantilla.contenido = "Hola {{cantidad_donaciones}}"
-      resultado = ActionController::Base.helpers.sanitize("Hola #{donante.donaciones_count}")
+      resultado = ActionController::Base.helpers.sanitize("Hola #{donante.cantidad_donaciones}")
       expect(plantilla.contenido_reemplazado(donante)).to eq(resultado)
     end
 

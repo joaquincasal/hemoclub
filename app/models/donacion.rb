@@ -38,7 +38,7 @@ class Donacion < ApplicationRecord
 
   def actualizar_donante
     donante.ultima_donacion = self
-    donante.donaciones_count += 1
+    donante.cantidad_donaciones += 1
     donante.save(validate: false)
   end
 end

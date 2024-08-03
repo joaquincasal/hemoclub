@@ -168,7 +168,7 @@ RSpec.describe Importador, type: :service do
       let(:donacion) { create(:donacion) }
 
       let(:datos_archivo) do
-        build(:importacion, FechaIng: donacion.fecha.strftime("%d/%m/%Y"),
+        build(:importacion, FechaIng: donacion.fecha.strftime("%m/%d/%Y"),
                             NroDoc: donacion.donante.numero_documento, TipoDoc: "DNI")
       end
 

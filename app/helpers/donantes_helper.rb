@@ -25,11 +25,18 @@ module DonantesHelper
   end
 
   def estado_interaccion(estado)
-    Interaccion.estado_interacciones.key(estado).humanize
+    Interaccion.estado_interacciones.key(estado)&.humanize
   end
 
   def mostrar_booleano(valor)
     valor ? "Sí" : "No"
+  end
+
+  def tipo_comunicacion(comunicacion)
+    {
+      Automatizacion => "Automatización",
+      Campania => "Campaña"
+    }[comunicacion.class]
   end
 
   def link_orden(etiqueta, columna, **)

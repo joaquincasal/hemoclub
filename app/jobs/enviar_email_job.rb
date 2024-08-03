@@ -19,6 +19,6 @@ class EnviarEmailJob < ApplicationJob
 
     Interaccion.create!(comunicacion: ejecucion.comunicacion, donante: donante, ejecucion: ejecucion,
                         id_mensaje: id_mensaje, fecha: Time.zone.now, donacion_id: donante.ultima_donacion_id,
-                        estado_envio: Interaccion.estado_envios[:enviado])
+                        estado_interaccion: Interaccion.estado_interacciones[:enviado])
   end
 end

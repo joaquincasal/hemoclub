@@ -51,7 +51,7 @@
           <% donante.donaciones.order(fecha: :desc).each do |donacion| %>
             <tr>
               <td><%= localize donacion.fecha %></td>
-              <td><%= donacion.tipo_donante.capitalize %></td>
+              <td><%= donacion.tipo_donante&.capitalize %></td>
               <td><%= donacion.serologia&.humanize.presence || "Sin información" %></td>
               <td><%= mostrar_booleano(donacion.colecta?) %></td>
               <td><%= donacion.clinica&.nombre %></td>
@@ -135,7 +135,7 @@
       <% donante.interacciones.order(fecha: :desc).each do |interaccion| %>
       <% comunicacion = interaccion.comunicacion %>
         <tr>
-          <td><%= comunicacion.class.name %></td>
+          <td><%= tipo_comunicacion(comunicacion) %></td>
           <td><%= comunicacion.nombre %></td>
           <td><%= localize(interaccion.fecha, format: :long) %></td>
           <td><%= estado_interaccion(interaccion.estado_interaccion) %></td>

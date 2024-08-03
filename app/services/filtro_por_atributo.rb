@@ -49,12 +49,13 @@ class FiltroPorAtributo
       "Predonante de plaquetas" => "predonante_plaquetas",
       "Candidato" => "candidato",
       "Está suscripto" => "suscripto",
-      "Cantidad de donaciones" => "donaciones_count"
+      "Cantidad de donaciones" => "cantidad_donaciones"
     }
   end
 
   def self.operadores(atributo)
-    if atributo == "donaciones_count"
+    tipo_de_atributo = valores(atributo)["tipo"]
+    if tipo_de_atributo == "number"
       {
         "Igual" => "igual",
         "Distinto" => "distinto",
@@ -101,7 +102,7 @@ class FiltroPorAtributo
       "predonante_plaquetas" => { "tipo" => "boolean" },
       "candidato" => { "tipo" => "boolean" },
       "suscripto" => { "tipo" => "boolean" },
-      "donaciones_count" => { "tipo" => "number" }
+      "cantidad_donaciones" => { "tipo" => "number" }
     }[atributo]
   end
 

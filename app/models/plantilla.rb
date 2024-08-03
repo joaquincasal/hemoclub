@@ -43,14 +43,9 @@ class Plantilla < ApplicationRecord
   end
 
   def reemplazar_variables_especiales(texto, donante, enviar)
-    reemplazar_variable_cantidad_donaciones(texto, donante)
     reemplazar_variable_fecha_ultima_donacion(texto, donante)
     reemplazar_variable_link_suscribir(texto, donante, enviar)
     reemplazar_variable_desuscribir(texto, donante, enviar)
-  end
-
-  def reemplazar_variable_cantidad_donaciones(texto, donante)
-    texto.gsub!("{{cantidad_donaciones}}", donante.donaciones_count.to_s)
   end
 
   def reemplazar_variable_fecha_ultima_donacion(texto, donante)
