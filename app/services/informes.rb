@@ -67,7 +67,7 @@ class Informes
 
   def self.donaciones_por_institucion
     Donacion.negativa.no_rechazadas.ultimo_anio.left_outer_joins(:clinica)
-            .group('clinicas.nombre').count.transform_keys({ nil => "Sin institución" })
+            .group('clinicas.nombre').order(count: :desc).count.transform_keys({ nil => "Sin institución" })
   end
 
   def self.porcentaje_emails_abiertos
@@ -85,16 +85,10 @@ class Informes
   end
 
   def self.reposicion_convertidos
-    desde = Time.zone.today - 1.year
-    hasta = Time.zone.today
-    ActiveRecord::Base.connection.execute <<-SQL.squish
-      select distinct donante_id
-      from donaciones
-      where fecha between '#{desde}' and '#{hasta}'
-      group by donante_id
-      having sum(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1
-        and sum(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1
-    SQL
+    Donacion.ultimo_anio.group(:donante_id)
+            .having("sum(case when tipo_donante = 'voluntario' or tipo_donante = 'club' then 1 else 0 end) >= 1")
+            .having("sum(case when tipo_donante = 'reposicion' then 1 else 0 end) >= 1")
+            .count
   end
 
   def self.voluntarios_recurrentes

@@ -44,7 +44,6 @@ class FiltroPorAtributo
       "Sexo" => "sexo",
       "Grupo sanguíneo" => "grupo_sanguineo",
       "Factor sanguíneo" => "factor",
-      "Localidad" => "localidad",
       "Código postal" => "codigo_postal",
       "Predonante de plaquetas" => "predonante_plaquetas",
       "Candidato" => "candidato",
@@ -88,16 +87,16 @@ class FiltroPorAtributo
       },
       "grupo_sanguineo" => {
         "tipo" => "lista",
-        "valores" => { "0" => "0", "A" => "A", "B" => "B", "AB" => "AB" },
+        "valores" => { "0" => "0", "A" => "A", "B" => "B", "AB" => "AB", "A2B" => "A2B" },
         "valores_query" => { "0" => Donante.grupo_sanguineos[:"0"], "A" => Donante.grupo_sanguineos[:A],
-                             "B" => Donante.grupo_sanguineos[:B], "AB" => Donante.grupo_sanguineos[:AB] }
+                             "B" => Donante.grupo_sanguineos[:B], "AB" => Donante.grupo_sanguineos[:AB],
+                             "A2B" => Donante.grupo_sanguineos[:A2B] }
       },
       "factor" => {
         "tipo" => "lista",
         "valores" => { "Positivo" => "positivo", "Negativo" => "negativo" },
         "valores_query" => { "positivo" => Donante.factores[:positivo], "negativo" => Donante.factores[:negativo] }
       },
-      "localidad" => { "tipo" => "string" },
       "codigo_postal" => { "tipo" => "string" },
       "predonante_plaquetas" => { "tipo" => "boolean" },
       "candidato" => { "tipo" => "boolean" },

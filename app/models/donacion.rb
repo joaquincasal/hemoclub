@@ -7,6 +7,7 @@ class Donacion < ApplicationRecord
 
   belongs_to :donante
   belongs_to :clinica, optional: true
+  has_many :interacciones, dependent: :destroy
 
   enum serologia: [:negativa, :reactiva]
 

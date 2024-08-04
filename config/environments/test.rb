@@ -57,3 +57,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 end
+
+StimulusReflex.configure do |config|
+  config.on_failed_sanity_checks = :ignore
+end

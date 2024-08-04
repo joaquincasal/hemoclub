@@ -12,11 +12,7 @@ class FiltroPorUltimaDonacion
   def aplicar
     validar_parametros!
 
-    if self.class.valores(@atributo)["tipo"] == "lista"
-      valor = self.class.valores(@atributo)["valores_query"][@valor]
-    else
-      valor = @valor
-    end
+    valor = self.class.valores(@atributo)["valores_query"][@valor]
     operador = Filtro::OPERADORES[@operador]
 
     Donante.joins(:ultima_donacion).where("donaciones.#{@atributo} #{operador} ?", valor)
@@ -46,10 +42,8 @@ class FiltroPorUltimaDonacion
       {
         "Igual" => "igual",
         "Distinto" => "distinto",
-        "Mayor" => "mayor",
-        "Menor" => "menor",
-        "Mayor o igual" => "mayor_o_igual",
-        "Menor o igual" => "menor_o_igual"
+        "Hace más de" => "menor",
+        "Hace menos de" => "mayor"
       }
     else
       {
@@ -73,11 +67,10 @@ class FiltroPorUltimaDonacion
         "valores" => { "Hoy" => "0", "1 mes" => "1", "2 meses" => "2", "3 meses" => "3", "4 meses" => "4",
                        "5 meses" => "5", "6 meses" => "6", "7 meses" => "7", "8 meses" => "8", "9 meses" => "9",
                        "10 meses" => "10", "11 meses" => "11", "12 meses" => "12" },
-        "valores_query" => { "0" => 0.months.from_now, "1" => 1.month.from_now, "2" => 2.months.from_now,
-                             "3" => 3.months.from_now, "4" => 4.months.from_now, "5" => 5.months.from_now,
-                             "6" => 6.months.from_now, "7" => 7.months.from_now, "8" => 8.months.from_now,
-                             "9" => 9.months.from_now, "10" => 10.months.from_now, "11" => 11.months.from_now,
-                             "12" => 12.months.from_now }
+        "valores_query" => { "0" => 0.months.ago, "1" => 1.month.ago, "2" => 2.months.ago, "3" => 3.months.ago,
+                             "4" => 4.months.ago, "5" => 5.months.ago, "6" => 6.months.ago, "7" => 7.months.ago,
+                             "8" => 8.months.ago, "9" => 9.months.ago, "10" => 10.months.ago, "11" => 11.months.ago,
+                             "12" => 12.months.ago }
       }
     }[atributo]
   end

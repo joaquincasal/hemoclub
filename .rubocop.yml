@@ -38,6 +38,8 @@ RSpec/DescribedClass:
   Enabled: false
 RSpec/ExampleLength:
   Max: 15
+RSpec/IndexedLet:
+  Enabled: false
 RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:

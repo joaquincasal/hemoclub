@@ -1,4 +1,6 @@
 class FiltroPorInteraccion
+  MESES_DE_EFECTIVIDAD = 2
+
   def initialize(atributo:, _: nil, _: nil)
     @atributo = atributo
   end
@@ -10,8 +12,9 @@ class FiltroPorInteraccion
   def aplicar
     validar_parametros!
     Donante.joins(:interacciones, :ultima_donacion)
-           .where(interacciones: { comunicacion_id: @operador })
+           .where(interacciones: { comunicacion_id: @atributo })
            .where("donaciones.fecha > interacciones.fecha")
+           .where("donaciones.fecha <= interacciones.fecha + interval '#{MESES_DE_EFECTIVIDAD} months'")
   end
 
   def self.nombre
@@ -40,6 +43,6 @@ class FiltroPorInteraccion
   private
 
   def validar_parametros!
-    raise ArgumentError if self.class.atributos.values.exclude?(@atributo)
+    raise ArgumentError if self.class.atributos.values.exclude?(@atributo.to_s)
   end
 end

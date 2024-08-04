@@ -8,11 +8,9 @@ class CampaniasController < ApplicationController
 
   # GET /campanias/1
   def show
-    total = Donacion.select("donaciones.donante_id").distinct
-                    .joins("INNER JOIN interacciones ON interacciones.donante_id = donaciones.donante_id")
-                    .where(interacciones: { comunicacion_id: @campania.id })
-    volvieron = total.where("donaciones.fecha >= interacciones.fecha")
-                     .where("donaciones.fecha <= interacciones.fecha + interval '2 months'")
+    total = Donante.joins(:interacciones).where(interacciones: { comunicacion_id: @campania.id })
+    filtro = FiltroPorInteraccion.new(atributo: @campania.id)
+    volvieron = filtro.aplicar
     @efectividad = { "Donaron" => volvieron.count, "No donaron" => total.count - volvieron.count }
   end
 
