@@ -8,7 +8,7 @@ development:
   database: hemoclub_development
   username: postgres
   password: postgres
-  host: postgres
+  host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,7 +18,7 @@ test:
   database: hemoclub_test
   username: postgres
   password: postgres
-  host: localhost
+  host: <%= ENV.fetch("CI", false) ? "localhost": "db" %>
 
 production:
   <<: *default

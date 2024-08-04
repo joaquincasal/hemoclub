@@ -41,7 +41,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.delivery_method = ENV["MAILER_DELIVERY_METHOD"]
+  config.action_mailer.delivery_method = ENV.fetch("MAILER_DELIVERY_METHOD", :file)
   config.action_mailer.smtp_settings = {
     :user_name => ENV["SMTP_MAILER_USERNAME"],
     :password => ENV["SMTP_MAILER_PASSWORD"],

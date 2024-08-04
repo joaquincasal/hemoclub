@@ -17,3 +17,5 @@ RUN bundle install
 COPY package.json /$PROJECT_NAME/package.json
 COPY yarn.lock /$PROJECT_NAME/yarn.lock
 RUN yarn install
+RUN mkdir /$PROJECT_NAME/tmp
+RUN touch /$PROJECT_NAME/tmp/caching-dev.txt

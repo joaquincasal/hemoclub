@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  postgres:
+  db:
     image: postgres:16.1
     restart: always
     environment:
@@ -12,7 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: wax-consilium
+    image: hemoclub
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     tty: true
     volumes:
@@ -20,4 +20,6 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - postgres
+      - db
+    environment:
+      RAILS_ENV: development
