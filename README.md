@@ -16,6 +16,15 @@ El dominio para el cual fue construida es el de la donación de sangre, ya que f
 - Visualización de datos de las campañas enviadas, permitiendo ver si las mismas fueron leidas por los donantes y también si los emails se están entregando correctamente.
 - Actualización de información de los donantes mediante links en los emails, para que no sea necesario editar manualmente.
 
+## Tecnologías
+
+![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Bulma](https://img.shields.io/badge/bulma-00D0B1?style=for-the-badge&logo=bulma&logoColor=white)
+
+Hemoclub es una aplicación web construida utilizando Ruby on Rails tanto para el servidor como para el frontend (mediante templates .erb).
+Usa Postgresql como base de datos, Bulma como framework de CSS y StimulusReflex para interfaces web reactivas.
+
 ## Ambiente de desarrollo
 
 ### Requerimientos
@@ -31,10 +40,15 @@ Para correr el proyecto:
 
 1. Correr los servicios: `docker compose up -d`
 2. Ingresar al container web: `docker compose exec -it web bash`
+3. [solo para la primera vez] Crear base de datos: `bundle exec rake db:setup`
+4. Precompilar assets: `bundle exec rake assets:precompile`
+5. Crear un usuario administrador para poder logearse:
+   1. Correr `bundle exec rails console`
+   2. `Usuario.create(:email => "user@name.com", :password => 'password', :password_confirmation => 'password')`
+5. Abrir el navegador en localhost:3000 y logearse con las credenciales del paso anterior.
 
-Una vez dentro del container, pueden correrse distintos comandos:
+Dentro del container pueden correrse también comandos para correr tests y el linter:
 
-- Setup de la base de datos: `bundle exec rake db:setup`
 - Correr linter: `rubocop`
 - Correr tests: `rake spec`
 
