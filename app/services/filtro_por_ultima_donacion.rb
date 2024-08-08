@@ -6,7 +6,7 @@ class FiltroPorUltimaDonacion
   end
 
   def descripcion
-    "\"#{@atributo}\" de la última donación es #{@operador} a \"#{descripcion_valor}\""
+    "\"#{@atributo}\" de la última donación es #{descripcion_operador} \"#{descripcion_valor}\""
   end
 
   def aplicar
@@ -84,6 +84,15 @@ class FiltroPorUltimaDonacion
   end
 
   private
+
+  def descripcion_operador
+    return "#{@operador} a" unless %w[mayor menor].include?(@operador)
+
+    {
+      "menor" => "hace más de",
+      "mayor" => "hace menos de"
+    }[@operador]
+  end
 
   def descripcion_valor
     return "#{@valor} meses" if @atributo == "fecha"

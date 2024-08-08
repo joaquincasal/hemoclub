@@ -138,7 +138,7 @@
           <td><%= tipo_comunicacion(comunicacion) %></td>
           <td><%= comunicacion.nombre %></td>
           <td><%= localize(interaccion.fecha, format: :long) %></td>
-          <td><%= estado_interaccion(interaccion.estado_interaccion) %></td>
+          <td><%= interaccion.estado_interaccion&.humanize %></td>
         </tr>
       <% end %>
       </tbody>
