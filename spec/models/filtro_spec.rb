@@ -38,7 +38,7 @@ RSpec.describe Filtro, type: :model do
     it "excluye al donante si ya fue contactado por la automatizacion" do
       donante = create(:donante, :con_donacion, :datos_completos)
       automatizacion = create(:automatizacion)
-      create(:interaccion, donante: donante, comunicacion: automatizacion)
+      create(:interaccion, donante: donante, comunicacion: automatizacion, donacion_id: donante.ultima_donacion_id)
       expect(filtro.aplicar(automatizacion)).not_to include(donante)
     end
 
