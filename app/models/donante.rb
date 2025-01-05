@@ -12,11 +12,11 @@ class Donante < ApplicationRecord
   has_many :interacciones, dependent: :destroy
   has_many :ejecuciones, through: :interacciones
 
-  enum tipo_donante: [:reposicion, :voluntario, :club]
-  enum tipo_documento: [:DNI, :CIE, :PAS, :DOC]
-  enum sexo: [:masculino, :femenino]
-  enum grupo_sanguineo: [:"0", :A, :B, :AB, :A2B]
-  enum factor: [:positivo, :negativo]
+  enum :tipo_donante, [:reposicion, :voluntario, :club]
+  enum :tipo_documento, [:DNI, :CIE, :PAS, :DOC]
+  enum :sexo, [:masculino, :femenino]
+  enum :grupo_sanguineo, [:"0", :A, :B, :AB, :A2B]
+  enum :factor, [:positivo, :negativo]
 
   validates :numero_documento, uniqueness: { scope: [:tipo_documento] }, allow_nil: false,
                                unless: -> { candidato? || skip_uniqueness_validations }

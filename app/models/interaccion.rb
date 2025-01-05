@@ -6,8 +6,8 @@ class Interaccion < ApplicationRecord
 
   validates :fecha, presence: true
 
-  enum estado_envio: [:entregado, :suprimido, :rebotado, :cuarentena, :filtrado, :expandido, :fallido]
-  enum estado_interaccion: [:enviado, :leido]
+  enum :estado_envio, [:entregado, :suprimido, :rebotado, :cuarentena, :filtrado, :expandido, :fallido]
+  enum :estado_interaccion, [:enviado, :leido]
 
   scope :contactos_ultimas_donaciones, lambda { |comunicacion|
     where(comunicacion_id: comunicacion.id, donacion_id: Donante.pluck(:ultima_donacion_id))

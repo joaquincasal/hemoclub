@@ -10,3 +10,7 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Exclude:
     - 'app/services/filtro_por_atributo.rb'
+
+Style/SafeNavigationChainLength:
+  Exclude:
+    - 'app/models/plantilla.rb'

@@ -9,7 +9,7 @@ class Donacion < ApplicationRecord
   belongs_to :clinica, optional: true
   has_many :interacciones, dependent: :destroy
 
-  enum serologia: [:negativa, :reactiva]
+  enum :serologia, [:negativa, :reactiva]
 
   validates :fecha, uniqueness: { scope: [:donante_id] }, allow_nil: false
 
